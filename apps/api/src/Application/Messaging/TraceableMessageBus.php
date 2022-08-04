@@ -5,6 +5,7 @@ namespace Application\Messaging;
 use Application\Messaging\Map\HandlerMap;
 use Application\Messaging\Trace\MessageTrace;
 use Application\Messaging\Transaction\Transaction;
+use Assert\Assert;
 use Domain\Bus;
 use Domain\Message;
 use ReflectionClass;
@@ -27,6 +28,8 @@ final class TraceableMessageBus implements Bus
     public function execute(Message $message): mixed
     {
         $handler = $this->handlers->getHandler($message);
+        Assert::that($handler)->isCallable();
+
         $trace = new MessageTrace(
             message: $message,
             handler: $handler,

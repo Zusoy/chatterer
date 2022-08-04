@@ -10,18 +10,18 @@ final class PersistenceTransaction implements Transaction
     {
     }
 
-    public function begin()
+    public function begin(): void
     {
         $this->entityManager->beginTransaction();
     }
 
-    public function commit()
+    public function commit(): void
     {
         $this->entityManager->flush();
         $this->entityManager->commit();
     }
 
-    public function rollback()
+    public function rollback(): void
     {
         $this->entityManager->close();
         $this->entityManager->rollback();

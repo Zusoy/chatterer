@@ -4,9 +4,9 @@ namespace Application\Messaging\Transaction;
 
 interface Transaction
 {
-    public function begin();
+    public function begin(): void;
 
-    public function commit();
+    public function commit(): void;
 
-    public function rollback();
+    public function rollback(): void;
 }

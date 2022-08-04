@@ -27,6 +27,10 @@ stop:
 # API #
 #######
 
+.PHONY: api-analysis
+api-analysis:
+	@docker exec -it "$$(docker ps -q -f name=chatterer_api)" phpstan --memory-limit=2G -n
+
 .PHONY: api-shell
 api-shell:
 	@docker exec -it "$$(docker ps -q -f name=chatterer_api)" sh

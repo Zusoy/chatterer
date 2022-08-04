@@ -4,6 +4,7 @@ namespace Application\Messaging;
 
 use Application\Messaging\Map\HandlerMap;
 use Application\Messaging\Transaction\Transaction;
+use Assert\Assert;
 use Domain\Bus;
 use Domain\Message;
 use Throwable;
@@ -20,6 +21,7 @@ final class TransactionalMessageBus implements Bus
     public function execute(Message $message): mixed
     {
         $handler = $this->handlers->getHandler($message);
+        Assert::that($handler)->isCallable();
 
         try {
             $this->transaction->begin();

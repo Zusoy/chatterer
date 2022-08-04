@@ -71,6 +71,7 @@
   "require-dev": {
     "phpspec/phpspec": "^7.2",
     "phpstan/phpstan": "^1.8",
+    "phpstan/phpstan-beberlei-assert": "^1.0",
     "symfony/debug-bundle": "6.1.*",
     "symfony/web-profiler-bundle": "6.1.*"
   }

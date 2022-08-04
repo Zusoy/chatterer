@@ -60,6 +60,7 @@ final class MessengerDataCollector extends DataCollector implements DataCollecto
      */
     public function getData(): array
     {
+        /** @phpstan-ignore-next-line */
         return $this->data;
     }
 }

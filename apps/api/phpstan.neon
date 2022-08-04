@@ -3,3 +3,6 @@ parameters:
 
   paths:
     - src/
+
+includes:
+	- vendor/phpstan/phpstan-beberlei-assert/extension.neon

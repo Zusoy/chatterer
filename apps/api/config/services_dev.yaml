@@ -14,4 +14,4 @@ services:
       -
         name: data_collector
         id: messenger
-        template: 'debug/messenger_collector.html.twig'
+        template: 'profiler/messenger_collector.html.twig'
