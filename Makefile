@@ -31,6 +31,10 @@ stop:
 api-shell:
 	@docker exec -it "$$(docker ps -q -f name=chatterer_api)" sh
 
+.PHONY: api-specs
+api-specs:
+	@docker-compose -f swarm.$(STAGE).yml run --rm api phpspec run -f pretty -vn --no-code-generation
+
 ##########
 # CLIENT #
 ##########
@@ -38,6 +42,18 @@ api-shell:
 .PHONY: client-shell
 client-shell:
 	@docker exec -it "$$(docker ps -q -f name=chatterer_client)" sh
+
+############
+# DATABASE #
+############
+
+.PHONY: database-shell
+database-shell:
+	@docker exec -it "$$(docker ps -q -f name=chatterer_database)" sh
+
+.PHONY: database-connect
+database-connect:
+	@docker exec -it "$$(docker ps -q -f name=chatterer_database)" mysql -u$(MYSQL_USER) -p$(MYSQL_PASSWORD) $(MYSQL_DATABASE)
 
 #################
 # MISCELLANEOUS #

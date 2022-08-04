@@ -1,0 +1,17 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  ## Alias overrides
+
+  Domain\Bus: '@Application\Messaging\TraceableMessageBus'
+
+  ## Data Collectors
+
+  Infra\Framework\HttpKernel\DataCollector\MessengerDataCollector:
+    tags:
+      -
+        name: data_collector
+        id: messenger
+        template: 'debug/messenger_collector.html.twig'
