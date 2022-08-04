@@ -19,6 +19,7 @@
         <thead>
             <th scope="col">Message</th>
             <th scope="col">Handler</th>
+            <th scope="col">Parameters</th>
             <th scope="col">Call Time</th>
         </thead>
         <tbody>
@@ -30,6 +31,7 @@
                             {{ trace.handlerName }}
                         </pre>
                     </td>
+                    <td class="font-normal">{{ dump(trace.parameters) }}</td>
                     <td class="font-normal">{{ trace.callTime }}</td>
                 </tr>
             {% endfor %}

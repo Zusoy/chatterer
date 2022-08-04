@@ -7,10 +7,14 @@ use Domain\Message;
 
 final class MessageTrace
 {
+    /**
+     * @param array<string,mixed> $parameters
+     */
     public function __construct(
         private Message $message,
         private Handler $handler,
-        private float $callTime
+        private float $callTime,
+        private array $parameters = []
     ) {
     }
 
@@ -32,6 +36,14 @@ final class MessageTrace
     public function getHandlerName(): string
     {
         return get_class($this->handler);
+    }
+
+    /**
+     * @return array<string,mixed>
+     */
+    public function getParameters(): array
+    {
+        return $this->parameters;
     }
 
     public function getCallTime(): float

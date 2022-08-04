@@ -16,7 +16,7 @@ final class Test
     #[Route('/test', name: 'test', methods: ['GET'])]
     public function test(): Response
     {
-        $msg = $this->bus->execute(new Message\Test('test'));
+        $msg = $this->bus->execute(new Message\Test(message: 'dzqdqd'));
 
         return new Response($msg);
     }
