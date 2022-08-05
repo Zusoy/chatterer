@@ -1,0 +1,6 @@
+suites:
+  acme_suite:
+    namespace:
+    spec_prefix: spec
+    src_path: '%paths.config%/src'
+    spec_path: '%paths.config%/tests'

@@ -54,7 +54,7 @@ services:
       - chatterer_default
 
   database:
-    image: zusoy/chatterer-db:develop
+    image: zusoy/chatterer-database:develop
     build:
       context: apps/database
     env_file:
@@ -64,7 +64,7 @@ services:
     ports:
       - '3306:3306'
     volumes:
-      - db_data:/var/lib/mysql
+      - database:/var/lib/mysql
     networks:
       - chatterer_default
 
@@ -74,5 +74,5 @@ networks:
     attachable: true
 
 volumes:
-  db_data: ~
+  database: ~
 

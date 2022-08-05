@@ -2,3 +2,11 @@ services:
   _defaults:
     autowire: true
     autoconfigure: true
+
+  Domain\:
+    resource: '%kernel.project_dir%/src/Domain'
+    exclude: '%kernel.project_dir%/src/Domain/{Model,Message}'
+
+  Domain\Handler\:
+    resource: '%kernel.project_dir%/src/Domain/Handler'
+    tags: [ app.message.handler ]

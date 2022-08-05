@@ -7,14 +7,18 @@
     "php": ">=8.1",
     "ext-ctype": "*",
     "ext-iconv": "*",
+    "beberlei/assert": "^3.3",
+    "doctrine/doctrine-bundle": "^2.7",
+    "doctrine/doctrine-migrations-bundle": "^3.2",
+    "doctrine/orm": "^2.12",
     "symfony/console": "6.1.*",
     "symfony/dotenv": "6.1.*",
     "symfony/flex": "^2",
     "symfony/framework-bundle": "6.1.*",
+    "symfony/proxy-manager-bridge": "6.1.*",
     "symfony/runtime": "6.1.*",
     "symfony/yaml": "6.1.*"
   },
-  "require-dev": {},
   "config": {
     "allow-plugins": {
       "composer/package-versions-deprecated": true,
@@ -63,5 +67,13 @@
       "allow-contrib": false,
       "require": "6.1.*"
     }
+  },
+  "require-dev": {
+    "kahlan/kahlan": "^5.2",
+    "phpspec/phpspec": "^7.2",
+    "phpstan/phpstan": "^1.8",
+    "phpstan/phpstan-beberlei-assert": "^1.0",
+    "symfony/debug-bundle": "6.1.*",
+    "symfony/web-profiler-bundle": "6.1.*"
   }
 }

@@ -1,0 +1,41 @@
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
+
+{% block menu %}
+    <span class="label">
+        <span class="icon"><img src="" alt=""/></span>
+        <strong>Messenger</strong>
+    </span>
+{% endblock %}
+
+{% block panel %}
+    <div class="metrics">
+        <div class="metric">
+            <span class="value">{{ collector.data|length }}</span>
+            <span class="label">Messages executed</span>
+        </div>
+    </div>
+    <div class="block">
+        <table>
+        <thead>
+            <th scope="col">Message</th>
+            <th scope="col">Handler</th>
+            <th scope="col">Parameters</th>
+            <th scope="col">Call Time</th>
+        </thead>
+        <tbody>
+            {% for trace in collector.data %}
+                <tr>
+                    <td class="font-normal">{{ trace.messageName }}</td>
+                    <td class="font-normal">
+                        <pre class="sf-dump">
+                            {{ trace.handlerName }}
+                        </pre>
+                    </td>
+                    <td class="font-normal">{{ dump(trace.parameters) }}</td>
+                    <td class="font-normal">{{ trace.callTime }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+{% endblock %}
