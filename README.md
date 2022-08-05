@@ -7,12 +7,14 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <div align="center">
+  <a href="https://github.com/Zusoy/chatterer">
+    <img src="logo.png" alt="Logo" width="500" height="500">
+  </a>
+
   <h3 align="center">Chatterer</h3>
 
   <p align="center">
     An open-source chatting application for everyone !
-    <br />
-    <a href="https://github.com/Zusoy/chatterer"><strong></strong></a>
     <br />
     <br />
     <a href="https://github.com/Zusoy/chatterer/issues">Report Bug</a>
