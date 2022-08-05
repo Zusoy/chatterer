@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "91c4d81248bf4fc6744586a2a619c400",
+    "content-hash": "1e3f48055fe4b145b691599d078795b3",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -4184,6 +4184,64 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "kahlan/kahlan",
+            "version": "5.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kahlan/kahlan.git",
+                "reference": "9edb4daeba5494bcd38a125c5d960447998902f4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kahlan/kahlan/zipball/9edb4daeba5494bcd38a125c5d960447998902f4",
+                "reference": "9edb4daeba5494bcd38a125c5d960447998902f4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "squizlabs/php_codesniffer": "^3.4"
+            },
+            "bin": [
+                "bin/kahlan"
+            ],
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ],
+                "psr-4": {
+                    "Kahlan\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "CrysaLEAD"
+                }
+            ],
+            "description": "The PHP Test Framework for Freedom, Truth and Justice.",
+            "keywords": [
+                "BDD",
+                "Behavior-Driven Development",
+                "Monkey Patching",
+                "TDD",
+                "mock",
+                "stub",
+                "testing",
+                "unit test"
+            ],
+            "support": {
+                "issues": "https://github.com/kahlan/kahlan/issues",
+                "source": "https://github.com/kahlan/kahlan/tree/5.2.1"
+            },
+            "time": "2022-06-18T14:06:54+00:00"
+        },
         {
             "name": "phpdocumentor/reflection-common",
             "version": "2.2.0",
