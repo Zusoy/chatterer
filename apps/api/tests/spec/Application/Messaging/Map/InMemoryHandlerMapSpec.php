@@ -76,7 +76,7 @@ class InMemoryHandlerMapSpec extends ObjectBehavior
         };
     }
 
-    private function createMockedHandler(Message $supportedMessage = null, mixed $invocationResult): Handler
+    private function createMockedHandler(Message $supportedMessage, mixed $invocationResult): Handler
     {
         return new class($supportedMessage, $invocationResult) implements Handler
         {
