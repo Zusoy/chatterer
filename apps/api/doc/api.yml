@@ -8,3 +8,18 @@ info:
     email: gregoire.drapeau@knplabs.com
     name: Flaggy
 
+paths:
+  /stations: { $ref: ./paths/stations.yml }
+
+components:
+  responses:
+    invalid:
+      description: Invalid payload specified
+      content:
+        application/json:
+          schema:
+            $ref: ./schema/error.json
+
+  schemas:
+    Station:
+      $ref: ./schema/station-item.json

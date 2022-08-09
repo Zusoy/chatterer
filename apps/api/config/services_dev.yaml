@@ -6,12 +6,3 @@ services:
   ## Alias overrides
 
   Domain\Bus: '@Application\Messaging\TraceableMessageBus'
-
-  ## Data Collectors
-
-  Infra\Framework\HttpKernel\DataCollector\MessengerDataCollector:
-    tags:
-      -
-        name: data_collector
-        id: messenger
-        template: 'profiler/messenger_collector.html.twig'

@@ -1,0 +1,18 @@
+Domain\Model\Station:
+  type: entity
+
+  embedded:
+    id:
+      class: Domain\Model\Identity\Identifier
+      columnPrefix: false
+
+  fields:
+    name:
+      type: string
+    description:
+      type: string
+      nullable: true
+    createdAt:
+      type: datetime_immutable
+    updatedAt:
+      type: datetime_immutable

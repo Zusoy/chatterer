@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://chatterer.io/error.json",
+  "title": "Error",
+  "type": "object",
+  "properties": {
+    "error": {
+      "properties": {
+        "code": {
+          "type": "number",
+          "format": "int64",
+          "example": 400
+        },
+        "message": {
+          "type": "string",
+          "example": "Oops something went wrong"
+        },
+        "extra": {
+          "type": "object",
+          "patternProperties": {
+            "^\\w+$": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "context": {
+                  "type": [
+                    "string",
+                    "number",
+                    "array",
+                    "object",
+                    "boolean"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

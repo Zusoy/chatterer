@@ -6,8 +6,11 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use Doctrine\ORM\EntityManagerInterface;
 use Domain\Bus;
+use Infra\Doctrine\Truncater;
 use Infra\Framework\Kernel;
 use Kahlan\Filter\Filters;
+use Kahlan\Matcher;
+use Test\Integrations\Matcher\Assert\ToFailAssertionsAtPaths;
 
 $commandLine = $this->commandLine();
 
@@ -28,6 +31,13 @@ Filters::apply($this, 'run', function (callable $next) {
     // set helper services
     $scope->em = $em;
     $scope->bus = $container->get(Bus::class);
+    $scope->truncater = new Truncater($em->getConnection());
+
+    return $next();
+});
+
+Filters::apply($this, 'matchers', function (callable $next) {
+    Matcher::register('toFailAssertionsAtPaths', ToFailAssertionsAtPaths::class);
 
     return $next();
 });

@@ -21,3 +21,28 @@ services:
   Application\HTTP\Controller\:
     resource: '%kernel.project_dir%/src/Application/HTTP/Controller'
     tags: [ controller.service_arguments ]
+
+
+  ## Normalization
+
+  Application\Normalizer\Internal\:
+    resource: '%kernel.project_dir%/src/Application/Normalizer/Internal'
+    tags: [ app.normalizer.internal ]
+
+  Application\Normalizer\AggregateNormalizer:
+    $normalizers: !tagged_iterator { tag: app.normalizer.internal }
+
+
+  ## Serialization
+
+  Application\Serializer\Internal\:
+    resource: '%kernel.project_dir%/src/Application/Serializer/Internal'
+    tags: [ app.serializer.internal ]
+
+  Application\Serializer\AggregateSerializer:
+    $serializers: !tagged_iterator { tag: app.serializer.internal }
+
+  ## Repository
+
+  Application\Repository\:
+    resource: '%kernel.project_dir%/src/Application/Repository'
