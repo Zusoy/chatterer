@@ -38,7 +38,7 @@ final class Station extends BaseController
         );
     }
 
-    #[Route('/stations/{id}', name: 'update', requirements: ['id' => Identifier::PATTERN], methods: [Request::METHOD_PUT])]
+    #[Route('/station/{id}', name: 'update', requirements: ['id' => Identifier::PATTERN], methods: [Request::METHOD_PUT])]
     public function update(string $id, Payload $payload): Response
     {
         $station = $this->bus->execute(new Message\Update(
