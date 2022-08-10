@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_requests:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+  env:
+      COMPOSE_FILE: swarm.ci.yml
+  steps:
+    - name: config .env
+      run: cp .env.ci.dist .env
+
+    - name: init swarm
+      run: make init-swarm
+
+    - name: build
+      run: DOCKER_BUILDKIT=1 docker-compose -f swarm.ci.yml build api database
+
+    - name: RUN api analysis
+      run: make api-analysis
+
+    - name: Run API specs
+      run: make api-specs
+
+    - name: Start the stack
+      run: make start
+
+    - name: Wait for database
+      run: |
+        for i in $(seq 1 12); do
+              [[ ! -z "$(docker ps -q -f name=chatterer_database -f health=healthy)" ]] && exit 0
+              echo 'Waiting on MySQL…'
+              sleep 10
+        done;
+        exit 1
+
+    - name: Init test database
+      run: make api-setup-db-test
+
+    - name: Run API integrations tests
+      run: make api-integrations
