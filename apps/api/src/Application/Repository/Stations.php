@@ -43,4 +43,13 @@ final class Stations implements \Domain\Repository\Stations
     {
         return $this->repository->findAll();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function remove(Station $station): void
+    {
+        $this->manager->remove($station);
+        $this->manager->flush();
+    }
 }

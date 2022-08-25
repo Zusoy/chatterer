@@ -15,4 +15,6 @@ interface Stations
      * @return iterable<Station>
      */
     public function findAll(): iterable;
+
+    public function remove(Station $station): void;
 }

@@ -14,7 +14,7 @@ class Update implements Message
         private ?string $description
     ) {
         Assert::lazy()
-            ->that($id, propertyPath: 'id')->regex(sprintf('/%s/', Identifier::PATTERN))
+            ->that($id, propertyPath: 'id')->notEmpty()->regex(sprintf('/%s/', Identifier::PATTERN))
             ->that($name, propertyPath: 'name')->notEmpty()
             ->that($description, 'description')->nullOr()->notEmpty()
             ->verifyNow()

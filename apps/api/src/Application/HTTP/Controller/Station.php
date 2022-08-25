@@ -52,4 +52,12 @@ final class Station extends BaseController
             status: Response::HTTP_OK
         );
     }
+
+    #[Route('/station/{id}', name: 'delete', requirements: ['id' => Identifier::PATTERN], methods: [Request::METHOD_DELETE])]
+    public function delete(string $id): Response
+    {
+        $this->bus->execute(new Message\Delete($id));
+
+        return $this->createJsonResponse(status: Response::HTTP_NO_CONTENT);
+    }
 }
