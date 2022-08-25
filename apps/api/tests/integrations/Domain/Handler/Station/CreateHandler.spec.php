@@ -1,5 +1,6 @@
 <?php
 
+use Domain\Exception\ObjectAlreadyExistsException;
 use Domain\Message\Station\Create;
 use Domain\Handler\Station\CreateHandler;
 use Domain\Model\Station;
@@ -23,5 +24,17 @@ describe(CreateHandler::class, function() {
         expect($persistedStation === null)->toBeFalsy();
         expect($persistedStation->getName())->toBe('Private Station');
         expect($persistedStation->getDescription())->toBe('station desc');
+    });
+
+    it ('throws if station already exist in database', function () {
+        $station = new Station('Name', 'desc');
+        $this->em->persist($station);
+        $this->em->flush();
+
+        $closure = function () {
+            $this->bus->execute(new Create('Name', 'other'));
+        };
+
+        expect($closure)->toThrow(new ObjectAlreadyExistsException('Station', 'Name'));
     });
 });

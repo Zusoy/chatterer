@@ -6,7 +6,6 @@ use Application\HTTP\Payload;
 use Domain\Message\Station as Message;
 use Domain\Model\Identity\Identifier;
 use Infra\Framework\Controller\BaseController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,7 +31,7 @@ final class Station extends BaseController
             $payload->optional('description')
         ));
 
-        return new JsonResponse(
+        return $this->createJsonResponse(
             data: $station,
             status: Response::HTTP_CREATED
         );

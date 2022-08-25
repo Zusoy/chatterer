@@ -1,8 +1,9 @@
 <?php
 
+use Domain\Exception\ObjectAlreadyExistsException;
 use Domain\Exception\ObjectNotFoundException;
-use Domain\Message\Station\Update;
 use Domain\Handler\Station\UpdateHandler;
+use Domain\Message\Station\Update;
 use Domain\Model\Station;
 use Domain\Repository\Stations;
 
@@ -41,5 +42,18 @@ describe(UpdateHandler::class, function() {
         };
 
         expect($closure)->toThrow(new ObjectNotFoundException('Station', '493e66a5-e2e6-4f59-afc1-6fefcc679361'));
+    });
+
+    it ('throws if station already exist in database', function () {
+        $station = new Station('Name', 'desc');
+        $identifier = $station->getId();
+        $this->em->persist($station);
+        $this->em->flush();
+
+        $closure = function () use ($identifier) {
+            $this->bus->execute(new Update($identifier, 'Name', 'other'));
+        };
+
+        expect($closure)->toThrow(new ObjectAlreadyExistsException('Station', 'Name'));
     });
 });

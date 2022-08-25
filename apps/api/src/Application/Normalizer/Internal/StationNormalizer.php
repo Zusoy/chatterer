@@ -24,7 +24,10 @@ final class StationNormalizer implements Normalizer
     {
         return [
             'id'   => (string) $data->getId(),
-            'name' => $data->getName()
+            'name' => $data->getName(),
+            'description' => $data->getDescription(),
+            'createdAt' => $data->getCreatedAt()->format('Y-m-d'),
+            'updatedAt' => $data->getUpdatedAt()->format('Y-m-d')
         ];
     }
 }

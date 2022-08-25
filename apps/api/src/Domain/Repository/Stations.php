@@ -11,6 +11,8 @@ interface Stations
 
     public function find(Identifier $identifier): ?Station;
 
+    public function findByName(string $name): ?Station;
+
     /**
      * @return iterable<Station>
      */

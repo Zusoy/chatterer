@@ -2,6 +2,7 @@
 
 namespace Domain\Handler\Station;
 
+use Domain\Exception\ObjectAlreadyExistsException;
 use Domain\Exception\ObjectNotFoundException;
 use Domain\Handler;
 use Domain\Message\Station as Message;
@@ -28,10 +29,12 @@ final class UpdateHandler implements Handler
             throw new ObjectNotFoundException('Station', $message->getIdentifier());
         }
 
+        if (null !== $this->stations->findByName($message->getName())) {
+            throw new ObjectAlreadyExistsException('Station', $message->getName());
+        }
+
         $station->setName($message->getName());
         $station->setDescription($message->getDescription());
-
-        $station->touch();
 
         return $station;
     }

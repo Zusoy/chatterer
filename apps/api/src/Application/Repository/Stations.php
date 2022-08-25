@@ -39,6 +39,14 @@ final class Stations implements \Domain\Repository\Stations
     /**
      * {@inheritDoc}
      */
+    public function findByName(string $name): ?Station
+    {
+        return $this->repository->findOneBy(['name' => $name]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function findAll(): iterable
     {
         return $this->repository->findAll();

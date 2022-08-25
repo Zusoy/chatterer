@@ -6,6 +6,10 @@ Domain\Model\Station:
       class: Domain\Model\Identity\Identifier
       columnPrefix: false
 
+  uniqueConstraints:
+    unique_name:
+      columns: [name]
+
   fields:
     name:
       type: string
@@ -16,3 +20,6 @@ Domain\Model\Station:
       type: datetime_immutable
     updatedAt:
       type: datetime_immutable
+
+  lifecycleCallbacks:
+    preUpdate: [ 'touch' ]
