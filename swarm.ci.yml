@@ -1,0 +1,38 @@
+version: '3.6'
+
+services:
+  api:
+    image: zusoy/chatterer-api:develop
+    build:
+      context: apps/api
+      target: ci
+    env_file:
+      - .env
+    volumes:
+      - ./apps/api:/usr/src/app
+    networks:
+      - chatterer_default
+
+  database:
+    image: zusoy/chatterer-database:develop
+    build:
+      context: apps/database
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - '3306:3306'
+    volumes:
+      - database:/var/lib/mysql
+    networks:
+      - chatterer_default
+
+networks:
+  chatterer_default:
+    driver: overlay
+    attachable: true
+
+volumes:
+  database: ~
+

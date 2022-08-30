@@ -1,0 +1,48 @@
+get:
+  tags: [ Station ]
+  summary: List all stations
+  operationId: get-stations
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../schema/stations.json
+          examples:
+            stations:
+              summary: An array of stations
+              value: [
+                {
+                  id: "4b86105b-24ee-4510-af48-e52d86e7139d",
+                  name: "My Company Station",
+                  description: "Station for my company",
+                  createdAt: "2022-10-12",
+                  updatedAt: "2022-10-13"
+                },
+                {
+                  id: "994b7a18-7746-4b5f-b395-9539649b0898",
+                  name: "My Friends Station",
+                  description: "Station for my friends",
+                  createdAt: "2022-10-12",
+                  updatedAt: "2022-10-13"
+                }
+              ]
+
+post:
+  tags: [ Station ]
+  summary: Create new station
+  operationId: post-stations
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../schema/input/input-station.json
+  responses:
+    201:
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../schema/station-item.json
+    400: { $ref: '../api.yml#/components/responses/invalid' }

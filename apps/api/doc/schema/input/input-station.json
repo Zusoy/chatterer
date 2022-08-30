@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "input-station.json",
+  "type": "object",
+  "examples": [
+    {
+      "name": "Friends Station",
+      "description": "Station for talks with my friends"
+    }
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

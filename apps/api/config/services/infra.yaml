@@ -19,6 +19,10 @@ services:
     tags:
       - { name: kernel.event_listener, event: kernel.request, priority: 128 }
 
+  Infra\Framework\Event\Listener\FormatExceptionResponseListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.exception, priority: -32 }
+
   ## Argument Value Resolvers
 
   Infra\Framework\HttpKernel\ArgumentValueResolver\:

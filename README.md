@@ -14,7 +14,7 @@
   <h3 align="center">Chatterer</h3>
 
   <p align="center">
-    An open-source chatting application for everyone !
+    An open-source family scale chatting application for everyone !
     <br />
     <br />
     <a href="https://github.com/Zusoy/chatterer/issues">Report Bug</a>

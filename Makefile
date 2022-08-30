@@ -43,6 +43,11 @@ api-shell:
 api-specs:
 	@docker-compose -f swarm.$(STAGE).yml run --rm api phpspec run -f pretty -vn --no-code-generation
 
+.PHONY: api-setup-db-test
+api-setup-db-test:
+	@docker exec -it "$$(docker ps -q -f name=chatterer_api)" console doctrine:database:create --env=test --if-not-exists
+	@docker exec -it "$$(docker ps -q -f name=chatterer_api)" console doctrine:migrations:migrate -n --env=test
+
 ##########
 # CLIENT #
 ##########

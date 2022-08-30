@@ -23,7 +23,6 @@ final class PersistenceTransaction implements Transaction
 
     public function rollback(): void
     {
-        $this->entityManager->close();
         $this->entityManager->rollback();
     }
 }

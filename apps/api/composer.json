@@ -11,6 +11,7 @@
     "doctrine/doctrine-bundle": "^2.7",
     "doctrine/doctrine-migrations-bundle": "^3.2",
     "doctrine/orm": "^2.12",
+    "ramsey/uuid": "^4.3",
     "symfony/console": "6.1.*",
     "symfony/dotenv": "6.1.*",
     "symfony/flex": "^2",
@@ -35,7 +36,8 @@
     "psr-4": {
       "Application\\": "src/Application",
       "Domain\\": "src/Domain",
-      "Infra\\": "src/Infra"
+      "Infra\\": "src/Infra",
+      "Test\\Integrations\\Matcher\\": "tests/integrations/Matcher/"
     }
   },
   "replace": {

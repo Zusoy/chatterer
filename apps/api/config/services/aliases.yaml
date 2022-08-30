@@ -5,3 +5,12 @@ services:
   Domain\Bus: '@Application\Messaging\TransactionalMessageBus'
   Application\Messaging\Map\HandlerMap: '@Application\Messaging\Map\InMemoryHandlerMap'
   Application\Messaging\Transaction\Transaction: '@Application\Messaging\Transaction\PersistenceTransaction'
+
+  ## Normalizer/Serializer Implementations
+
+  Application\Normalizer\Normalizer: '@Application\Normalizer\AggregateNormalizer'
+  Application\Serializer\Serializer: '@Application\Serializer\AggregateSerializer'
+
+  ## Repository Implementations
+
+  Domain\Repository\Stations: '@Application\Repository\Stations'

@@ -8,3 +8,35 @@ info:
     email: gregoire.drapeau@knplabs.com
     name: Flaggy
 
+paths:
+  /stations: { $ref: ./paths/stations.yml }
+  /station/{id}: { $ref: ./paths/station.yml }
+
+components:
+  parameters:
+    id:
+      schema:
+        type: string
+        pattern: ^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$
+      name: id
+      in: path
+      required: true
+
+  responses:
+    notfound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: ./schema/error.json
+
+    invalid:
+      description: Invalid payload specified
+      content:
+        application/json:
+          schema:
+            $ref: ./schema/error.json
+
+  schemas:
+    Station:
+      $ref: ./schema/station-item.json
