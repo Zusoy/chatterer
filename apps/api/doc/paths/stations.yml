@@ -16,12 +16,16 @@ get:
                 {
                   id: "4b86105b-24ee-4510-af48-e52d86e7139d",
                   name: "My Company Station",
-                  description: "Station for my company"
+                  description: "Station for my company",
+                  createdAt: "2022-10-12",
+                  updatedAt: "2022-10-13"
                 },
                 {
                   id: "994b7a18-7746-4b5f-b395-9539649b0898",
                   name: "My Friends Station",
-                  description: "Station for my friends"
+                  description: "Station for my friends",
+                  createdAt: "2022-10-12",
+                  updatedAt: "2022-10-13"
                 }
               ]
 
