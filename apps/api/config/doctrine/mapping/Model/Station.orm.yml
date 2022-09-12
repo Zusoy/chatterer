@@ -3,7 +3,7 @@ Domain\Model\Station:
 
   embedded:
     id:
-      class: Domain\Model\Identity\Identifier
+      class: Domain\Identity\Identifier
       columnPrefix: false
 
   uniqueConstraints:

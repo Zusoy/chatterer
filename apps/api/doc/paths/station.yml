@@ -1,3 +1,18 @@
+get:
+  tags: [ Station ]
+  summary: Fetch Station
+  operationId: get-station
+  parameters: [{ $ref: '../api.yml#/components/parameters/id' }]
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../schema/station-item.json
+    400: { $ref: '../api.yml#/components/responses/invalid' }
+    404: { $ref: '../api.yml#/components/responses/notfound' }
+
 put:
   tags: [ Station ]
   summary: Update Station

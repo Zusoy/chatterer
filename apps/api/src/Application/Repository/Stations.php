@@ -4,7 +4,7 @@ namespace Application\Repository;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use Domain\Model\Identity\Identifier;
+use Domain\Identity\Identifier;
 use Domain\Model\Station;
 
 final class Stations implements \Domain\Repository\Stations

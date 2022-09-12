@@ -3,8 +3,8 @@
 namespace spec\Domain\Model;
 
 use DateTimeImmutable;
-use Domain\Model\Identity\Identifiable;
-use Domain\Model\Identity\Identifier;
+use Domain\Identity\Identifiable;
+use Domain\Identity\Identifier;
 use Domain\Model\Station;
 use Domain\Time\HasTimestamp;
 use PhpSpec\ObjectBehavior;
@@ -28,7 +28,7 @@ class StationSpec extends ObjectBehavior
 
     public function it_exposes_some_state(): void
     {
-        $this->getId()->shouldHaveType(Identifier::class);
+        $this->getIdentifier()->shouldHaveType(Identifier::class);
         $this->getName()->shouldBe('My Station');
         $this->getDescription()->shouldBe('Station description');
         $this->getCreatedAt()->shouldHaveType(DateTimeImmutable::class);

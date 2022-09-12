@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\Model\Identity;
+namespace Domain\Identity;
 
 use Assert\Assert;
 use Ramsey\Uuid\Uuid;
@@ -28,3 +28,4 @@ final class Identifier implements Stringable
         return $this->id;
     }
 }
+

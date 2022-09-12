@@ -23,7 +23,7 @@ final class StationNormalizer implements Normalizer
     public function normalize(mixed $data): array
     {
         return [
-            'id'   => (string) $data->getId(),
+            'id'   => (string) $data->getIdentifier(),
             'name' => $data->getName(),
             'description' => $data->getDescription(),
             'createdAt' => $data->getCreatedAt()->format('Y-m-d'),

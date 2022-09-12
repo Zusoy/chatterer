@@ -11,6 +11,14 @@ services:
   Application\Normalizer\Normalizer: '@Application\Normalizer\AggregateNormalizer'
   Application\Serializer\Serializer: '@Application\Serializer\AggregateSerializer'
 
+  ## Synchronization Implementations
+
+  Application\Synchronization\Hub: '@Application\Synchronization\Hub\MercureHub'
+
   ## Repository Implementations
 
   Domain\Repository\Stations: '@Application\Repository\Stations'
+
+  ## Events Implementations
+
+  Domain\EventLog: '@Application\EventLog'

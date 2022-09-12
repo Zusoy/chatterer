@@ -1,7 +1,7 @@
 <?php
 
 use Domain\Message\Station\Delete;
-use Domain\Model\Identity\Identifier;
+use Domain\Identity\Identifier;
 use Test\Integrations\Matcher\Assert\PropertyAssertionFailure;
 
 describe(Delete::class, function () {

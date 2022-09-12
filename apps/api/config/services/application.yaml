@@ -22,7 +22,6 @@ services:
     resource: '%kernel.project_dir%/src/Application/HTTP/Controller'
     tags: [ controller.service_arguments ]
 
-
   ## Normalization
 
   Application\Normalizer\Internal\:
@@ -31,7 +30,6 @@ services:
 
   Application\Normalizer\AggregateNormalizer:
     $normalizers: !tagged_iterator { tag: app.normalizer.internal }
-
 
   ## Serialization
 
@@ -42,7 +40,20 @@ services:
   Application\Serializer\AggregateSerializer:
     $serializers: !tagged_iterator { tag: app.serializer.internal }
 
+  ## Synchorinzation
+
+  Application\Synchronization\Hub\:
+    resource: '%kernel.project_dir%/src/Application/Synchronization/Hub/'
+
   ## Repository
 
   Application\Repository\:
     resource: '%kernel.project_dir%/src/Application/Repository'
+
+  ## Events
+
+  Application\EventLog: ~
+
+  Application\Event\Listener\:
+    resource: '%kernel.project_dir%/src/Application/Event/Listener'
+    tags: [ kernel.event_listener ]

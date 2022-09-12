@@ -13,14 +13,14 @@ describe(Stations::class, function () {
 
     it ('finds station in database by id', function () {
         $station = new Station('NAME', 'desc');
-        $identifier = $station->getId();
+        $identifier = $station->getIdentifier();
         $this->em->persist($station);
         $this->em->flush();
 
         $station = $this->subject->find($identifier);
 
         expect(null === $station)->toBeFalsy();
-        expect((string)$station->getId())->toBe((string)$identifier);
+        expect((string)$station->getIdentifier())->toBe((string)$identifier);
         expect($station->getName())->toBe('NAME');
         expect($station->getDescription())->toBe('desc');
     });
@@ -40,7 +40,7 @@ describe(Stations::class, function () {
 
     it ('removes station from database', function () {
         $station = new Station('NAME', 'desc');
-        $identifier = $station->getId();
+        $identifier = $station->getIdentifier();
         $this->em->persist($station);
         $this->em->flush();
 

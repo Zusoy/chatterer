@@ -1,4 +1,4 @@
-Domain\Model\Identity\Identifier:
+Domain\Identity\Identifier:
   type: embeddable
 
   id:

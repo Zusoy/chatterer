@@ -17,7 +17,7 @@ describe(UpdateHandler::class, function() {
 
     it ('updates station from database', function () {
         $station = new Station('My station', 'my desc');
-        $identifier = $station->getId();
+        $identifier = $station->getIdentifier();
         $updatedDate = $station->getUpdatedAt();
 
         $this->em->persist($station);
@@ -46,7 +46,7 @@ describe(UpdateHandler::class, function() {
 
     it ('throws if station already exist in database', function () {
         $station = new Station('Name', 'desc');
-        $identifier = $station->getId();
+        $identifier = $station->getIdentifier();
         $this->em->persist($station);
         $this->em->flush();
 

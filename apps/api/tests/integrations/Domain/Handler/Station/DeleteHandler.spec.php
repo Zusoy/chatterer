@@ -16,7 +16,7 @@ describe(DeleteHandler::class, function () {
 
     it ('deletes station from database', function () {
         $station = new Station('Name', 'desc');
-        $identifier = $station->getId();
+        $identifier = $station->getIdentifier();
 
         $this->em->persist($station);
         $this->em->flush();

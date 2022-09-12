@@ -3,8 +3,8 @@
 namespace Domain\Message\Station;
 
 use Assert\Assert;
+use Domain\Identity\Identifier;
 use Domain\Message;
-use Domain\Model\Identity\Identifier;
 
 class Delete implements Message
 {

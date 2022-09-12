@@ -9,6 +9,7 @@ info:
     name: Flaggy
 
 paths:
+  /config: { $ref: ./paths/config.yml }
   /stations: { $ref: ./paths/stations.yml }
   /station/{id}: { $ref: ./paths/station.yml }
 
@@ -38,5 +39,7 @@ components:
             $ref: ./schema/error.json
 
   schemas:
+    Config:
+      $ref: ./schema/config.json
     Station:
       $ref: ./schema/station-item.json

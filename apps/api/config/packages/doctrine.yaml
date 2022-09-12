@@ -17,6 +17,12 @@ doctrine:
     naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
     auto_mapping: true
     mappings:
+      Identity:
+        is_bundle: false
+        type: yml
+        dir: '%kernel.project_dir%/config/doctrine/mapping/Identity'
+        prefix: Domain\Identity
+        alias: Identity
       Model:
         is_bundle: false
         type: yml
