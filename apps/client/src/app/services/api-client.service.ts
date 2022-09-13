@@ -5,7 +5,8 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, share } from 'rxjs/operators';
 
 @Injectable()
-export class ApiClient {
+export class ApiClient
+{
   private static readonly API_URL = 'http://127.0.0.1:8081';
 
   constructor(

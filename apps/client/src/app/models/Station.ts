@@ -1,6 +1,7 @@
 import { Identifiable } from '@models/Identifiable';
 
-export interface Station extends Identifiable {
+export interface Station extends Identifiable
+{
   name: string;
   description: string;
   createdAt: Date;

@@ -4,7 +4,8 @@ import { ApiClient } from '@services/api-client.service';
 import { Station, StationPayload } from '@models/Station';
 
 @Injectable()
-export class StationApi {
+export class StationApi
+{
   constructor(private api: ApiClient) {
   }
 

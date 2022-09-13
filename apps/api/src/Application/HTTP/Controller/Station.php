@@ -20,7 +20,7 @@ final class Station extends BaseController
 
         return $this->createJsonResponse(
             data: $stations,
-            discoveryTopic: "stations"
+            discoveryTopic: 'station/list'
         );
     }
 
