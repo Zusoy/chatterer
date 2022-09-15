@@ -1,3 +1,3 @@
-import { StationsListComponent } from "@components/Stations/List/stations-list.component";
+import { ListComponent } from "@components/Stations/List/list.component";
 
-export default StationsListComponent;
+export default ListComponent;
