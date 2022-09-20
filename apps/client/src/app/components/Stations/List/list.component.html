@@ -1,15 +1,6 @@
 <div class="stations">
   <ng-template #dialog let-data let-ref="dialogRef">
-    <nb-card size="small">
-      <nb-card-header>New Station</nb-card-header>
-      <nb-card-body>
-        <app-stations-create></app-stations-create>
-      </nb-card-body>
-      <nb-card-footer>
-        <button nbButton class="action" status="danger" (click)="ref.close()">Cancel</button>
-        <button nbButton class="action" type="submit" status="success">Create</button>
-      </nb-card-footer>
-    </nb-card>
+    <app-stations-create (cancel)="ref.close()"></app-stations-create>
   </ng-template>
   <button nbButton
       status="success"

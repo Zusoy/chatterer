@@ -16,6 +16,7 @@ import { HomeComponent } from '@components/Home/home.component';
 // Services Imports
 import { ApiClient } from '@services/api-client.service';
 import { apiServices } from '@services/api';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { apiServices } from '@services/api';
     FormsModule,
     ReactiveFormsModule,
     StationsModule,
-    nebular
+    nebular,
+    StoreModule.forRoot({}, {})
   ],
   providers: [
     ApiClient,

@@ -1,6 +1,31 @@
 <nb-card>
+  <nb-card-header>
+    Create new Station
+  </nb-card-header>
   <nb-card-body>
-    <input type="text" nbInput fullWidth shape="round" placeholder="Name" [formControl]="name">
-    <input type="text" nbInput fullWidth shape="round" placeholder="Description" [formControl]="description">
+    <form [formGroup]="form" (ngSubmit)="createStation()">
+      <input
+        required
+        nbInput
+        fullWidth
+        class="control"
+        type="text"
+        shape="round"
+        placeholder="Name"
+        formControlName="name"
+      >
+
+      <textarea
+        nbInput
+        fullWidth
+        class="control"
+        placeholder="Description"
+        shape="round"
+        formControlName="description"
+      ></textarea>
+
+      <button nbButton hero type="button" class="action" status="danger" (click)="cancelCreation()">Cancel</button>
+      <button nbButton hero type="submit" class="action" status="success">Create</button>
+    </form>
   </nb-card-body>
 </nb-card>
