@@ -23,6 +23,12 @@ services:
     tags:
       - { name: kernel.event_listener, event: kernel.exception, priority: -32 }
 
+  Infra\Framework\Event\Listener\HandleCORSPermissionListener:
+    arguments:
+      $allowedPorts: '%cors_allowed_ports%'
+    tags:
+      - { name: kernel.event_listener, event: kernel.response }
+
   ## Argument Value Resolvers
 
   Infra\Framework\HttpKernel\ArgumentValueResolver\:

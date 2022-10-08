@@ -3,8 +3,8 @@
 namespace Domain\Model;
 
 use DateTimeImmutable;
-use Domain\Model\Identity\Identifiable;
-use Domain\Model\Identity\Identifier;
+use Domain\Identity\Identifiable;
+use Domain\Identity\Identifier;
 use Domain\Time\HasTimestamp;
 use Domain\Time\HasTimestampTrait;
 
@@ -26,7 +26,7 @@ class Station implements Identifiable, HasTimestamp
         $this->updatedAt = new DateTimeImmutable();
     }
 
-    public function getId(): Identifier
+    public function getIdentifier(): Identifier
     {
         return $this->id;
     }

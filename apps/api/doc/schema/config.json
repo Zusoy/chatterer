@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://chatterer.io/config.json",
+  "title": "Config",
+  "type": "object",
+  "properties": {
+    "apiUrl": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "apiUrl"
+  ]
+}

@@ -3,8 +3,8 @@
 namespace Application\HTTP\Controller;
 
 use Application\HTTP\Payload;
+use Domain\Identity\Identifier;
 use Domain\Message\Station as Message;
-use Domain\Model\Identity\Identifier;
 use Infra\Framework\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +19,19 @@ final class Station extends BaseController
         $stations = $this->bus->execute(new Message\All());
 
         return $this->createJsonResponse(
-            data: $stations
+            data: $stations,
+            discoveryTopic: 'station/list'
+        );
+    }
+
+    #[Route('/station/{id}', name: 'get', requirements: ['id' => Identifier::PATTERN], methods: [Request::METHOD_GET])]
+    public function get(string $id): Response
+    {
+        $station = $this->bus->execute(new Message\Get($id));
+
+        return $this->createJsonResponse(
+            data: $station,
+            discoveryTopic: "station/{$id}"
         );
     }
 

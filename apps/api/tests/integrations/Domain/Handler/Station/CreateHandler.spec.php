@@ -19,7 +19,7 @@ describe(CreateHandler::class, function() {
 
         /** @var Station $createdStation */
         $createdStation = $this->bus->execute($command);
-        $persistedStation = $this->stations->find($createdStation->getId());
+        $persistedStation = $this->stations->find($createdStation->getIdentifier());
 
         expect($persistedStation === null)->toBeFalsy();
         expect($persistedStation->getName())->toBe('Private Station');

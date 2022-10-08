@@ -2,6 +2,9 @@ parameters:
   app_name: 'Chatterer'
   app_secret: '%env(APP_SECRET)%'
   app_host: '%env(APP_HOST)%'
+  api_url: '%env(API_URL)%'
+
+  cors_allowed_ports: '%env(CORS_ALLOWED_PORTS)%'
 
   mysql_host: '%env(MYSQL_HOST)%'
   mysql_port: '%env(MYSQL_PORT)%'
@@ -9,3 +12,7 @@ parameters:
   mysql_user: '%env(MYSQL_USER)%'
   mysql_password: '%env(MYSQL_PASSWORD)%'
   mysql_version: '%env(MYSQL_VERSION)%'
+
+  mercure_url: '%env(MERCURE_URL)%'
+  mercure_public_url: '%env(MERCURE_PUBLIC_URL)%'
+  mercure_publisher_jwt_key: '%env(MERCURE_PUBLISHER_JWT_KEY)%'

@@ -34,7 +34,7 @@ final class AggregateNormalizer implements Normalizer
             return $data;
         }
 
-        if (is_array($data) && !$data) {
+        if (is_array($data) && count($data) === 0) {
             return [];
         }
 

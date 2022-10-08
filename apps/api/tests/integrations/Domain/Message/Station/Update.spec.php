@@ -1,7 +1,7 @@
 <?php
 
 use Domain\Message\Station\Update;
-use Domain\Model\Identity\Identifier;
+use Domain\Identity\Identifier;
 use Test\Integrations\Matcher\Assert\PropertyAssertionFailure;
 
 describe(Update::class, function() {

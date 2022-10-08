@@ -1,0 +1,8 @@
+mercure:
+  hubs:
+    default:
+      url: '%mercure_url%'
+      public_url: '%mercure_public_url%'
+      jwt:
+        secret: '%mercure_publisher_jwt_key%'
+        publish: [ '*' ]

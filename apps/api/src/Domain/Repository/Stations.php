@@ -2,7 +2,7 @@
 
 namespace Domain\Repository;
 
-use Domain\Model\Identity\Identifier;
+use Domain\Identity\Identifier;
 use Domain\Model\Station;
 
 interface Stations

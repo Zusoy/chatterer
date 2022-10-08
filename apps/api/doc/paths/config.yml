@@ -1,0 +1,11 @@
+get:
+  tags: [ Config ]
+  summary: Fetch Config
+  operationId: get-config
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../schema/config.json
