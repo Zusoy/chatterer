@@ -16,6 +16,7 @@ services:
 
   client:
     image: zusoy/chatterer-client:develop
+    command: 'ng serve'
     stdin_open: true
     env_file:
       - .env
