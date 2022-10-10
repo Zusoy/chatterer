@@ -2,9 +2,9 @@
 
 namespace Domain\Message\Station;
 
-use Assert\Assert;
 use Domain\Identity\Identifier;
 use Domain\Message;
+use Infra\Assert\Assert;
 
 class Update implements Message
 {
@@ -14,7 +14,7 @@ class Update implements Message
         private ?string $description
     ) {
         Assert::lazy()
-            ->that($id, propertyPath: 'id')->notEmpty()->regex(sprintf('/%s/', Identifier::PATTERN))
+            ->that($id, propertyPath: 'id')->identifier()
             ->that($name, propertyPath: 'name')->notEmpty()
             ->that($description, 'description')->nullOr()->notEmpty()
             ->verifyNow()

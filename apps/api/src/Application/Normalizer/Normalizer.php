@@ -9,9 +9,9 @@ interface Normalizer
     public function supports(mixed $data): bool;
 
     /**
-     * @return array<string,mixed>
+     * @return mixed
      *
      * @throws NormalizerNotFoundException
      */
-    public function normalize(mixed $data): array;
+    public function normalize(mixed $data): mixed;
 }

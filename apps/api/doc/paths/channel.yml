@@ -1,0 +1,19 @@
+put:
+  tags: [ Channel ]
+  summary: Update Channel
+  operationId: put-channel
+  parameters: [{ $ref: '../api.yml#/components/parameters/id' }]
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../schema/input/input-channel.json
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../schema/channel-item.json
+    400: { $ref: '../api.yml#/components/responses/invalid' }
+    404: { $ref: '../api.yml#/components/responses/notfound' }

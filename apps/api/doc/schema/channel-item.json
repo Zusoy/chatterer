@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://chatterer.io/station-item.json",
-  "title": "Station item",
+  "id": "http://chatterer.io/channel-item.json",
+  "title": "Channel item",
   "type": "object",
   "properties": {
     "id": {
@@ -20,12 +20,6 @@
         }
       ]
     },
-    "channels": {
-      "type": "array",
-      "items": {
-        "$ref": "./channel-lite.json"
-      }
-    },
     "createdAt": {
       "type": "string",
       "format": "date-time"
@@ -33,12 +27,15 @@
     "updatedAt": {
       "type": "string",
       "format": "date-time"
+    },
+    "station": {
+      "$ref": "./station-lite.json"
     }
   },
   "required": [
     "id",
     "name",
-    "channels",
+    "station",
     "createdAt"
   ]
 }

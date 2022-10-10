@@ -21,6 +21,9 @@ class BaseController
     ) {
     }
 
+    /**
+     * @param array<string,string> $headers
+     */
     final protected function createJsonResponse(
         mixed $data = null,
         int $status = Response::HTTP_OK,

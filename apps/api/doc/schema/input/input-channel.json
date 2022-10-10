@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "input-channel.json",
+  "type": "object",
+  "examples": [
+    {
+      "name": "Random Channel",
+      "description": "Random talks"
+    }
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

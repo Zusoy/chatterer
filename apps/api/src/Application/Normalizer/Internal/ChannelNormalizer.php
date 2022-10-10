@@ -4,24 +4,23 @@ namespace Application\Normalizer\Internal;
 
 use Application\Normalizer\Normalizer;
 use Domain\Model\Channel;
-use Domain\Model\Station;
 
-final class StationNormalizer implements Normalizer
+final class ChannelNormalizer implements Normalizer
 {
     /**
      * {@inheritDoc}
      */
     public function supports(mixed $data): bool
     {
-        return $data instanceof Station;
+        return $data instanceof Channel;
     }
 
     /**
      * {@inheritDoc}
      *
-     * @param Station $data
+     * @param Channel $data
      *
-     * @return array<string,array<array<string,string>>|string|null>
+     * @return array<string,string|array<string,string>|null>
      */
     public function normalize(mixed $data): array
     {
@@ -31,13 +30,10 @@ final class StationNormalizer implements Normalizer
             'description' => $data->getDescription(),
             'createdAt' => $data->getCreatedAt()->format('Y-m-d'),
             'updatedAt' => $data->getUpdatedAt()->format('Y-m-d'),
-            'channels' => array_map(
-                fn (Channel $channel): array => [
-                    'id' => (string) $channel->getIdentifier(),
-                    'name' => $channel->getName()
-                ],
-                $data->getChannels()
-            )
+            'station' => [
+                'id' => (string) $data->getStation()->getIdentifier(),
+                'name' => (string) $data->getStation()->getName()
+            ]
         ];
     }
 }

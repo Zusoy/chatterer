@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class TranslateExceptionResponseListener
 {
-    public function __invoke(ExceptionEvent $event)
+    public function __invoke(ExceptionEvent $event): void
     {
         $error = $event->getThrowable();
 

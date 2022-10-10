@@ -9,15 +9,12 @@ use Application\Synchronization\Push;
 use Symfony\Component\Mercure\HubInterface;
 use Symfony\Component\Mercure\Update;
 
-/**
- * @template T
- */
 final class MercureHub implements Hub
 {
     public const TOPIC_URI_PREFIX = 'https://chatterer.com/pushs/';
 
     /**
-     * @var Push<T>[]
+     * @var Push[]
      */
     private array $pushs;
 
@@ -34,15 +31,12 @@ final class MercureHub implements Hub
         return $this->hub->getPublicUrl();
     }
 
-    /**
-     * @param Push<T> $push
-     */
     public function push(Push $push): void
     {
         $this->pushs[$push->getHash()] = $push;
     }
 
-    public function send()
+    public function send(): void
     {
         foreach ($this->pushs as $push) {
             $data = $this->normalizer->normalize($push);

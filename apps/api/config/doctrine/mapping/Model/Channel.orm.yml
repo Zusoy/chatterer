@@ -1,4 +1,4 @@
-Domain\Model\Station:
+Domain\Model\Channel:
   type: entity
 
   embedded:
@@ -21,11 +21,11 @@ Domain\Model\Station:
     updatedAt:
       type: datetime_immutable
 
-  oneToMany:
-    channels:
-      targetEntity: Channel
-      mappedBy: station
-      cascade: [remove]
+  manyToOne:
+    station:
+      targetEntity: Station
+      inversedBy: channels
+
 
   lifecycleCallbacks:
     preUpdate: [ 'touch' ]
