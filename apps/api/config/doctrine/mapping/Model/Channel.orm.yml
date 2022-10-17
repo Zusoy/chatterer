@@ -8,7 +8,7 @@ Domain\Model\Channel:
 
   uniqueConstraints:
     unique_name:
-      columns: [name]
+      columns: [ name ]
 
   fields:
     name:
@@ -25,7 +25,9 @@ Domain\Model\Channel:
     station:
       targetEntity: Station
       inversedBy: channels
-
+      joinColumn:
+        nullable: false
+        onDelete: CASCADE
 
   lifecycleCallbacks:
     preUpdate: [ 'touch' ]

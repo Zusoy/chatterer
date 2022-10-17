@@ -43,4 +43,13 @@ final class Channels implements \Domain\Repository\Channels
     {
         return $this->repository->findOneBy(['name' => $name, 'station' => $stationId]);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function remove(Channel $channel): void
+    {
+        $this->manager->remove($channel);
+        $this->manager->flush();
+    }
 }

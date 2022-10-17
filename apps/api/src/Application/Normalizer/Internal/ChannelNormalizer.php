@@ -32,7 +32,7 @@ final class ChannelNormalizer implements Normalizer
             'updatedAt' => $data->getUpdatedAt()->format('Y-m-d'),
             'station' => [
                 'id' => (string) $data->getStation()->getIdentifier(),
-                'name' => (string) $data->getStation()->getName()
+                'name' => $data->getStation()->getName()
             ]
         ];
     }

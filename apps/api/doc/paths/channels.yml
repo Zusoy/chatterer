@@ -28,6 +28,7 @@ get:
                   updatedAt: "2022-10-13"
                 }
               ]
+    404: { $ref: '../api.yml#/components/responses/notfound' }
 
 post:
   tags: [ Channel ]
@@ -46,3 +47,4 @@ post:
           schema:
             $ref: ../schema/channel-item.json
     400: { $ref: '../api.yml#/components/responses/invalid' }
+    404: { $ref: '../api.yml#/components/responses/notfound' }

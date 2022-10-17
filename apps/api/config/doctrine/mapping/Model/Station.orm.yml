@@ -8,7 +8,7 @@ Domain\Model\Station:
 
   uniqueConstraints:
     unique_name:
-      columns: [name]
+      columns: [ name ]
 
   fields:
     name:
@@ -25,7 +25,7 @@ Domain\Model\Station:
     channels:
       targetEntity: Channel
       mappedBy: station
-      cascade: [remove]
+      cascade: [ persist,remove ]
 
   lifecycleCallbacks:
     preUpdate: [ 'touch' ]

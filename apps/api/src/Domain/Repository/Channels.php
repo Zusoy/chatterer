@@ -12,4 +12,6 @@ interface Channels
     public function find(Identifier $identifier): ?Channel;
 
     public function findByName(Identifier $stationId, string $name): ?Channel;
+
+    public function remove(Channel $channel): void;
 }

@@ -17,3 +17,13 @@ put:
             $ref: ../schema/channel-item.json
     400: { $ref: '../api.yml#/components/responses/invalid' }
     404: { $ref: '../api.yml#/components/responses/notfound' }
+
+delete:
+  tags: [ Channel ]
+  summary: Delete Channel
+  operationId: delete-channel
+  parameters: [{ $ref: '../api.yml#/components/parameters/id' }]
+  responses:
+    204:
+      description: OK
+    404: { $ref: '../api.yml#/components/responses/notfound' }
