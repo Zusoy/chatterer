@@ -2,16 +2,16 @@
 
 namespace Domain\Message\Station;
 
-use Assert\Assert;
 use Domain\Identity\Identifier;
 use Domain\Message;
+use Infra\Assert\Assert;
 
 class Delete implements Message
 {
     public function __construct(private string $id)
     {
         Assert::lazy()
-            ->that($id, propertyPath: 'id')->notEmpty()->regex(sprintf('/%s/', Identifier::PATTERN))
+            ->that($id, propertyPath: 'id')->identifier()
             ->verifyNow()
         ;
     }

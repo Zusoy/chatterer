@@ -6,9 +6,6 @@ use Application\Synchronization\Push;
 use Application\Synchronization\Type;
 use Domain\Model;
 
-/**
- * @extends Push<Model\Station>
- */
 final class Station extends Push
 {
     private const CONTEXT = 'station';

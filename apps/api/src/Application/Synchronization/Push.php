@@ -2,14 +2,8 @@
 
 namespace Application\Synchronization;
 
-/**
- * @template T
- */
 class Push
 {
-    /**
-     * @param ?T $payload
-     */
     public function __construct(
         protected Type $type,
         protected string $context,
@@ -33,9 +27,6 @@ class Push
         return $this->context;
     }
 
-    /**
-     * @return T|null
-     */
     public function getPayload(): mixed
     {
         return $this->payload;

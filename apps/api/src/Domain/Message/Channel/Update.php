@@ -1,19 +1,29 @@
 <?php
 
-namespace Domain\Message\Station;
+namespace Domain\Message\Channel;
 
+use Domain\Identity\Identifier;
 use Domain\Message;
 use Infra\Assert\Assert;
 
-class Create implements Message
+class Update implements Message
 {
-    public function __construct(private string $name, private ?string $description)
-    {
+    public function __construct(
+        private string $id,
+        private string $name,
+        private ?string $description
+    ) {
         Assert::lazy()
+            ->that($id, propertyPath: 'id')->identifier()
             ->that($name, propertyPath: 'name')->notEmpty()
             ->that($description, propertyPath: 'description')->nullOr()->notEmpty()
             ->verifyNow()
         ;
+    }
+
+    public function getIdentifier(): Identifier
+    {
+        return new Identifier($this->id);
     }
 
     public function getName(): string

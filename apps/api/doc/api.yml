@@ -9,9 +9,16 @@ info:
     name: Flaggy
 
 paths:
+  # Config
   /config: { $ref: ./paths/config.yml }
+
+  # Station
   /stations: { $ref: ./paths/stations.yml }
   /station/{id}: { $ref: ./paths/station.yml }
+
+  # Channel
+  /station/{id}/channels: { $ref: ./paths/channels.yml }
+  /channel/{id}: { $ref: ./paths/channel.yml }
 
 components:
   parameters:
@@ -43,3 +50,5 @@ components:
       $ref: ./schema/config.json
     Station:
       $ref: ./schema/station-item.json
+    Channel:
+      $ref: ./schema/channel-item.json

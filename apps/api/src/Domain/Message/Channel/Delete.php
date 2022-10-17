@@ -1,19 +1,18 @@
 <?php
 
-namespace Domain\Message\Station;
+namespace Domain\Message\Channel;
 
 use Domain\Identity\Identifier;
 use Domain\Message;
 use Infra\Assert\Assert;
 
-class Get implements Message
+class Delete implements Message
 {
     public function __construct(private string $id)
     {
         Assert::lazy()
             ->that($id, propertyPath: 'id')->identifier()
-            ->verifyNow()
-        ;
+            ->verifyNow();
     }
 
     public function getIdentifier(): Identifier

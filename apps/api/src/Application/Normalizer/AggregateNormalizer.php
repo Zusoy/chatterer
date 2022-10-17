@@ -24,7 +24,7 @@ final class AggregateNormalizer implements Normalizer
     /**
      * {@inheritDoc}
      */
-    public function normalize(mixed $data): array
+    public function normalize(mixed $data): mixed
     {
         if ($normalizer = $this->findNormalizer($data)) {
             return $normalizer->normalize($data);
@@ -48,7 +48,7 @@ final class AggregateNormalizer implements Normalizer
             return $normalized;
         }
 
-        throw new NormalizerNotFoundException(get_class($data));
+        throw new NormalizerNotFoundException((string) get_class($data));
     }
 
     private function findNormalizer(mixed $data): ?Normalizer

@@ -19,6 +19,8 @@ final class PushNormalizer implements Normalizer
      * {@inheritDoc}
      *
      * @param Push $data
+     *
+     * @return array<string,string|mixed>
      */
     public function normalize(mixed $data): array
     {

@@ -1,0 +1,50 @@
+get:
+  tags: [ Channel ]
+  summary: List channels of station
+  operationId: get-channels
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../schema/channels.json
+          examples:
+            channels:
+              summary: An array of channels
+              value: [
+                {
+                  id: "4b86105b-24ee-4510-af48-e52d86e7139d",
+                  name: "Random",
+                  description: "all random things",
+                  createdAt: "2022-10-12",
+                  updatedAt: "2022-10-13"
+                },
+                {
+                  id: "994b7a18-7746-4b5f-b395-9539649b0898",
+                  name: "General",
+                  description: "general conversations",
+                  createdAt: "2022-10-12",
+                  updatedAt: "2022-10-13"
+                }
+              ]
+    404: { $ref: '../api.yml#/components/responses/notfound' }
+
+post:
+  tags: [ Channel ]
+  summary: Create new channel
+  operationId: post-channels
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../schema/input/input-channel.json
+  responses:
+    201:
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../schema/channel-item.json
+    400: { $ref: '../api.yml#/components/responses/invalid' }
+    404: { $ref: '../api.yml#/components/responses/notfound' }

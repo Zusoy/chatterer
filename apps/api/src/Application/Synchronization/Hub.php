@@ -8,7 +8,7 @@ interface Hub
 
     public function push(Push $push): void;
 
-    public function send();
+    public function send(): void;
 
     public function getUriForTopic(string $topic): string;
 }

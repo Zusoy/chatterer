@@ -15,10 +15,10 @@ describe(CreateHandler::class, function() {
     given('stations', fn () => $this->container->get(Stations::class));
 
     it ('create a new station in database', function () {
-        $command = new Create('Private Station', 'station desc');
+        $message = new Create('Private Station', 'station desc');
 
         /** @var Station $createdStation */
-        $createdStation = $this->bus->execute($command);
+        $createdStation = $this->bus->execute($message);
         $persistedStation = $this->stations->find($createdStation->getIdentifier());
 
         expect($persistedStation === null)->toBeFalsy();

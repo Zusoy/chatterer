@@ -3,29 +3,26 @@
 namespace Domain\Model;
 
 use DateTimeImmutable;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Domain\Identity\Identifiable;
 use Domain\Identity\Identifier;
 use Domain\Time\HasTimestamp;
 use Domain\Time\HasTimestampTrait;
 
-class Station implements Identifiable, HasTimestamp
+class Channel implements Identifiable, HasTimestamp
 {
     use HasTimestampTrait;
 
     private Identifier $id;
     private string $name;
     private ?string $description;
-    /** @var Collection<int,Channel> */
-    private Collection $channels;
+    private Station $station;
 
-    public function __construct(string $name, ?string $description)
+    public function __construct(Station $station, string $name, ?string $description)
     {
         $this->id = Identifier::generate();
+        $this->station = $station;
         $this->name = $name;
         $this->description = $description;
-        $this->channels = new ArrayCollection();
 
         $this->createdAt = new DateTimeImmutable();
         $this->updatedAt = new DateTimeImmutable();
@@ -36,9 +33,14 @@ class Station implements Identifiable, HasTimestamp
         return $this->id;
     }
 
-    public function setName(string $name): void
+    public function getStation(): Station
     {
-        $this->name = $name;
+        return $this->station;
+    }
+
+    public function getStationIdentifier(): Identifier
+    {
+        return $this->station->getIdentifier();
     }
 
     public function getName(): string
@@ -46,9 +48,9 @@ class Station implements Identifiable, HasTimestamp
         return $this->name;
     }
 
-    public function setDescription(?string $description): void
+    public function setName(string $name): void
     {
-        $this->description = $description;
+        $this->name = $name;
     }
 
     public function getDescription(): ?string
@@ -56,11 +58,8 @@ class Station implements Identifiable, HasTimestamp
         return $this->description;
     }
 
-    /**
-     * @return Channel[]
-     */
-    public function getChannels(): array
+    public function setDescription(?string $description): void
     {
-        return $this->channels->toArray();
+        $this->description = $description;
     }
 }

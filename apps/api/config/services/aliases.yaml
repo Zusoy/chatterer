@@ -18,6 +18,7 @@ services:
   ## Repository Implementations
 
   Domain\Repository\Stations: '@Application\Repository\Stations'
+  Domain\Repository\Channels: '@Application\Repository\Channels'
 
   ## Events Implementations
 

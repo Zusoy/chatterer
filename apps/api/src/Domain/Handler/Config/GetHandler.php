@@ -19,6 +19,9 @@ final class GetHandler implements Handler
         return $message instanceof Message\Get;
     }
 
+    /**
+     * @return array<string,string>
+     */
     public function __invoke(Message\Get $message): array
     {
         return [

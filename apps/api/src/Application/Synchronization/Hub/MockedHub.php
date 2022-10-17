@@ -5,18 +5,15 @@ namespace Application\Synchronization\Hub;
 use Application\Synchronization\Hub;
 use Application\Synchronization\Push;
 
-/**
- * @template T
- */
 final class MockedHub implements Hub
 {
     /**
-     * @var Push<T>[]
+     * @var Push[]
      */
     private array $queue;
 
     /**
-     * @var Push<T>[]
+     * @var Push[]
      */
     private array $sentPushes;
 
@@ -26,7 +23,7 @@ final class MockedHub implements Hub
     }
 
     /**
-     * @return Push<T>[]
+     * @return Push[]
      */
     public function getQueue(): array
     {
@@ -34,7 +31,7 @@ final class MockedHub implements Hub
     }
 
     /**
-     * @return Push<T>[]
+     * @return Push[]
      */
     public function getSentPushes(): array
     {
@@ -60,7 +57,7 @@ final class MockedHub implements Hub
     /**
      * {@inheritDoc}
      */
-    public function send()
+    public function send(): void
     {
         $this->sentPushes = array_merge(
             $this->sentPushes,
@@ -76,7 +73,7 @@ final class MockedHub implements Hub
         return "mocked://$topic";
     }
 
-    public function clean()
+    public function clean(): void
     {
         $this->queue = [];
         $this->sentPushes = [];
