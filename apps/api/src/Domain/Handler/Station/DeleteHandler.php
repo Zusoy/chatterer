@@ -2,6 +2,8 @@
 
 namespace Domain\Handler\Station;
 
+use Domain\Event\Station as Event;
+use Domain\EventLog;
 use Domain\Exception\ObjectNotFoundException;
 use Domain\Handler;
 use Domain\Message\Station as Message;
@@ -9,7 +11,7 @@ use Domain\Repository\Stations;
 
 final class DeleteHandler implements Handler
 {
-    public function __construct(private Stations $stations)
+    public function __construct(private Stations $stations, private EventLog $eventLog)
     {
     }
 
@@ -28,5 +30,6 @@ final class DeleteHandler implements Handler
         }
 
         $this->stations->remove($station);
+        $this->eventLog->record(new Event\Deleted($station));
     }
 }

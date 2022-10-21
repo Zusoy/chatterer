@@ -2,6 +2,8 @@
 
 namespace Domain\Handler\Channel;
 
+use Domain\Event\Channel as Event;
+use Domain\EventLog;
 use Domain\Exception\ObjectNotFoundException;
 use Domain\Handler;
 use Domain\Message\Channel as Message;
@@ -9,7 +11,7 @@ use Domain\Repository\Channels;
 
 final class DeleteHandler implements Handler
 {
-    public function __construct(private Channels $channels)
+    public function __construct(private Channels $channels, private EventLog $eventLog)
     {
     }
 
@@ -28,5 +30,6 @@ final class DeleteHandler implements Handler
         }
 
         $this->channels->remove($channel);
+        $this->eventLog->record(new Event\Deleted($channel));
     }
 }

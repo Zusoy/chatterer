@@ -1,5 +1,7 @@
 <?php
 
+use Application\Synchronization;
+use Application\Synchronization\Hub;
 use Domain\Exception\ObjectAlreadyExistsException;
 use Domain\Exception\ObjectNotFoundException;
 use Domain\Message\Channel\Create;
@@ -12,9 +14,11 @@ describe(CreateHandler::class, function () {
     beforeEach(function () {
         $this->em->clear();
         $this->truncater->truncateAll();
+        $this->hub->clean();
     });
 
     given('channels', fn () => $this->container->get(Channels::class));
+    given('hub', fn () => $this->container->get(Hub::class));
 
     it ('create a new channel in database', function () {
         $station = new Station('Station', 'desc');
@@ -31,6 +35,14 @@ describe(CreateHandler::class, function () {
         expect($persistedChannel->getName())->toBe('Channel');
         expect($persistedChannel->getDescription())->toBe('desc');
         expect($persistedChannel->getStationIdentifier())->toBe($station->getIdentifier());
+
+        $syncPushes = $this->hub->getQueue();
+        expect(count($syncPushes))->toBe(1);
+
+        $push = $syncPushes[0];
+        expect($push)->toBeAnInstanceOf(Synchronization\Push\Channel::class);
+        expect($push->getIdentifier())->toBe((string) $createdChannel->getIdentifier());
+        expect($push->getType())->toBe(Synchronization\Type::INSERT);
     });
 
     it ('throws if channel already exists in database', function () {

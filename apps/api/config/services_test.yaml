@@ -1,0 +1,8 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  ## Test overrides
+
+  Application\Synchronization\Hub: '@Application\Synchronization\Hub\MockedHub'
