@@ -33,7 +33,6 @@ final class CreateHandler implements Handler
         $station = new Station($message->getName(), $message->getDescription());
 
         $this->stations->add($station);
-
         $this->eventLog->record(new Event\Created($station));
 
         return $station;

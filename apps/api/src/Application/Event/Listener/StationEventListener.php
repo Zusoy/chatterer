@@ -19,12 +19,18 @@ final class StationEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            Event\Created::class => ['onStationCreated']
+            Event\Created::class => ['onStationCreated'],
+            Event\Deleted::class => ['onStationDeleted']
         ];
     }
 
     public function onStationCreated(Event\Created $event): void
     {
         $this->hub->push(Push\Station::insert($event->station));
+    }
+
+    public function onStationDeleted(Event\Deleted $event): void
+    {
+        $this->hub->push(Push\Station::delete($event->station));
     }
 }

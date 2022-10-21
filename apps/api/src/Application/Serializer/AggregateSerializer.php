@@ -38,7 +38,7 @@ final class AggregateSerializer implements Serializer
             $serialized = [];
 
             foreach ($data as $key => $val) {
-                $serialized[$key] = $this->serialize($data, $format);
+                $serialized[$key] = $this->serialize($val, $format);
             }
 
             return $serialized;

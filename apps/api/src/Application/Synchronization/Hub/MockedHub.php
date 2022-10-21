@@ -5,15 +5,18 @@ namespace Application\Synchronization\Hub;
 use Application\Synchronization\Hub;
 use Application\Synchronization\Push;
 
+/**
+ * @template T
+ */
 final class MockedHub implements Hub
 {
     /**
-     * @var Push[]
+     * @var Push<T>[]
      */
     private array $queue;
 
     /**
-     * @var Push[]
+     * @var Push<T>[]
      */
     private array $sentPushes;
 
@@ -23,7 +26,7 @@ final class MockedHub implements Hub
     }
 
     /**
-     * @return Push[]
+     * @return Push<T>[]
      */
     public function getQueue(): array
     {
@@ -31,7 +34,7 @@ final class MockedHub implements Hub
     }
 
     /**
-     * @return Push[]
+     * @return Push<T>[]
      */
     public function getSentPushes(): array
     {
@@ -48,6 +51,8 @@ final class MockedHub implements Hub
 
     /**
      * {@inheritDoc}
+     *
+     * @param Push<T> $push
      */
     public function push(Push $push): void
     {

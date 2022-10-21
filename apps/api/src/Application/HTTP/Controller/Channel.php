@@ -21,7 +21,8 @@ final class Channel extends BaseController
 
         return $this->createJsonResponse(
             data: $channels,
-            status: Response::HTTP_OK
+            status: Response::HTTP_OK,
+            discoveryTopic: "channel/list/{$stationId}"
         );
     }
 

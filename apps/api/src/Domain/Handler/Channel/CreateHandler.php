@@ -2,6 +2,8 @@
 
 namespace Domain\Handler\Channel;
 
+use Domain\Event\Channel as Event;
+use Domain\EventLog;
 use Domain\Exception\ObjectAlreadyExistsException;
 use Domain\Exception\ObjectNotFoundException;
 use Domain\Handler;
@@ -12,8 +14,11 @@ use Domain\Repository\Stations;
 
 final class CreateHandler implements Handler
 {
-    public function __construct(private Stations $stations, private Channels $channels)
-    {
+    public function __construct(
+        private Stations $stations,
+        private Channels $channels,
+        private EventLog $eventLog
+    ) {
     }
 
     /**
@@ -41,6 +46,7 @@ final class CreateHandler implements Handler
         );
 
         $this->channels->add($channel);
+        $this->eventLog->record(new Event\Created($channel));
 
         return $channel;
     }
