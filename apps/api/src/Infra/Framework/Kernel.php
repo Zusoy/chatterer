@@ -2,7 +2,9 @@
 
 namespace Infra\Framework;
 
+use Infra\Framework\DependencyInjection\Compiler\ReplaceMercureDataCollectorPass;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
@@ -27,5 +29,13 @@ class Kernel extends BaseKernel
     {
         $routes->import("{$this->getProjectDir()}/config/{routes}/$this->environment/*.yaml");
         $routes->import("{$this->getProjectDir()}/config/{routes}/*.yaml");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function build(ContainerBuilder $container): void
+    {
+        $container->addCompilerPass(new ReplaceMercureDataCollectorPass());
     }
 }

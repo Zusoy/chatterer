@@ -19,6 +19,7 @@ services:
 
   Domain\Repository\Stations: '@Application\Repository\Stations'
   Domain\Repository\Channels: '@Application\Repository\Channels'
+  Domain\Repository\Messages: '@Application\Repository\Messages'
 
   ## Events Implementations
 
