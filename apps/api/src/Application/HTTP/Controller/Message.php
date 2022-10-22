@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Domain\Message\Message as DomainMessage;
 
+#[Route(name: 'message_')]
 final class Message extends BaseController
 {
     #[Route('channel/{channelId}/messages', name: 'create', requirements: ['channelId' => Identifier::PATTERN], methods: [Request::METHOD_POST])]
@@ -23,6 +24,16 @@ final class Message extends BaseController
         return $this->createJsonResponse(
             data: $message,
             status: Response::HTTP_CREATED
+        );
+    }
+
+    #[Route('message/{id}', name: 'delete', requirements: ['id' => Identifier::PATTERN], methods: [Request::METHOD_DELETE])]
+    public function delete(string $id): Response
+    {
+        $this->bus->execute(new DomainMessage\Delete($id));
+
+        return $this->createJsonResponse(
+            status: Response::HTTP_NO_CONTENT
         );
     }
 }

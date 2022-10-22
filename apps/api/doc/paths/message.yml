@@ -1,0 +1,9 @@
+delete:
+  tags: [ Message ]
+  summary: Delete Message
+  operationId: delete-message
+  parameters: [{ $ref: '../api.yml#/components/parameters/id' }]
+  responses:
+    204:
+      description: OK
+    404: { $ref: '../api.yml#/components/responses/notfound' }

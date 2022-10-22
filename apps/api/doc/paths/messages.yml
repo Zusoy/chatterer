@@ -1,0 +1,19 @@
+post:
+  tags: [ Message ]
+  summary: Post message in channel
+  operationId: post-messages
+  parameters: [{ $ref: '../api.yml#/components/parameters/id' }]
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../schema/input/input-message.json
+  responses:
+    201:
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../schema/message-item.json
+    400: { $ref: '../api.yml#/components/responses/invalid' }
+    404: { $ref: '../api.yml#/components/responses/notfound' }

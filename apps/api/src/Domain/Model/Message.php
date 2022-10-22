@@ -31,6 +31,16 @@ class Message implements Identifiable, HasTimestamp
         return $this->id;
     }
 
+    public function getChannelIdentifier(): Identifier
+    {
+        return $this->channel->getIdentifier();
+    }
+
+    public function getChannelName(): string
+    {
+        return $this->channel->getName();
+    }
+
     public function getContent(): string
     {
         return $this->content;

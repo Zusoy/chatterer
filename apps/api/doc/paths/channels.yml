@@ -2,6 +2,7 @@ get:
   tags: [ Channel ]
   summary: List channels of station
   operationId: get-channels
+  parameters: [{ $ref: '../api.yml#/components/parameters/id' }]
   responses:
     200:
       description: OK
@@ -34,6 +35,7 @@ post:
   tags: [ Channel ]
   summary: Create new channel
   operationId: post-channels
+  parameters: [{ $ref: '../api.yml#/components/parameters/id' }]
   requestBody:
     content:
       application/json:

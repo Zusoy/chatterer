@@ -15,7 +15,8 @@ final class MessageEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            Event\Created::class => ['onMessageCreated']
+            Event\Created::class => ['onMessageCreated'],
+            Event\Deleted::class => ['onMessageDeleted']
         ];
     }
 
@@ -26,5 +27,10 @@ final class MessageEventListener implements EventSubscriberInterface
     public function onMessageCreated(Event\Created $event): void
     {
         $this->hub->push(Push\Message::insert($event->message));
+    }
+
+    public function onMessageDeleted(Event\Deleted $event): void
+    {
+        $this->hub->push(Push\Message::delete($event->message));
     }
 }
