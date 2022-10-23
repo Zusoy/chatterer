@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://chatterer.io/message-item.json",
+  "title": "Message item",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "channel": {
+      "$ref": "./channel-lite.json"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "channel",
+    "createdAt",
+    "updatedAt"
+  ]
+}

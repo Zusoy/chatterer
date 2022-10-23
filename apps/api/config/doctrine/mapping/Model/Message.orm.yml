@@ -1,0 +1,25 @@
+Domain\Model\Message:
+  type: entity
+
+  embedded:
+    id:
+      class: Domain\Identity\Identifier
+      columnPrefix: false
+
+  fields:
+    content:
+      type: string
+    createdAt:
+      type: datetime_immutable
+    updatedAt:
+      type: datetime_immutable
+
+  manyToOne:
+    channel:
+      targetEntity: Channel
+      joinColumn:
+        nullable: false
+        onDelete: CASCADE
+
+  lifecycleCallbacks:
+    preUpdate: [ 'touch' ]

@@ -7,7 +7,7 @@ services:
 
   Infra\Framework\:
     resource: '%kernel.project_dir%/src/Infra/Framework'
-    exclude: '%kernel.project_dir%/src/Infra/Framework/{Controller,Kernel.php}'
+    exclude: '%kernel.project_dir%/src/Infra/Framework/{Controller,DataCollector,Kernel.php}'
 
   ## Listeners
 

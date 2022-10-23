@@ -20,6 +20,10 @@ paths:
   /station/{id}/channels: { $ref: ./paths/channels.yml }
   /channel/{id}: { $ref: ./paths/channel.yml }
 
+  # Message
+  /channel/{id}/messages: { $ref: ./paths/messages.yml }
+  /message/{id}: { $ref: ./paths/message.yml }
+
 components:
   parameters:
     id:
@@ -52,3 +56,5 @@ components:
       $ref: ./schema/station-item.json
     Channel:
       $ref: ./schema/channel-item.json
+    Message:
+      $ref: ./schema/message-item.json

@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "input-message.json",
+  "type": "object",
+  "examples": [
+    {
+      "content": "Hello World !"
+    }
+  ],
+  "properties": {
+    "content": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "content"
+  ]
+}

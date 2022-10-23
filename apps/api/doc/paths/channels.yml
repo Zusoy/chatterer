@@ -2,6 +2,7 @@ get:
   tags: [ Channel ]
   summary: List channels of station
   operationId: get-channels
+  parameters: [{ $ref: '../api.yml#/components/parameters/id' }]
   responses:
     200:
       description: OK
@@ -18,14 +19,22 @@ get:
                   name: "Random",
                   description: "all random things",
                   createdAt: "2022-10-12",
-                  updatedAt: "2022-10-13"
+                  updatedAt: "2022-10-13",
+                  station: {
+                    id: "4b86105b-24ee-4510-af48-e52d86e7139d",
+                    name: "My Company Station"
+                  }
                 },
                 {
                   id: "994b7a18-7746-4b5f-b395-9539649b0898",
                   name: "General",
                   description: "general conversations",
                   createdAt: "2022-10-12",
-                  updatedAt: "2022-10-13"
+                  updatedAt: "2022-10-13",
+                  station: {
+                    id: "4b86105b-24ee-4510-af48-e52d86e7139d",
+                    name: "My Company Station"
+                  }
                 }
               ]
     404: { $ref: '../api.yml#/components/responses/notfound' }
@@ -34,6 +43,7 @@ post:
   tags: [ Channel ]
   summary: Create new channel
   operationId: post-channels
+  parameters: [{ $ref: '../api.yml#/components/parameters/id' }]
   requestBody:
     content:
       application/json:
