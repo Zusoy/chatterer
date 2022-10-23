@@ -5,6 +5,7 @@ namespace Application\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Domain\Identity\Identifier;
+use Domain\Model\Channel;
 use Domain\Model\Message;
 
 final class Messages implements \Domain\Repository\Messages
@@ -34,6 +35,19 @@ final class Messages implements \Domain\Repository\Messages
     public function find(Identifier $identifier): ?Message
     {
         return $this->repository->find($identifier);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findAll(Channel $channel): iterable
+    {
+        return $this->repository
+            ->createQueryBuilder('msg')
+            ->andWhere('msg.channel = :channel')
+            ->setParameter('channel', $channel)
+            ->getQuery()
+            ->getResult();
     }
 
     /**

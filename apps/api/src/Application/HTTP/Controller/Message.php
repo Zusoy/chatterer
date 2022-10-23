@@ -13,6 +13,18 @@ use Domain\Message\Message as DomainMessage;
 #[Route(name: 'message_')]
 final class Message extends BaseController
 {
+    #[Route('channel/{channelId}/messages', name: 'list', requirements: ['channelId' => Identifier::PATTERN], methods: [Request::METHOD_GET])]
+    public function list(string $channelId): Response
+    {
+        $messages = $this->bus->execute(new DomainMessage\All($channelId));
+
+        return $this->createJsonResponse(
+            data: $messages,
+            status: Response::HTTP_OK,
+            discoveryTopic: "message/list/{$channelId}"
+        );
+    }
+
     #[Route('channel/{channelId}/messages', name: 'create', requirements: ['channelId' => Identifier::PATTERN], methods: [Request::METHOD_POST])]
     public function create(string $channelId, Payload $payload): Response
     {
