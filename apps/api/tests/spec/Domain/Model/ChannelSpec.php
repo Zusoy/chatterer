@@ -14,6 +14,7 @@ class ChannelSpec extends ObjectBehavior
 {
     public function let(Station $station): void
     {
+        $station->getName()->willReturn('Station');
         $station->getIdentifier()->willReturn(
             new Identifier('41400600-16b8-45b5-bf4c-fd1d8e3ed9cb')
         );
@@ -41,5 +42,6 @@ class ChannelSpec extends ObjectBehavior
         $this->getUpdatedAt()->shouldHaveType(DateTimeImmutable::class);
         $this->getStation()->shouldBeLike($station);
         $this->getStationIdentifier()->shouldBeLike(new Identifier('41400600-16b8-45b5-bf4c-fd1d8e3ed9cb'));
+        $this->getStationName()->shouldBe('Station');
     }
 }

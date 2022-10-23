@@ -43,6 +43,11 @@ class Channel implements Identifiable, HasTimestamp
         return $this->station->getIdentifier();
     }
 
+    public function getStationName(): string
+    {
+        return $this->station->getName();
+    }
+
     public function getName(): string
     {
         return $this->name;
