@@ -48,6 +48,10 @@ api-setup-db-test:
 	@docker exec -it "$$(docker ps -q -f name=chatterer_api)" console doctrine:database:create --env=test --if-not-exists
 	@docker exec -it "$$(docker ps -q -f name=chatterer_api)" console doctrine:migrations:migrate -n --env=test
 
+.PHONY: api-fixtures
+api-fixtures:
+	@docker exec -it "$$(docker ps -q -f name=chatterer_api)" console app:data:fixtures -p
+
 ##########
 # CLIENT #
 ##########

@@ -35,3 +35,7 @@ services:
     resource: '%kernel.project_dir%/src/Infra/Framework/HttpKernel/ArgumentValueResolver'
     tags:
       - { name: controller.argument_value_resolver, priority: 128 }
+
+  ## Faker
+
+  Infra\Faker\Factory: ~
