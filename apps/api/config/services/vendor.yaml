@@ -1,0 +1,12 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  ## Faker
+
+  Faker\Generator:
+    factory: [ '@Infra\Faker\Factory', 'create' ]
+    public: true
+    calls:
+      - seed: [ 123456 ] # DO NOT CHANGE IT (make sure that faker data be always the same)
