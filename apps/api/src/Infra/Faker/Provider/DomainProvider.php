@@ -5,14 +5,32 @@ namespace Infra\Faker\Provider;
 use Domain\Model\Channel;
 use Domain\Model\Message;
 use Domain\Model\Station;
+use Domain\Model\User;
+use Domain\Security\PasswordHasher;
 use Faker\Generator;
 use Faker\Provider\Base;
 
 final class DomainProvider extends Base
 {
-    public function __construct(Generator $generator)
+    public function __construct(Generator $generator, private PasswordHasher $passwordHasher)
     {
         parent::__construct($generator);
+    }
+
+    public function user(string $email): User
+    {
+        $user = new User(
+            firstname: $this->generator->firstName(),
+            lastname: $this->generator->lastName(),
+            email: $email,
+            password: 'temp'
+        );
+
+        $user->setPassword(
+            $this->passwordHasher->hash($user, $user->getEmail())
+        );
+
+        return $user;
     }
 
     public function station(): Station
@@ -45,16 +63,21 @@ final class DomainProvider extends Base
     }
 
     /**
+     * @param User[] $users
      * @param Channel[] $channels
      */
-    public function message(array $channels): Message
+    public function message(array $users, array $channels): Message
     {
+        /** @var User */
+        $author = $this->randomRelation($users, nullable: false);
+
         /** @var Channel */
         $channel = $this->randomRelation($channels, nullable: false);
 
         $message = new Message(
-            content: $this->generator->text(maxNbChars: 100),
-            channel: $channel
+            author: $author,
+            channel: $channel,
+            content: $this->generator->text(maxNbChars: 100)
         );
 
         return $message;

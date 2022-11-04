@@ -3,6 +3,11 @@ services:
     autowire: true
     autoconfigure: true
 
+  ## Auth
+
+  Application\Auth\Token\HS256Token:
+    $key: '%auth_token_key%'
+
   ## CLI
 
   Application\CLI\:
@@ -54,6 +59,11 @@ services:
 
   Application\Repository\:
     resource: '%kernel.project_dir%/src/Application/Repository'
+
+  ## Security
+
+  Application\Security\:
+    resource: '%kernel.project_dir%/src/Application/Security'
 
   ## Events
 

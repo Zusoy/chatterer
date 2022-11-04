@@ -32,6 +32,10 @@ final class MessageNormalizer implements Normalizer
             'channel' => [
                 'id' => (string) $data->getChannelIdentifier(),
                 'name' => $data->getChannelName()
+            ],
+            'author' => [
+                'id' => (string) $data->getAuthorIdentifier(),
+                'name' => $data->getAuthorName()
             ]
         ];
     }

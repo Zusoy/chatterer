@@ -15,6 +15,11 @@ Domain\Model\Message:
       type: datetime_immutable
 
   manyToOne:
+    author:
+      targetEntity: User
+      joinColumn:
+        nullable: false
+        onDelete: CASCADE
     channel:
       targetEntity: Channel
       joinColumn:

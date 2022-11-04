@@ -9,11 +9,16 @@ use Domain\Handler;
 use Domain\Message\Station as Message;
 use Domain\Model\Station;
 use Domain\Repository\Stations;
+use Domain\Security\AccessControl;
+use Domain\Security\Operation;
 
 final class CreateHandler implements Handler
 {
-    public function __construct(private Stations $stations, private EventLog $eventLog)
-    {
+    public function __construct(
+        private Stations $stations,
+        private EventLog $eventLog,
+        private AccessControl $accessControl
+    ) {
     }
 
     /**
@@ -29,6 +34,8 @@ final class CreateHandler implements Handler
         if (null !== $this->stations->findByName($message->getName())) {
             throw new ObjectAlreadyExistsException('Station', $message->getName());
         }
+
+        $this->accessControl->requires(Operation::CREATE_STATION);
 
         $station = new Station($message->getName(), $message->getDescription());
 

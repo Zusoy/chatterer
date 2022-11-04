@@ -3,8 +3,10 @@
 namespace Infra\Framework\Event\Listener;
 
 use Domain\Exception\ObjectNotFoundException;
+use Domain\Exception\OperationDeniedException;
 use InvalidArgumentException;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -17,6 +19,13 @@ final class TranslateExceptionResponseListener
         switch (true) {
             case $error instanceof ObjectNotFoundException:
                 $event->setThrowable(new NotFoundHttpException(
+                    message: $error->getMessage(),
+                    previous: $error
+                ));
+                break;
+
+            case $error instanceof OperationDeniedException:
+                $event->setThrowable(new AccessDeniedHttpException(
                     message: $error->getMessage(),
                     previous: $error
                 ));

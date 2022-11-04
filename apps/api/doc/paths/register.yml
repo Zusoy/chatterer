@@ -1,0 +1,17 @@
+post:
+  tags: [ User, Authentification ]
+  summary: Register new user
+  operationId: post-register
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../schema/input/input-register.json
+  responses:
+    201:
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../schema/user-item.json
+    400: { $ref: '../api.yml#/components/responses/invalid' }

@@ -7,9 +7,11 @@ use Domain\Bus;
 use Domain\Message\Channel as ChannelMessage;
 use Domain\Message\Message as MessagesMessage;
 use Domain\Message\Station as StationMessage;
+use Domain\Message\User as UserMessage;
 use Domain\Model\Channel;
 use Domain\Model\Message;
 use Domain\Model\Station;
+use Domain\Model\User;
 use Faker\Generator;
 use Infra\Doctrine\Truncater;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -28,9 +30,10 @@ final class InsertFixturesCommand extends Command
     private const MESSAGE_COUNT = 50;
 
     /**
-     * @var array{stations: Station[], channels: Channel[]}
+     * @var array{users: User[], stations: Station[], channels: Channel[]}
      */
     private array $references = [
+        'users'    => [],
         'stations' => [],
         'channels' => []
     ];
@@ -39,6 +42,7 @@ final class InsertFixturesCommand extends Command
      * @var array<string, int>
      */
     private array $counts = [
+        'users'    => 0,
         'stations' => 0,
         'channels' => 0,
         'messages' => 0
@@ -104,7 +108,22 @@ final class InsertFixturesCommand extends Command
 
     private function insert(): void
     {
+        $this->insertUsers();
         $this->insertMainData();
+    }
+
+    private function insertUsers(): void
+    {
+        /** @var User */
+        $mainUser = $this->bus->execute(new UserMessage\Register(
+            firstname: 'Chatterer',
+            lastname: 'User',
+            email: 'chatterer@gmail.com',
+            password: 'chatterer@gmail.com'
+        ));
+
+        $this->references['users'][] = $mainUser;
+        $this->count('users');
     }
 
     private function insertMainData(): void
@@ -141,9 +160,13 @@ final class InsertFixturesCommand extends Command
         foreach ($this->references['channels'] as $channel) {
             for ($m = 0; $m < self::MESSAGE_COUNT; ++$m) {
                 /** @var Message */
-                $message = $this->domainGenerator->message([ $channel ]);
+                $message = $this->domainGenerator->message(
+                    $this->references['users'],
+                    [ $channel ]
+                );
 
                 $newMessage = $this->bus->execute(new MessagesMessage\Create(
+                    authorId: (string) $message->getAuthorIdentifier(),
                     channelId: (string) $channel->getIdentifier(),
                     content: $message->getContent()
                 ));

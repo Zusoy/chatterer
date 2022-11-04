@@ -11,6 +11,10 @@ services:
     resource: '%kernel.project_dir%/src/Domain/Handler'
     tags: [ app.message.handler ]
 
+  Domain\Security\Rule\:
+    resource: '%kernel.project_dir%/src/Domain/Security/Rule'
+    tags: [ domain.security.rule ]
+
   Domain\Handler\Config\GetHandler:
     arguments:
       $apiURL: '%api_url%'

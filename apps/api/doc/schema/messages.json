@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "http://chatterer.io/messages.json",
+  "additionalProperties": false,
   "title": "Messages collection",
   "type": "array",
   "items": {

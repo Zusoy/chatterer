@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "http://chatterer.io/channel-lite.json",
+  "additionalProperties": false,
   "title": "Lite Channel item",
   "type": "object",
   "properties": {

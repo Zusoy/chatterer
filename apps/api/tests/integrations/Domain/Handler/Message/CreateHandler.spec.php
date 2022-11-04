@@ -9,6 +9,7 @@ use Domain\Message\Message\Create;
 use Domain\Model\Channel;
 use Domain\Model\Message;
 use Domain\Model\Station;
+use Domain\Model\User;
 use Domain\Repository\Messages;
 
 describe(CreateHandler::class, function () {
@@ -29,7 +30,16 @@ describe(CreateHandler::class, function () {
         $this->em->persist($channel);
         $this->em->flush();
 
+        $author = new User(
+            firstname: 'Hello',
+            lastname: 'World',
+            email: 'hello.world@gmail.com',
+            password: 'Hello@123'
+        );
+        $this->em->persist($author);
+
         $message = new Create(
+            authorId: $author->getIdentifier(),
             channelId: $channel->getIdentifier(),
             content: 'Hello World'
         );
@@ -41,6 +51,7 @@ describe(CreateHandler::class, function () {
         expect($persistedMessage->getContent())->toBe('Hello World');
         expect($persistedMessage->getChannelIdentifier())->toBe($channel->getIdentifier());
         expect($persistedMessage->getChannelName())->toBe($channel->getName());
+        expect($persistedMessage->getAuthorIdentifier())->toBe($author->getIdentifier());
 
         $syncPushes = $this->hub->getQueue();
         expect(count($syncPushes))->toBe(1);
@@ -51,14 +62,31 @@ describe(CreateHandler::class, function () {
         expect($push->getType())->toBe(Synchronization\Type::INSERT);
     });
 
+    it ('throws if author not found from database', function () {
+        expect(fn () => $this->bus->execute(new Create(
+            authorId: '6d683ee5-5d60-4b67-8935-34b59cb834f9',
+            channelId: '6d683ee5-5d60-4b67-8935-34b59cb834f9',
+            content: 'Hello !'
+        )))->toThrow(new ObjectNotFoundException('User', '6d683ee5-5d60-4b67-8935-34b59cb834f9'));
+    });
+
     it ('throws if channel not found from database', function () {
         $station = new Station('Station', 'desc');
         $this->em->persist($station);
         $this->em->flush();
 
+        $author = new User(
+            firstname: 'Hello',
+            lastname: 'World',
+            email: 'hello.world@gmail.com',
+            password: 'Hello@123'
+        );
+        $this->em->persist($author);
+
         $identifier = Identifier::generate();
 
         expect(fn () => $this->bus->execute(new Create(
+            authorId: $author->getIdentifier(),
             channelId: (string) $identifier,
             content: 'Hello !'
         )))->toThrow(new ObjectNotFoundException('Channel', $identifier));

@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "http://chatterer.io/channels.json",
+  "additionalProperties": false,
   "title": "Channels collection",
   "type": "array",
   "items": {

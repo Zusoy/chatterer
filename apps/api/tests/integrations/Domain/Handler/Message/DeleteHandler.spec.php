@@ -9,6 +9,7 @@ use Domain\Message\Message\Delete;
 use Domain\Model\Channel;
 use Domain\Model\Message;
 use Domain\Model\Station;
+use Domain\Model\User;
 use Domain\Repository\Messages;
 
 describe(DeleteHandler::class, function () {
@@ -28,7 +29,15 @@ describe(DeleteHandler::class, function () {
         $channel = new Channel($station, 'Channel', 'desc');
         $this->em->persist($channel);
 
-        $message = new Message('Hello World !', $channel);
+        $author = new User(
+            firstname: 'Hello',
+            lastname: 'World',
+            email: 'hello.world@gmail.com',
+            password: 'Hello@123'
+        );
+        $this->em->persist($author);
+
+        $message = new Message(author: $author, content: 'Hello World !', channel: $channel);
         $this->em->persist($message);
         $this->em->flush();
 

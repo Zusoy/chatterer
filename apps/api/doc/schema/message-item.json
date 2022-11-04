@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "http://chatterer.io/message-item.json",
+  "additionalProperties": false,
   "title": "Message item",
   "type": "object",
   "properties": {
@@ -20,12 +21,16 @@
     },
     "channel": {
       "$ref": "./channel-lite.json"
+    },
+    "author": {
+      "$ref": "./user-lite.json"
     }
   },
   "required": [
     "id",
     "name",
     "channel",
+    "author",
     "createdAt",
     "updatedAt"
   ]

@@ -13,12 +13,14 @@ class Message implements Identifiable, HasTimestamp
     use HasTimestampTrait;
 
     private Identifier $id;
+    private User $author;
     private string $content;
     private Channel $channel;
 
-    public function __construct(string $content, Channel $channel)
+    public function __construct(User $author, string $content, Channel $channel)
     {
         $this->id = Identifier::generate();
+        $this->author = $author;
         $this->content = $content;
         $this->channel = $channel;
 
@@ -49,5 +51,20 @@ class Message implements Identifiable, HasTimestamp
     public function getChannel(): Channel
     {
         return $this->channel;
+    }
+
+    public function getAuthor(): User
+    {
+        return $this->author;
+    }
+
+    public function getAuthorIdentifier(): Identifier
+    {
+        return $this->author->getIdentifier();
+    }
+
+    public function getAuthorName(): string
+    {
+        return $this->author;
     }
 }

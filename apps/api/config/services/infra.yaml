@@ -36,6 +36,15 @@ services:
     tags:
       - { name: controller.argument_value_resolver, priority: 128 }
 
+  ## Security Voters
+
+  Infra\Framework\Security\Voter\:
+    resource: '%kernel.project_dir%/src/Infra/Framework/Security/Voter'
+    tags: [ security.voter ]
+
+  Infra\Framework\Security\Voter\DomainRuleVoter:
+    $rules: !tagged_iterator domain.security.rule
+
   ## Faker
 
   Infra\Faker\Factory: ~

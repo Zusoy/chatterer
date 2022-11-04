@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "http://chatterer.io/config.json",
+  "additionalProperties": false,
   "title": "Config",
   "type": "object",
   "properties": {

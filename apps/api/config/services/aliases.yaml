@@ -20,7 +20,19 @@ services:
   Domain\Repository\Stations: '@Application\Repository\Stations'
   Domain\Repository\Channels: '@Application\Repository\Channels'
   Domain\Repository\Messages: '@Application\Repository\Messages'
+  Domain\Repository\Users: '@Application\Repository\Users'
 
   ## Events Implementations
 
   Domain\EventLog: '@Application\EventLog'
+
+  ## Auth Implementations
+
+  Application\Auth\Extractor: '@Application\Auth\Token\HS256Token'
+  Application\Auth\Tokenizer: '@Application\Auth\Token\HS256Token'
+
+  ## Security Implementations
+
+  Domain\Security\AccessControl: '@Application\Security\AccessControl'
+  Domain\Security\PasswordHasher: '@Application\Security\PasswordHasher'
+  Domain\Security\UserProvider: '@Application\Security\UserProvider'
