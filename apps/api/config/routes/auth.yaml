@@ -1,0 +1,7 @@
+login:
+  path: /auth
+  methods: [POST]
+
+logout:
+  path: /auth
+  methods: [DELETE]

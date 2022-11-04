@@ -6,8 +6,11 @@ use Application\Normalizer\Normalizer;
 use Application\Serializer\Serializer;
 use Application\Synchronization\Hub;
 use Domain\Bus;
+use Domain\Model\User;
+use Domain\Security\UserProvider;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class BaseController
 {
@@ -17,7 +20,8 @@ class BaseController
         protected Bus $bus,
         private Normalizer $normalizer,
         private Serializer $serializer,
-        private Hub $hub
+        private Hub $hub,
+        private UserProvider $userProvider
     ) {
     }
 
@@ -60,5 +64,17 @@ class BaseController
         }
 
         return $response;
+    }
+
+    /**
+     * @throws UnauthorizedHttpException if no user connected
+     */
+    final protected function getCurrentUser(): User
+    {
+        if (!$user = $this->userProvider->getCurent()) {
+            throw new UnauthorizedHttpException('Basic');
+        }
+
+        return $user;
     }
 }

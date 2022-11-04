@@ -7,6 +7,7 @@ use Domain\Identity\Identifier;
 use Domain\Model\Channel;
 use Domain\Model\Message;
 use Domain\Model\Station;
+use Domain\Model\User;
 
 describe(AllHandler::class, function () {
     beforeEach(function () {
@@ -25,8 +26,16 @@ describe(AllHandler::class, function () {
         );
         $this->em->persist($channel);
 
-        $firstMessage = new Message(content: 'Hello', channel: $channel);
-        $secondMessage = new Message(content: 'Hi !', channel: $channel);
+        $author = new User(
+            firstname: 'Hello',
+            lastname: 'World',
+            email: 'hello.world@gmail.com',
+            password: 'Hello@123'
+        );
+        $this->em->persist($author);
+
+        $firstMessage = new Message(author: $author, content: 'Hello', channel: $channel);
+        $secondMessage = new Message(author: $author, content: 'Hi !', channel: $channel);
         $this->em->persist($firstMessage);
         $this->em->persist($secondMessage);
         $this->em->flush();

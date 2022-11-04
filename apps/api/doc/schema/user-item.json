@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://chatterer.io/user-item.json",
+  "additionalProperties": false,
+  "title": "User item",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "firstname": {
+      "type": "string"
+    },
+    "lastname": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "ROLE_USER",
+        "ROLE_ADMIN"
+      ]
+    },
+    "isAdmin": {
+      "type": "boolean"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "id",
+    "firstname",
+    "lastname",
+    "email",
+    "role",
+    "createdAt",
+    "updatedAt"
+  ]
+}

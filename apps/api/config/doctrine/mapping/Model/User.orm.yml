@@ -1,0 +1,34 @@
+Domain\Model\User:
+  type: entity
+
+  embedded:
+    id:
+      class: Domain\Identity\Identifier
+      columnPrefix: false
+
+  uniqueConstraints:
+    unique_email:
+      columns: [ email ]
+
+  fields:
+    firstname:
+      type: string
+      nullable: false
+    lastname:
+      type: string
+      nullable: false
+    email:
+      type: string
+      nullable: false
+    password:
+      type: string
+      nullable: false
+    role:
+      type: string
+      nullable: false
+      enumType: Domain\Model\User\Role
+    createdAt:
+      type: datetime_immutable
+    updatedAt:
+      type: datetime_immutable
+

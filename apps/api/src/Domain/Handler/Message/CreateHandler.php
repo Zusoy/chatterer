@@ -10,10 +10,12 @@ use Domain\Message\Message as Message;
 use Domain\Model;
 use Domain\Repository\Channels;
 use Domain\Repository\Messages;
+use Domain\Repository\Users;
 
 final class CreateHandler implements Handler
 {
     public function __construct(
+        private Users $users,
         private Channels $channels,
         private Messages $messages,
         private EventLog $eventLog
@@ -30,11 +32,16 @@ final class CreateHandler implements Handler
 
     public function __invoke(Message\Create $message): Model\Message
     {
+        if (!$author = $this->users->find($message->getAuthorId())) {
+            throw new ObjectNotFoundException('User', $message->getAuthorId());
+        }
+
         if (!$channel = $this->channels->find($message->getChannelId())) {
             throw new ObjectNotFoundException('Channel', $message->getChannelId());
         }
 
         $newMessage = new Model\Message(
+            author: $author,
             content: $message->getContent(),
             channel: $channel
         );

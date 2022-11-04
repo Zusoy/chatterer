@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "http://chatterer.io/station-item.json",
+  "additionalProperties": false,
   "title": "Station item",
   "type": "object",
   "properties": {
@@ -39,6 +40,7 @@
     "id",
     "name",
     "channels",
-    "createdAt"
+    "createdAt",
+    "updatedAt"
   ]
 }

@@ -22,6 +22,10 @@ class MessageNormalizerSpec extends ObjectBehavior
             new Identifier('ce0e20f7-d38b-465f-8732-5c8d8cb13e8e')
         );
 
+        $message->getAuthorIdentifier()->willReturn(
+            new Identifier('6d683ee5-5d60-4b67-8935-34b59cb834f9')
+        );
+
         $message->getChannelIdentifier()->willReturn(
             new Identifier('91af6d0c-ddc9-40f4-9e10-7f68e5355f22')
         );
@@ -30,6 +34,7 @@ class MessageNormalizerSpec extends ObjectBehavior
         $message->getCreatedAt()->willReturn(new DateTimeImmutable('2021-06-06'));
         $message->getUpdatedAt()->willReturn(new DateTimeImmutable('2021-06-06'));
         $message->getChannelName()->willReturn('General');
+        $message->getAuthorName()->willReturn('Hello World');
 
         $this->normalize($message)->shouldIterateLike([
             'id' => 'ce0e20f7-d38b-465f-8732-5c8d8cb13e8e',
@@ -39,6 +44,10 @@ class MessageNormalizerSpec extends ObjectBehavior
             'channel' => [
                 'id' => '91af6d0c-ddc9-40f4-9e10-7f68e5355f22',
                 'name' => 'General'
+            ],
+            'author' => [
+                'id' => '6d683ee5-5d60-4b67-8935-34b59cb834f9',
+                'name' => 'Hello World'
             ]
         ]);
     }

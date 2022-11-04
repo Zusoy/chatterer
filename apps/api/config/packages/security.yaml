@@ -1,0 +1,46 @@
+security:
+  enable_authenticator_manager: true
+
+  password_hashers:
+    Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: bcrypt
+
+  role_hierarchy:
+    ROLE_USER: ROLE_USER
+    ROLE_ADMIN: ROLE_USER
+
+  providers:
+    users:
+      id: Infra\Framework\Security\UserProvider\PersistedProvider
+
+  firewalls:
+    dev:
+      pattern: ^/(_(profiler|wdt)|css|images|js)/
+      security: false
+
+    auth:
+      pattern: ^/auth
+      provider: users
+      logout:
+        path: logout
+      stateless: true
+      custom_authenticators:
+        - Infra\Framework\Security\Authenticator\UserPasswordAuthenticator
+
+    api:
+      pattern: ^/
+      provider: users
+      stateless: true
+      custom_authenticators:
+        - Infra\Framework\Security\Authenticator\JWTTokenAuthenticator
+      switch_user:
+        role: 'user:impersonate'
+        parameter: X-Impersonate
+
+  access_control:
+    - { path: '^/register', methods: [POST], roles: PUBLIC_ACCESS }
+    - { path: '^/', roles: ROLE_USER }
+
+when@test:
+  security:
+    password_hashers:
+      Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: plaintext

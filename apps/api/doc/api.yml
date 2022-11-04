@@ -12,6 +12,9 @@ paths:
   # Config
   /config: { $ref: ./paths/config.yml }
 
+  # User
+  /register: { $ref: ./paths/register.yml }
+
   # Station
   /stations: { $ref: ./paths/stations.yml }
   /station/{id}: { $ref: ./paths/station.yml }
@@ -58,3 +61,5 @@ components:
       $ref: ./schema/channel-item.json
     Message:
       $ref: ./schema/message-item.json
+    User:
+      $ref: ./schema/user-item.json

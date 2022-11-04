@@ -3,6 +3,7 @@ parameters:
   app_secret: '%env(APP_SECRET)%'
   app_host: '%env(APP_HOST)%'
   api_url: '%env(API_URL)%'
+  auth_token_key: '%env(APP_AUTH_TOKEN_KEY)%'
 
   cors_allowed_ports: '%env(CORS_ALLOWED_PORTS)%'
 

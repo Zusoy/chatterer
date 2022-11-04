@@ -5,6 +5,7 @@ parameters:
     - src/
 
   ignoreErrors:
+    - '#Call to an undefined method Faker\\Generator::(.*)#'
     - '#Call to an undefined method Assert\\LazyAssertion::identifier#'
     - '#Call to an undefined method Assert\\AssertionChain<string>::identifier#'
 
