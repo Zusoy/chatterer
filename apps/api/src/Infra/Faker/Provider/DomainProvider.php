@@ -6,6 +6,7 @@ use Domain\Model\Channel;
 use Domain\Model\Message;
 use Domain\Model\Station;
 use Domain\Model\User;
+use Domain\Model\User\Role;
 use Domain\Security\PasswordHasher;
 use Faker\Generator;
 use Faker\Provider\Base;
@@ -33,10 +34,28 @@ final class DomainProvider extends Base
         return $user;
     }
 
+    public function admin(string $email): User
+    {
+        $user = new User(
+            firstname: $this->generator->firstName(),
+            lastname: $this->generator->lastName(),
+            email: $email,
+            password: 'temp'
+        );
+
+        $user->setPassword(
+            $this->passwordHasher->hash($user, $user->getEmail())
+        );
+
+        $user->setRole(Role::ADMIN);
+
+        return $user;
+    }
+
     public function station(): Station
     {
         return new Station(
-            name: $this->generator->company(),
+            name: $this->generator->unique()->company(),
             description: $this->generator->boolean(75)
                 ? $this->generator->sentence(10)
                 : null
@@ -53,7 +72,7 @@ final class DomainProvider extends Base
 
         $channel = new Channel(
             station: $station,
-            name: $this->generator->text(maxNbChars: 8),
+            name: $this->generator->unique()->text(maxNbChars: 8),
             description: $this->generator->boolean(75)
                 ? $this->generator->sentence(10)
                 : null

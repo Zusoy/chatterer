@@ -58,3 +58,5 @@ post:
           schema:
             $ref: ../schema/station-item.json
     400: { $ref: '../api.yml#/components/responses/invalid' }
+    401: { $ref: '../api.yml#/components/responses/unauthorized' }
+    403: { $ref: '../api.yml#/components/responses/forbidden' }

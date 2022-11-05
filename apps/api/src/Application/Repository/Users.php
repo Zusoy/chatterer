@@ -24,6 +24,14 @@ final class Users implements \Domain\Repository\Users
         return $this->repository->find($identifier);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function findAll(): iterable
+    {
+        return $this->repository->findAll();
+    }
+
     public function add(User $user): void
     {
         $this->manager->persist($user);
