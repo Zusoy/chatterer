@@ -32,6 +32,7 @@ describe(CreateHandler::class, function () {
         expect($persistedUser->getFirstname())->toBe('Chuck');
         expect($persistedUser->getLastname())->toBe('Norris');
         expect($persistedUser->getEmail())->toBe('chuck@gmail.com');
+        expect($persistedUser->isAdmin())->toBeTruthy();
     });
 
     it ('throws if user already exists in database', function () {
