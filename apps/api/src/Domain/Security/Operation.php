@@ -4,6 +4,9 @@ namespace Domain\Security;
 
 enum Operation: string
 {
+    case USER_CREATE = 'user:create';
+    case USER_LIST = 'user:list';
+
     case CREATE_STATION = 'station:create';
     case UPDATE_STATION = 'station:update';
     case DELETE_STATION = 'station:delete';

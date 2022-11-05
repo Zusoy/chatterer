@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "input-user.json",
+  "type": "object",
+  "examples": [
+    {
+      "firstname": "Chuck",
+      "lastname": "Norris",
+      "email": "chuck.norris@gmail.com",
+      "password": "hello",
+      "isAdmin": true
+    }
+  ],
+  "properties": {
+    "firstname": {
+      "type": "string"
+    },
+    "lastname": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string",
+      "minLength": 8
+    },
+    "isAdmin": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "firstname",
+    "lastname",
+    "email",
+    "password"
+  ]
+}

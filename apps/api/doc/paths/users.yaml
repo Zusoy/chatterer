@@ -1,0 +1,54 @@
+get:
+  tags: [ User ]
+  summary: List all users
+  operationId: get-users
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../schema/users.json
+          examples:
+            users:
+              summary: An array of users
+              value: [
+                {
+                  id: "4b86105b-24ee-4510-af48-e52d86e7139d",
+                  firstname: "Johh",
+                  lastname: "Doe",
+                  email: "john.doe@gmail.com",
+                  createdAt: "2022-10-12",
+                  updatedAt: "2022-10-13",
+                },
+                {
+                  id: "4b86105b-24ee-4510-af48-e52d86e7139d",
+                  firstname: "Harry",
+                  lastname: "Potter",
+                  email: "harry.potter@gmail.com",
+                  createdAt: "2022-10-12",
+                  updatedAt: "2022-10-13",
+                }
+              ]
+    401: { $ref: '../api.yml#/components/responses/unauthorized' }
+    403: { $ref: '../api.yml#/components/responses/forbidden' }
+
+post:
+  tags: [ User ]
+  summary: Create new user
+  operationId: post-users
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../schema/input/input-user.json
+  responses:
+    201:
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../schema/user-item.json
+    400: { $ref: '../api.yml#/components/responses/invalid' }
+    401: { $ref: '../api.yml#/components/responses/unauthorized' }
+    403: { $ref: '../api.yml#/components/responses/forbidden' }

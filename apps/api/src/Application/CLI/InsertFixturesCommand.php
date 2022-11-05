@@ -12,6 +12,7 @@ use Domain\Model\Channel;
 use Domain\Model\Message;
 use Domain\Model\Station;
 use Domain\Model\User;
+use Domain\Security\UserProvider;
 use Faker\Generator;
 use Infra\Doctrine\Truncater;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -25,14 +26,17 @@ use Throwable;
 #[AsCommand(name: 'app:data:fixtures')]
 final class InsertFixturesCommand extends Command
 {
+    private const ADMIN_COUNT = 2;
+    private const USER_COUNT = 6;
     private const STATION_COUNT = 2;
     private const CHANNEL_COUNT = 3;
     private const MESSAGE_COUNT = 50;
 
     /**
-     * @var array{users: User[], stations: Station[], channels: Channel[]}
+     * @var array{admins: User[], users: User[], stations: Station[], channels: Channel[]}
      */
     private array $references = [
+        'admins'   => [],
         'users'    => [],
         'stations' => [],
         'channels' => []
@@ -42,6 +46,7 @@ final class InsertFixturesCommand extends Command
      * @var array<string, int>
      */
     private array $counts = [
+        'admins'   => 0,
         'users'    => 0,
         'stations' => 0,
         'channels' => 0,
@@ -51,7 +56,8 @@ final class InsertFixturesCommand extends Command
     public function __construct(
         private Bus $bus,
         private Generator $domainGenerator,
-        private EntityManagerInterface $entityManager
+        private EntityManagerInterface $entityManager,
+        private UserProvider $userProvider
     ) {
         parent::__construct();
     }
@@ -108,22 +114,62 @@ final class InsertFixturesCommand extends Command
 
     private function insert(): void
     {
+        $this->insertMainAdmin();
+        $this->insertAdmins();
         $this->insertUsers();
+
         $this->insertMainData();
+    }
+
+    private function insertMainAdmin(): void
+    {
+        $admin = $this->domainGenerator->admin('chatterer@admin.com');
+
+        $this->entityManager->persist($admin);
+        $this->entityManager->flush();
+
+        $this->references['admins'][] = $admin;
+        $this->count('admins');
+
+        $this->userProvider->setCurrent($admin);
+    }
+
+    private function insertAdmins(): void
+    {
+        for ($a = 0; $a < self::ADMIN_COUNT; ++$a) {
+            /** @var User */
+            $admin = $this->domainGenerator->admin($this->domainGenerator->email());
+
+            $newAdmin = $this->bus->execute(new UserMessage\Create(
+                firstname: $admin->getFirstname(),
+                lastname: $admin->getLastname(),
+                email: $admin->getEmail(),
+                password: $admin->getEmail(),
+                isAdmin: true
+            ));
+
+            $this->references['admins'][] = $newAdmin;
+            $this->count('admins');
+        }
     }
 
     private function insertUsers(): void
     {
-        /** @var User */
-        $mainUser = $this->bus->execute(new UserMessage\Register(
-            firstname: 'Chatterer',
-            lastname: 'User',
-            email: 'chatterer@gmail.com',
-            password: 'chatterer@gmail.com'
-        ));
+        for ($u = 0; $u < self::USER_COUNT; ++$u) {
+            /** @var User */
+            $user = $this->domainGenerator->user($this->domainGenerator->email());
 
-        $this->references['users'][] = $mainUser;
-        $this->count('users');
+            $newUser = $this->bus->execute(new UserMessage\Create(
+                firstname: $user->getFirstname(),
+                lastname: $user->getLastname(),
+                email: $user->getEmail(),
+                password: $user->getEmail(),
+                isAdmin: false
+            ));
+
+            $this->references['users'][] = $newUser;
+            $this->count('users');
+        }
     }
 
     private function insertMainData(): void

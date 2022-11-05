@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://chatterer.io/users.json",
+  "additionalProperties": false,
+  "title": "Users collection",
+  "type": "array",
+  "items": {
+    "$ref": "./user-item.json"
+  }
+}

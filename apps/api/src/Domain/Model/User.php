@@ -80,6 +80,11 @@ class User implements Identifiable, HasTimestamp, UserInterface, PasswordAuthent
         return [ $this->role->value ];
     }
 
+    public function setRole(Role $role): void
+    {
+        $this->role = $role;
+    }
+
     public function isAdmin(): bool
     {
         return $this->role === Role::ADMIN;
