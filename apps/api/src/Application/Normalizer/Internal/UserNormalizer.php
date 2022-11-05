@@ -20,7 +20,7 @@ final class UserNormalizer implements Normalizer
      *
      * @param User $data
      *
-     * @return array<string,string>
+     * @return array<string,string|bool>
      */
     public function normalize(mixed $data): mixed
     {
