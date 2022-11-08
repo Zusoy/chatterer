@@ -1,0 +1,20 @@
+Domain\Model\Invitation:
+  type: entity
+
+  embedded:
+    id:
+      class: Domain\Identity\Identifier
+      columnPrefix: false
+    token:
+      class: Domain\Model\Link\LinkToken
+
+  manyToOne:
+    station:
+      targetEntity: Station
+      joinColumn:
+        nullable: false
+        onDelete: CASCADE
+
+  uniqueConstraints:
+    unique_token:
+      columns: [token_value]

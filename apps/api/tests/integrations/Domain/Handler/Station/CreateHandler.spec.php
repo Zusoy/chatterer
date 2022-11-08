@@ -2,6 +2,7 @@
 
 use Application\Synchronization;
 use Application\Synchronization\Hub;
+use Domain\EventLog;
 use Domain\Exception\ObjectAlreadyExistsException;
 use Domain\Message\Station\Create;
 use Domain\Handler\Station\CreateHandler;
@@ -13,10 +14,12 @@ describe(CreateHandler::class, function() {
         $this->em->clear();
         $this->truncater->truncateAll();
         $this->hub->clean();
+        $this->events->clean();
     });
 
     given('stations', fn () => $this->container->get(Stations::class));
     given('hub', fn () => $this->container->get(Hub::class));
+    given('events', fn () => $this->container->get(EventLog::class));
 
     it ('create a new station in database', function () {
         $message = new Create('Private Station', 'station desc');
@@ -36,6 +39,15 @@ describe(CreateHandler::class, function() {
         expect($push)->toBeAnInstanceOf(Synchronization\Push\Station::class);
         expect($push->getIdentifier())->toBe((string) $createdStation->getIdentifier());
         expect($push->getType())->toBe(Synchronization\Type::INSERT);
+
+        $events = $this->events->getSentEvents();
+        expect(count($events))->toBe(1);
+
+        expect($events[0])->toMatch(function (mixed $actual) use ($createdStation): bool {
+            return $actual instanceof \Domain\Event\Station\Created &&
+                $actual->station->getIdentifier() === $createdStation->getIdentifier()
+            ;
+        });
     });
 
     it ('throws if station already exist in database', function () {

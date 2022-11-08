@@ -7,10 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Domain\Identity\Identifiable;
 use Domain\Identity\Identifier;
+use Domain\Model\User;
 use Domain\Time\HasTimestamp;
 use Domain\Time\HasTimestampTrait;
 
-class Station implements Identifiable, HasTimestamp
+class Station implements Identifiable, HasTimestamp, HasCommunity
 {
     use HasTimestampTrait;
 
@@ -19,6 +20,8 @@ class Station implements Identifiable, HasTimestamp
     private ?string $description;
     /** @var Collection<int,Channel> */
     private Collection $channels;
+    /** @var Collection<int,User> */
+    private Collection $users;
 
     public function __construct(string $name, ?string $description)
     {
@@ -26,6 +29,7 @@ class Station implements Identifiable, HasTimestamp
         $this->name = $name;
         $this->description = $description;
         $this->channels = new ArrayCollection();
+        $this->users = new ArrayCollection();
 
         $this->createdAt = new DateTimeImmutable();
         $this->updatedAt = new DateTimeImmutable();
@@ -62,5 +66,45 @@ class Station implements Identifiable, HasTimestamp
     public function getChannels(): array
     {
         return $this->channels->toArray();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function add(User $user): void
+    {
+        if ($this->users->contains($user)) {
+            return;
+        }
+
+        $this->users->add($user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function remove(User $user): void
+    {
+        if (!$this->users->contains($user)) {
+            return;
+        }
+
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function has(User $user): bool
+    {
+        return $this->users->contains($user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

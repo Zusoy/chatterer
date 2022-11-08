@@ -2,6 +2,7 @@
 
 use Application\Synchronization;
 use Application\Synchronization\Hub;
+use Domain\EventLog;
 use Domain\Exception\ObjectNotFoundException;
 use Domain\Message\Station\Delete;
 use Domain\Handler\Station\DeleteHandler;
@@ -13,10 +14,12 @@ describe(DeleteHandler::class, function () {
         $this->em->clear();
         $this->truncater->truncateAll();
         $this->hub->clean();
+        $this->events->clean();
     });
 
     given('stations', fn () => $this->container->get(Stations::class));
     given('hub', fn () => $this->container->get(Hub::class));
+    given('events', fn () => $this->container->get(EventLog::class));
 
     it ('deletes station from database', function () {
         $station = new Station('Name', 'desc');
@@ -39,6 +42,15 @@ describe(DeleteHandler::class, function () {
         expect($push)->toBeAnInstanceOf(Synchronization\Push\Station::class);
         expect($push->getIdentifier())->toBe((string) $identifier);
         expect($push->getType())->toBe(Synchronization\Type::DELETE);
+
+        $events = $this->events->getSentEvents();
+        expect(count($events))->toBe(1);
+
+        expect($events[0])->toMatch(function (mixed $actual) use ($identifier): bool {
+            return $actual instanceof \Domain\Event\Station\Deleted &&
+                $actual->station->getIdentifier() === $identifier
+            ;
+        });
     });
 
     it ('throws when station not found in database', function () {

@@ -5,6 +5,7 @@ namespace Application\HTTP\Controller;
 use Application\HTTP\Payload;
 use Domain\Identity\Identifier;
 use Domain\Message\Station as Message;
+use Domain\Model\Invitation;
 use Infra\Framework\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,6 +47,33 @@ final class Station extends BaseController
         return $this->createJsonResponse(
             data: $station,
             status: Response::HTTP_CREATED
+        );
+    }
+
+    #[Route('/station/{id}/invite', name: 'invite', requirements: ['id' => Identifier::PATTERN], methods: [Request::METHOD_POST])]
+    public function invite(string $id): Response
+    {
+        /** @var Invitation */
+        $invitation = $this->bus->execute(new Message\Invite($id));
+
+        return $this->createJsonResponse(
+            data: $invitation,
+            status: Response::HTTP_CREATED
+        );
+    }
+
+    #[Route('/station/{id}/join', name: 'join', requirements: ['id' => Identifier::PATTERN], methods: [Request::METHOD_POST])]
+    public function join(string $id, Payload $payload): Response
+    {
+        $station = $this->bus->execute(new Message\Join(
+            stationId: $id,
+            userId: $this->getCurrentUser()->getIdentifier(),
+            token: $payload->mandatory('token')
+        ));
+
+        return $this->createJsonResponse(
+            data: $station,
+            status: Response::HTTP_OK
         );
     }
 

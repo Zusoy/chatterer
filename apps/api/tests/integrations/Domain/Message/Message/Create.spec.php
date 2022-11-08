@@ -17,13 +17,12 @@ describe(Create::class, function () {
     });
 
     it ('validates it\'s values', function () {
-        $instantiation = function () {
+        $instantiation = static fn () =>
             new Create(
                 authorId: '',
                 channelId: '',
                 content: '',
             );
-        };
 
         expect($instantiation)->toFailAssertionsAtPaths([
             PropertyAssertionFailure::at('authorId'),

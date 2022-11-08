@@ -13,11 +13,10 @@ describe(Delete::class, function () {
     });
 
     it ('validates it\'s values', function () {
-        $instantiation = function () {
+        $instantiation = static fn () =>
             new Delete(
                 id: ''
             );
-        };
 
         expect($instantiation)->toFailAssertionsAtPaths([
             PropertyAssertionFailure::at('id')
