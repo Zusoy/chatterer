@@ -16,7 +16,8 @@ final class Station implements Rule
         return [
             Operation::CREATE_STATION,
             Operation::UPDATE_STATION,
-            Operation::DELETE_STATION
+            Operation::DELETE_STATION,
+            Operation::INVITE_STATION
         ];
     }
 
@@ -27,6 +28,7 @@ final class Station implements Rule
     {
         return match($operation) {
             Operation::CREATE_STATION => $user->isAdmin(),
+            Operation::INVITE_STATION => $user->isInStation($context['station']),
 
             default => $user->isAdmin()
         };

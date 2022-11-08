@@ -9,11 +9,16 @@ use Domain\Message\Station as Message;
 use Domain\Model\Invitation;
 use Domain\Repository\Invitations;
 use Domain\Repository\Stations;
+use Domain\Security\AccessControl;
+use Domain\Security\Operation;
 
 final class InviteHandler implements Handler
 {
-    public function __construct(private Stations $stations, private Invitations $invitations)
-    {
+    public function __construct(
+        private AccessControl $accessControl,
+        private Stations $stations,
+        private Invitations $invitations
+    ) {
     }
 
     /**
@@ -29,6 +34,8 @@ final class InviteHandler implements Handler
         if (!$station = $this->stations->find($message->getIdentifier())) {
             throw new ObjectNotFoundException('Station', $message->getIdentifier());
         }
+
+        $this->accessControl->requires(Operation::INVITE_STATION, ['station' => $station]);
 
         if (null !== $this->invitations->findByStation($station)) {
             throw new ObjectAlreadyExistsException('Invitation', $station->getIdentifier());

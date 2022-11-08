@@ -7,6 +7,7 @@ use Domain\Identity\Identifiable;
 use Domain\Identity\Identifier;
 use Domain\Model\HasUsers;
 use Domain\Model\Station;
+use Domain\Model\User;
 use Domain\Time\HasTimestamp;
 use PhpSpec\ObjectBehavior;
 
@@ -35,5 +36,12 @@ class StationSpec extends ObjectBehavior
         $this->getDescription()->shouldBe('Station description');
         $this->getCreatedAt()->shouldHaveType(DateTimeImmutable::class);
         $this->getUpdatedAt()->shouldHaveType(DateTimeImmutable::class);
+    }
+
+    public function it_contains_users(User $user1, User $user2): void
+    {
+        $this->add($user1);
+        $this->has($user1)->shouldBe(true);
+        $this->has($user2)->shouldBe(false);
     }
 }

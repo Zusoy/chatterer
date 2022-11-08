@@ -102,6 +102,11 @@ class User implements Identifiable, HasTimestamp, UserInterface, PasswordAuthent
         $this->stations->add($station);
     }
 
+    public function isInStation(Station $station): bool
+    {
+        return $this->stations->contains($station);
+    }
+
     /**
      * {@inheritDoc}
      */
