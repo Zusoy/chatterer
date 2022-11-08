@@ -5,6 +5,7 @@ namespace spec\Domain\Model;
 use DateTimeImmutable;
 use Domain\Identity\Identifiable;
 use Domain\Identity\Identifier;
+use Domain\Model\HasUsers;
 use Domain\Model\Station;
 use Domain\Time\HasTimestamp;
 use PhpSpec\ObjectBehavior;
@@ -24,6 +25,7 @@ class StationSpec extends ObjectBehavior
         $this->shouldHaveType(Station::class);
         $this->shouldImplement(Identifiable::class);
         $this->shouldImplement(HasTimestamp::class);
+        $this->shouldImplement(HasUsers::class);
     }
 
     public function it_exposes_some_state(): void

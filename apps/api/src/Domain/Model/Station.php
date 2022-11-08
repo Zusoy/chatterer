@@ -11,7 +11,7 @@ use Domain\Model\User;
 use Domain\Time\HasTimestamp;
 use Domain\Time\HasTimestampTrait;
 
-class Station implements Identifiable, HasTimestamp, HasCommunity
+class Station implements Identifiable, HasTimestamp, HasUsers
 {
     use HasTimestampTrait;
 

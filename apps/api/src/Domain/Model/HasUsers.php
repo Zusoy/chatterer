@@ -4,7 +4,7 @@ namespace Domain\Model;
 
 use Stringable;
 
-interface HasCommunity extends Stringable
+interface HasUsers extends Stringable
 {
     public function add(User $user): void;
 
