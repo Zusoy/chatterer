@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://chatterer.io/station-invitation-item.json",
+  "additionalProperties": false,
+  "title": "Station invitation",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "station": {
+      "type": "string"
+    },
+    "token": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "station",
+    "token"
+  ]
+}

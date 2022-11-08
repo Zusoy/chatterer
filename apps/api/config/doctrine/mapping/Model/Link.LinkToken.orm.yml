@@ -1,0 +1,7 @@
+Domain\Model\Link\LinkToken:
+  type: embeddable
+
+  fields:
+    value:
+      type: string
+      nullable: false

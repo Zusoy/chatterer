@@ -27,5 +27,11 @@ Domain\Model\Station:
       mappedBy: station
       cascade: [ persist,remove ]
 
+  manyToMany:
+    users:
+      targetEntity: User
+      mappedBy: stations
+      cascade: [ persist ]
+
   lifecycleCallbacks:
     preUpdate: [ 'touch' ]

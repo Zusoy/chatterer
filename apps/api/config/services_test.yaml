@@ -6,3 +6,4 @@ services:
   ## Test overrides
 
   Application\Synchronization\Hub: '@Application\Synchronization\Hub\MockedHub'
+  Domain\EventLog: '@Application\TraceableEventLog'

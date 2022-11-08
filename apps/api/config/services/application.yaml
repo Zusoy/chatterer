@@ -68,6 +68,7 @@ services:
   ## Events
 
   Application\EventLog: ~
+  Application\TraceableEventLog: ~
 
   Application\Event\Listener\:
     resource: '%kernel.project_dir%/src/Application/Event/Listener'

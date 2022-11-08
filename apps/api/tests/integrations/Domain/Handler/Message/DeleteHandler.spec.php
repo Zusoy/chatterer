@@ -38,13 +38,14 @@ describe(DeleteHandler::class, function () {
         $this->em->persist($author);
 
         $message = new Message(author: $author, content: 'Hello World !', channel: $channel);
+        $identifier = $message->getIdentifier();
         $this->em->persist($message);
         $this->em->flush();
 
         $domainMessage = new Delete(id: $message->getIdentifier());
         $this->bus->execute($domainMessage);
 
-        $deletedMessage = $this->messages->find($message->getIdentifier());
+        $deletedMessage = $this->messages->find($identifier);
 
         expect(null === $deletedMessage)->toBeTruthy();
 

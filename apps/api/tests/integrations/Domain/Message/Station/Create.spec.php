@@ -19,12 +19,11 @@ describe(Create::class, function () {
     });
 
     it ('validates it\'s values', function () {
-        $instantiation = function () {
+        $instantiation = static fn () =>
             new Create(
                 name: '',
                 description: ''
             );
-        };
 
         expect($instantiation)->toFailAssertionsAtPaths([
             PropertyAssertionFailure::at('name'),

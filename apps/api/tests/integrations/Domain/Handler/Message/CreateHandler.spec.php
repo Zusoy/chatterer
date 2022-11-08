@@ -2,6 +2,7 @@
 
 use Application\Synchronization;
 use Application\Synchronization\Hub;
+use Domain\EventLog;
 use Domain\Exception\ObjectNotFoundException;
 use Domain\Handler\Message\CreateHandler;
 use Domain\Identity\Identifier;
@@ -17,10 +18,12 @@ describe(CreateHandler::class, function () {
         $this->em->clear();
         $this->truncater->truncateAll();
         $this->hub->clean();
+        $this->events->clean();
     });
 
     given('messages', fn () => $this->container->get(Messages::class));
     given('hub', fn () => $this->container->get(Hub::class));
+    given('events', fn () => $this->container->get(EventLog::class));
 
     it ('create new message in database', function () {
         $station = new Station('Station', 'desc');
@@ -60,6 +63,14 @@ describe(CreateHandler::class, function () {
         expect($push)->toBeAnInstanceOf(Synchronization\Push\Message::class);
         expect($push->getIdentifier())->toBe((string) $newMessage->getIdentifier());
         expect($push->getType())->toBe(Synchronization\Type::INSERT);
+
+        $events = $this->events->getSentEvents();
+        expect(count($events))->toBe(1);
+        expect($events[0])->toMatch(function (mixed $actual) use ($newMessage): bool {
+            return $actual instanceof \Domain\Event\Message\Created &&
+                $actual->message->getIdentifier() === $newMessage->getIdentifier()
+            ;
+        });
     });
 
     it ('throws if author not found from database', function () {

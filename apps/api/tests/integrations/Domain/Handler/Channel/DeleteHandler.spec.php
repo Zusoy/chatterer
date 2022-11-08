@@ -2,6 +2,7 @@
 
 use Application\Synchronization;
 use Application\Synchronization\Hub;
+use Domain\EventLog;
 use Domain\Exception\ObjectNotFoundException;
 use Domain\Handler\Channel\DeleteHandler;
 use Domain\Message\Channel\Delete;
@@ -14,10 +15,12 @@ describe(DeleteHandler::class, function () {
         $this->em->clear();
         $this->truncater->truncateAll();
         $this->hub->clean();
+        $this->events->clean();
     });
 
     given('channels', fn () => $this->container->get(Channels::class));
     given('hub', fn () => $this->container->get(Hub::class));
+    given('events', fn () => $this->container->get(EventLog::class));
 
     it ('deletes channel from database', function () {
         $station = new Station('Station', 'desc');
@@ -42,6 +45,14 @@ describe(DeleteHandler::class, function () {
         expect($push)->toBeAnInstanceOf(Synchronization\Push\Channel::class);
         expect($push->getIdentifier())->toBe((string) $identifier);
         expect($push->getType())->toBe(Synchronization\Type::DELETE);
+
+        $events = $this->events->getSentEvents();
+        expect(count($events))->toBe(1);
+        expect($events[0])->toMatch(function (mixed $actual) use ($identifier): bool {
+            return $actual instanceof \Domain\Event\Channel\Deleted &&
+                $actual->channel->getIdentifier() === $identifier
+            ;
+        });
     });
 
     it ('throws if channel not found from database', function () {

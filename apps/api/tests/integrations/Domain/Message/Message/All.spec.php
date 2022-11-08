@@ -13,11 +13,10 @@ describe(All::class, function () {
     });
 
     it ('validates it\'s values', function () {
-        $instantiation = function () {
+        $instantiation = static fn () =>
             new All(
                 channelId: '15'
             );
-        };
 
         expect($instantiation)->toFailAssertionsAtPaths([
             PropertyAssertionFailure::at('channelId')

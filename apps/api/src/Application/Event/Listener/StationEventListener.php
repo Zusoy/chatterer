@@ -20,7 +20,8 @@ final class StationEventListener implements EventSubscriberInterface
     {
         return [
             Event\Created::class => ['onStationCreated'],
-            Event\Deleted::class => ['onStationDeleted']
+            Event\Deleted::class => ['onStationDeleted'],
+            Event\NewMember::class => ['onStationNewMember']
         ];
     }
 
@@ -32,5 +33,9 @@ final class StationEventListener implements EventSubscriberInterface
     public function onStationDeleted(Event\Deleted $event): void
     {
         $this->hub->push(Push\Station::delete($event->station));
+    }
+
+    public function onStationNewMember(Event\NewMember $event): void
+    {
     }
 }

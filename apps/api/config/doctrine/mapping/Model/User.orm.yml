@@ -32,3 +32,12 @@ Domain\Model\User:
     updatedAt:
       type: datetime_immutable
 
+  manyToMany:
+    stations:
+      targetEntity: Station
+      inversedBy: users
+      joinTable:
+        name: users_stations
+
+  lifecycleCallbacks:
+    preUpdate: [ 'touch' ]

@@ -1,0 +1,16 @@
+post:
+  tags: [ Station ]
+  summary: Create station invitation
+  operationId: post-station-invite
+  parameters: [{ $ref: '../api.yml#/components/parameters/id' }]
+  responses:
+    201:
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../schema/station-invitation-item.json
+    400: { $ref: '../api.yml#/components/responses/invalid' }
+    401: { $ref: '../api.yml#/components/responses/unauthorized' }
+    403: { $ref: '../api.yml#/components/responses/forbidden' }
+    404: { $ref: '../api.yml#/components/responses/notfound' }

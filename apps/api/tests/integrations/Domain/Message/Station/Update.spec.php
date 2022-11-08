@@ -32,13 +32,12 @@ describe(Update::class, function() {
     });
 
     it ('validated it\'s values', function () {
-        $instantiation = function () {
+        $instantiation = static fn () =>
             new Update(
                 id: '',
                 name: '',
                 description: ''
             );
-        };
 
         expect($instantiation)->toFailAssertionsAtPaths([
             PropertyAssertionFailure::at('id'),

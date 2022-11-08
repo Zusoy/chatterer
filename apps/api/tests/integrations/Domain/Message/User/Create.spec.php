@@ -21,7 +21,7 @@ describe(Create::class, function () {
     });
 
     it ('validates it\'s values', function () {
-        $instantiation = function () {
+        $instantiation = static fn () =>
             new Create(
                 firstname: '',
                 lastname: '',
@@ -29,7 +29,6 @@ describe(Create::class, function () {
                 password: 'hello',
                 isAdmin: true
             );
-        };
 
         expect($instantiation)->toFailAssertionsAtPaths([
             PropertyAssertionFailure::at('firstname'),

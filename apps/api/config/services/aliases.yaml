@@ -21,6 +21,7 @@ services:
   Domain\Repository\Channels: '@Application\Repository\Channels'
   Domain\Repository\Messages: '@Application\Repository\Messages'
   Domain\Repository\Users: '@Application\Repository\Users'
+  Domain\Repository\Invitations: '@Application\Repository\Invitations'
 
   ## Events Implementations
 

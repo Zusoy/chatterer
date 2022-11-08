@@ -19,6 +19,8 @@ paths:
   # Station
   /stations: { $ref: ./paths/stations.yml }
   /station/{id}: { $ref: ./paths/station.yml }
+  /station/{id}/invite: { $ref: ./paths/station-invite.yml }
+  /station/{id}/join: { $ref: ./paths/station-join.yml }
 
   # Channel
   /station/{id}/channels: { $ref: ./paths/channels.yml }
@@ -78,3 +80,5 @@ components:
       $ref: ./schema/message-item.json
     User:
       $ref: ./schema/user-item.json
+    Invitation:
+      $ref: ./schema/station-invitation-item.json

@@ -3,8 +3,11 @@
 namespace Domain\Model;
 
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Domain\Identity\Identifiable;
 use Domain\Identity\Identifier;
+use Domain\Model\Station;
 use Domain\Model\User\ImmutableCredentialsTrait;
 use Domain\Model\User\Role;
 use Domain\Time\HasTimestamp;
@@ -24,6 +27,8 @@ class User implements Identifiable, HasTimestamp, UserInterface, PasswordAuthent
     private string $email;
     private string $password;
     private Role $role;
+    /** @var Collection<int,Station> */
+    private Collection $stations;
 
     public function __construct(
         string $firstname,
@@ -37,6 +42,7 @@ class User implements Identifiable, HasTimestamp, UserInterface, PasswordAuthent
         $this->email = $email;
         $this->password = $password;
         $this->role = Role::USER;
+        $this->stations = new ArrayCollection();
 
         $this->createdAt = new DateTimeImmutable();
         $this->updatedAt = new DateTimeImmutable();
@@ -90,6 +96,17 @@ class User implements Identifiable, HasTimestamp, UserInterface, PasswordAuthent
         return $this->role === Role::ADMIN;
     }
 
+    public function joinStation(Station $station): void
+    {
+        $station->add($this);
+        $this->stations->add($station);
+    }
+
+    public function isInStation(Station $station): bool
+    {
+        return $this->stations->contains($station);
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -98,6 +115,9 @@ class User implements Identifiable, HasTimestamp, UserInterface, PasswordAuthent
         return $this->getEmail();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function __toString(): string
     {
         return "{$this->firstname} {$this->lastname}";
