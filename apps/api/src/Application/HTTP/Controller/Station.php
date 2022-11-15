@@ -92,6 +92,16 @@ final class Station extends BaseController
         );
     }
 
+    #[Route('station/{id}/users', name: 'list_users', requirements: ['id' => Identifier::PATTERN], methods: [Request::METHOD_GET])]
+    public function users(string $id): Response
+    {
+        $users = $this->bus->execute(new Message\ListUsers($id));
+
+        return $this->createJsonResponse(
+            status: Response::HTTP_OK
+        );
+    }
+
     #[Route('/station/{id}', name: 'delete', requirements: ['id' => Identifier::PATTERN], methods: [Request::METHOD_DELETE])]
     public function delete(string $id): Response
     {

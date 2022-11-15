@@ -11,10 +11,14 @@ enum Operation: string
     case UPDATE_STATION = 'station:update';
     case DELETE_STATION = 'station:delete';
     case INVITE_STATION = 'station:invite';
+    case LIST_STATION_CHANNELS = 'station:list_channels';
+    case LIST_STATION_USERS = 'station:list_users';
 
     case CREATE_CHANNEL = 'channel:create';
     case UPDATE_CHANNEL = 'channel:update';
     case DELETE_CHANNEL = 'channel:delete';
+    case JOIN_CHANNEL = 'channel:join';
+    case LIST_USERS_CHANNEL = 'channel:list_users';
 
     case CREATE_MESSAGE = 'message:create';
     case DELETE_MESSAGE = 'message:delete';

@@ -5,6 +5,7 @@ namespace Application\HTTP\Controller;
 use Application\HTTP\Payload;
 use Domain\Identity\Identifier;
 use Domain\Message\Channel as Message;
+use Domain\Model\User;
 use Infra\Framework\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -52,6 +53,32 @@ final class Channel extends BaseController
 
         return $this->createJsonResponse(
             data: $channel,
+            status: Response::HTTP_OK
+        );
+    }
+
+    #[Route('channel/{id}/join', name: 'join', requirements: ['id' => Identifier::PATTERN], methods: [Request::METHOD_POST])]
+    public function join(string $id): Response
+    {
+        $channel = $this->bus->execute(new Message\Join(
+            channelId: $id,
+            userId: $this->getCurrentUser()->getIdentifier()
+        ));
+
+        return $this->createJsonResponse(
+            data: $channel,
+            status: Response::HTTP_OK
+        );
+    }
+
+    #[Route('channel/{id}/users', name: 'list_users', requirements: ['id' => Identifier::PATTERN], methods: [Request::METHOD_GET])]
+    public function users(string $id): Response
+    {
+        /** @var User[] */
+        $users = $this->bus->execute(new Message\ListUsers($id));
+
+        return $this->createJsonResponse(
+            data: $users,
             status: Response::HTTP_OK
         );
     }

@@ -3,12 +3,15 @@
 namespace Domain\Model;
 
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Domain\Identity\Identifiable;
 use Domain\Identity\Identifier;
+use Domain\Model\User;
 use Domain\Time\HasTimestamp;
 use Domain\Time\HasTimestampTrait;
 
-class Channel implements Identifiable, HasTimestamp
+class Channel implements Identifiable, HasTimestamp, HasUsers
 {
     use HasTimestampTrait;
 
@@ -16,6 +19,8 @@ class Channel implements Identifiable, HasTimestamp
     private string $name;
     private ?string $description;
     private Station $station;
+    /** @var Collection<int,User> */
+    private Collection $users;
 
     public function __construct(Station $station, string $name, ?string $description)
     {
@@ -23,6 +28,7 @@ class Channel implements Identifiable, HasTimestamp
         $this->station = $station;
         $this->name = $name;
         $this->description = $description;
+        $this->users = new ArrayCollection();
 
         $this->createdAt = new DateTimeImmutable();
         $this->updatedAt = new DateTimeImmutable();
@@ -66,5 +72,53 @@ class Channel implements Identifiable, HasTimestamp
     public function setDescription(?string $description): void
     {
         $this->description = $description;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function add(User $user): void
+    {
+        if ($this->users->contains($user)) {
+            return;
+        }
+
+        $this->users->add($user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function remove(User $user): void
+    {
+        if (!$this->users->contains($user)) {
+            return;
+        }
+
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function has(User $user): bool
+    {
+        return $this->users->contains($user);
+    }
+
+    /**
+     * @return User[]
+     */
+    public function getUsers(): array
+    {
+        return $this->users->toArray();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

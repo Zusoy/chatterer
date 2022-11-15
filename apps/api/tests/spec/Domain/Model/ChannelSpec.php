@@ -6,6 +6,7 @@ use DateTimeImmutable;
 use Domain\Identity\Identifiable;
 use Domain\Identity\Identifier;
 use Domain\Model\Channel;
+use Domain\Model\HasUsers;
 use Domain\Model\Station;
 use Domain\Time\HasTimestamp;
 use PhpSpec\ObjectBehavior;
@@ -31,6 +32,7 @@ class ChannelSpec extends ObjectBehavior
         $this->shouldHaveType(Channel::class);
         $this->shouldImplement(Identifiable::class);
         $this->shouldImplement(HasTimestamp::class);
+        $this->shouldImplement(HasUsers::class);
     }
 
     public function it_exposes_some_state(Station $station): void

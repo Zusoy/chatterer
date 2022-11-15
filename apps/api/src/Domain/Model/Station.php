@@ -101,6 +101,14 @@ class Station implements Identifiable, HasTimestamp, HasUsers
     }
 
     /**
+     * @return User[]
+     */
+    public function getUsers(): array
+    {
+        return $this->users->toArray();
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function __toString(): string
