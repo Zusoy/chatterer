@@ -98,6 +98,7 @@ final class Station extends BaseController
         $users = $this->bus->execute(new Message\ListUsers($id));
 
         return $this->createJsonResponse(
+            data: $users,
             status: Response::HTTP_OK
         );
     }
