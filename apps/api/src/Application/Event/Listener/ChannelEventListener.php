@@ -16,7 +16,8 @@ final class ChannelEventListener implements EventSubscriberInterface
     {
         return [
             Event\Created::class => ['onChannelCreated'],
-            Event\Deleted::class => ['onChannelDeleted']
+            Event\Deleted::class => ['onChannelDeleted'],
+            Event\NewMember::class => ['onChannelNewMember']
         ];
     }
 
@@ -32,5 +33,9 @@ final class ChannelEventListener implements EventSubscriberInterface
     public function onChannelDeleted(Event\Deleted $event): void
     {
         $this->hub->push(Push\Channel::delete($event->channel));
+    }
+
+    public function onChannelNewMember(Event\NewMember $event): void
+    {
     }
 }

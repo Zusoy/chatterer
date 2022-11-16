@@ -21,10 +21,13 @@ paths:
   /station/{id}: { $ref: ./paths/station.yml }
   /station/{id}/invite: { $ref: ./paths/station-invite.yml }
   /station/{id}/join: { $ref: ./paths/station-join.yml }
+  /station/{id}/users: { $ref: ./paths/station-users.yml }
 
   # Channel
   /station/{id}/channels: { $ref: ./paths/channels.yml }
   /channel/{id}: { $ref: ./paths/channel.yml }
+  /channel/{id}/join: { $ref: ./paths/channel-join.yml }
+  /channel/{id}/users: { $ref: ./paths/channel-users.yml }
 
   # Message
   /channel/{id}/messages: { $ref: ./paths/messages.yml }

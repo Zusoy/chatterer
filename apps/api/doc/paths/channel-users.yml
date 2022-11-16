@@ -1,0 +1,15 @@
+get:
+  tags: [ Channel ]
+  summary: List channel users
+  operationId: get-channel-users
+  parameters: [{ $ref: '../api.yml#/components/parameters/id' }]
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../schema/users.json
+    401: { $ref: '../api.yml#/components/responses/unauthorized' }
+    403: { $ref: '../api.yml#/components/responses/forbidden' }
+    404: { $ref: '../api.yml#/components/responses/notfound' }

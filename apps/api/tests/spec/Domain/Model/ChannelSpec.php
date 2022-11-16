@@ -6,7 +6,9 @@ use DateTimeImmutable;
 use Domain\Identity\Identifiable;
 use Domain\Identity\Identifier;
 use Domain\Model\Channel;
+use Domain\Model\HasUsers;
 use Domain\Model\Station;
+use Domain\Model\User;
 use Domain\Time\HasTimestamp;
 use PhpSpec\ObjectBehavior;
 
@@ -31,6 +33,7 @@ class ChannelSpec extends ObjectBehavior
         $this->shouldHaveType(Channel::class);
         $this->shouldImplement(Identifiable::class);
         $this->shouldImplement(HasTimestamp::class);
+        $this->shouldImplement(HasUsers::class);
     }
 
     public function it_exposes_some_state(Station $station): void
@@ -43,5 +46,12 @@ class ChannelSpec extends ObjectBehavior
         $this->getStation()->shouldBeLike($station);
         $this->getStationIdentifier()->shouldBeLike(new Identifier('41400600-16b8-45b5-bf4c-fd1d8e3ed9cb'));
         $this->getStationName()->shouldBe('Station');
+    }
+
+    public function it_contains_users(User $user1, User $user2): void
+    {
+        $this->add($user1);
+        $this->has($user1)->shouldBe(true);
+        $this->has($user2)->shouldBe(false);
     }
 }
