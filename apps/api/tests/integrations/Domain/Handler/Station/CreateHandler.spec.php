@@ -4,12 +4,13 @@ use Application\Synchronization;
 use Application\Synchronization\Hub;
 use Domain\EventLog;
 use Domain\Exception\ObjectAlreadyExistsException;
-use Domain\Message\Station\Create;
 use Domain\Handler\Station\CreateHandler;
+use Domain\Message\Station\Create;
 use Domain\Model\Channel;
 use Domain\Model\Station;
 use Domain\Repository\Channels;
 use Domain\Repository\Stations;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 describe(CreateHandler::class, function() {
     beforeEach(function () {
@@ -23,8 +24,10 @@ describe(CreateHandler::class, function() {
     given('channels', fn () => $this->container->get(Channels::class));
     given('hub', fn () => $this->container->get(Hub::class));
     given('events', fn () => $this->container->get(EventLog::class));
+    given('parameters', fn () => $this->container->get(ParameterBagInterface::class));
 
     it ('create a new station in database with default channel', function () {
+        $defaultChannelName = $this->parameters->get('default_channel_name');
         $message = new Create('Private Station', 'station desc');
 
         /** @var Station $createdStation */
@@ -32,7 +35,7 @@ describe(CreateHandler::class, function() {
         $persistedStation = $this->stations->find($createdStation->getIdentifier());
 
         /** @var Channel $defaultChannel */
-        $defaultChannel = $this->channels->findByName($persistedStation->getIdentifier(), Channel::GENERAL_DEFAULT_NAME);
+        $defaultChannel = $this->channels->findByName($persistedStation->getIdentifier(), $defaultChannelName);
 
         expect(null === $defaultChannel)->toBeFalsy();
         expect($persistedStation === null)->toBeFalsy();

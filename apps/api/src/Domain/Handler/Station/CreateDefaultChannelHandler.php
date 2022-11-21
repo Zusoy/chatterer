@@ -16,7 +16,8 @@ final class CreateDefaultChannelHandler implements Handler
     public function __construct(
         private Stations $stations,
         private Channels $channels,
-        private EventLog $eventLog
+        private EventLog $eventLog,
+        private string $defaultChannelName
     ) {
     }
 
@@ -34,7 +35,7 @@ final class CreateDefaultChannelHandler implements Handler
             throw new ObjectNotFoundException('Station', $message->getIdentifier());
         }
 
-        $general = Channel::general($station);
+        $general = Channel::general(station: $station, name: $this->defaultChannelName);
 
         $this->channels->add($general);
         $this->eventLog->record(new Event\Created($general));

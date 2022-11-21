@@ -17,3 +17,5 @@ parameters:
   mercure_url: '%env(MERCURE_URL)%'
   mercure_public_url: '%env(MERCURE_PUBLIC_URL)%'
   mercure_publisher_jwt_key: '%env(MERCURE_PUBLISHER_JWT_KEY)%'
+
+  default_channel_name: 'General'

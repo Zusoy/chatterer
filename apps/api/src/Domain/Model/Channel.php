@@ -13,8 +13,6 @@ use Domain\Time\HasTimestampTrait;
 
 class Channel implements Identifiable, HasTimestamp, HasUsers
 {
-    public const GENERAL_DEFAULT_NAME = 'General';
-
     use HasTimestampTrait;
 
     private Identifier $id;
@@ -24,11 +22,11 @@ class Channel implements Identifiable, HasTimestamp, HasUsers
     /** @var Collection<int,User> */
     private Collection $users;
 
-    public static function general(Station $station): Channel
+    public static function general(Station $station, string $name): Channel
     {
         return new self(
             station: $station,
-            name: self::GENERAL_DEFAULT_NAME,
+            name: $name,
             description: 'General discussion'
         );
     }

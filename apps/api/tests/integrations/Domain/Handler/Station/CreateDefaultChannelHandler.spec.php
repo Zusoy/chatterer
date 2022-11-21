@@ -2,12 +2,12 @@
 
 use Domain\EventLog;
 use Domain\Exception\ObjectNotFoundException;
-use Domain\Message\Station\CreateDefaultChannel;
 use Domain\Handler\Station\CreateDefaultChannelHandler;
 use Domain\Identity\Identifier;
-use Domain\Model\Channel;
+use Domain\Message\Station\CreateDefaultChannel;
 use Domain\Model\Station;
 use Domain\Repository\Channels;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 describe(CreateDefaultChannelHandler::class, function () {
     beforeEach(function () {
@@ -18,8 +18,11 @@ describe(CreateDefaultChannelHandler::class, function () {
 
     given('channels', fn () => $this->container->get(Channels::class));
     given('events', fn () => $this->container->get(EventLog::class));
+    given('parameters', fn () => $this->container->get(ParameterBagInterface::class));
 
     it ('creates default channel in station', function () {
+        $defaultChannelName = $this->parameters->get('default_channel_name');
+
         $station = new Station(name: 'Station', description: null);
         $this->em->persist($station);
         $this->em->flush();
@@ -27,10 +30,10 @@ describe(CreateDefaultChannelHandler::class, function () {
         $message = new CreateDefaultChannel($station->getIdentifier());
         $this->bus->execute($message);
 
-        $channel = $this->channels->findByName($station->getIdentifier(), Channel::GENERAL_DEFAULT_NAME);
+        $channel = $this->channels->findByName($station->getIdentifier(), $defaultChannelName);
 
         expect(null === $channel)->toBeFalsy();
-        expect($channel->getName())->toBe(Channel::GENERAL_DEFAULT_NAME);
+        expect($channel->getName())->toBe($defaultChannelName);
         expect($channel->getStationIdentifier())->toBe($station->getIdentifier());
 
         $events = $this->events->getSentEvents();
