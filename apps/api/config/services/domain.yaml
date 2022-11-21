@@ -19,3 +19,8 @@ services:
     arguments:
       $apiURL: '%api_url%'
     tags: [ app.message.handler ]
+
+  Domain\Handler\Station\CreateDefaultChannelHandler:
+    arguments:
+      $defaultChannelName: '%default_channel_name%'
+    tags: [ app.message.handler ]

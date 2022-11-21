@@ -8,7 +8,7 @@ Domain\Model\Channel:
 
   uniqueConstraints:
     unique_name:
-      columns: [ name ]
+      columns: [ station_id, name ]
 
   fields:
     name:

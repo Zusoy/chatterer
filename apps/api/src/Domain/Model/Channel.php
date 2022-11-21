@@ -22,6 +22,15 @@ class Channel implements Identifiable, HasTimestamp, HasUsers
     /** @var Collection<int,User> */
     private Collection $users;
 
+    public static function general(Station $station, string $name): Channel
+    {
+        return new self(
+            station: $station,
+            name: $name,
+            description: 'General discussion'
+        );
+    }
+
     public function __construct(Station $station, string $name, ?string $description)
     {
         $this->id = Identifier::generate();
