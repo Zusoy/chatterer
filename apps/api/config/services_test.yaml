@@ -1,9 +1,23 @@
+---
 services:
   _defaults:
+    public: false
     autowire: true
     autoconfigure: true
+
+  ## Test Services
+
+  Infra\Doctrine\Truncater: ~
 
   ## Test overrides
 
   Application\Synchronization\Hub: '@Application\Synchronization\Hub\MockedHub'
   Domain\EventLog: '@Application\TraceableEventLog'
+
+  ## Acceptance Test
+
+  Test\Acceptance\:
+    resource: '../tests/acceptance/*'
+
+  Test\Acceptance\Helper\Schema:
+    $basePath: '%schema_base_path%'

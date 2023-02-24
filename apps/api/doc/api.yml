@@ -1,3 +1,4 @@
+---
 openapi: 3.0.1
 
 info:
@@ -15,6 +16,7 @@ paths:
   # User
   /register: { $ref: ./paths/register.yml }
   /users: { $ref: ./paths/users.yaml }
+  /me: { $ref: ./paths/me.yaml }
 
   # Station
   /stations: { $ref: ./paths/stations.yml }

@@ -59,4 +59,13 @@ final class User extends BaseController
             status: Response::HTTP_CREATED
         );
     }
+
+    #[Route('/me', name: 'me', methods: [Request::METHOD_GET])]
+    public function me(): Response
+    {
+        return $this->createJsonResponse(
+            data: $this->getCurrentUser(),
+            status: Response::HTTP_OK
+        );
+    }
 }

@@ -1,0 +1,13 @@
+---
+get:
+  tags: [ User ]
+  summary: Get authenticated user
+  operationId: get-me
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../schema/user-item.json
+    403: { $ref: '../api.yml#/components/responses/forbidden' }

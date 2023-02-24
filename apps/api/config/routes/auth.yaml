@@ -1,3 +1,4 @@
+---
 login:
   path: /auth
   methods: [POST]

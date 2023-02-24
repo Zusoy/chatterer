@@ -1,3 +1,4 @@
+---
 Domain\Identity\Identifier:
   type: embeddable
 

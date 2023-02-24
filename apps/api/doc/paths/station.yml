@@ -1,3 +1,4 @@
+---
 get:
   tags: [ Station ]
   summary: Fetch Station

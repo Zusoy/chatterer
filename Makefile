@@ -22,6 +22,10 @@ kill:
 # API #
 #######
 
+.PHONY: api-acceptance
+api-acceptance:
+	@docker exec -it "$$(docker ps -q -f name=chatterer_api)" vendor/bin/behat
+
 .PHONY: api-analysis
 api-analysis:
 	@docker-compose run --rm --no-deps api ./vendor/bin/phpstan --memory-limit=2G -n

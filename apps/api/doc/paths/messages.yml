@@ -1,3 +1,4 @@
+---
 get:
   tags: [ Message ]
   summary: List messages of channel

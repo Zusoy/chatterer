@@ -1,0 +1,26 @@
+---
+default:
+  suites:
+    registration:
+      paths:
+        - '%paths.base%/doc/features/registration.feature'
+      contexts:
+        - Test\Acceptance\Context\RegistrationContext
+
+    login:
+      paths:
+        - '%paths.base%/doc/features/login.feature'
+      contexts:
+        - Test\Acceptance\Context\LoginContext
+
+    stations:
+      paths:
+        - '%paths.base%/doc/features/stations.feature'
+      contexts:
+        - Test\Acceptance\Context\StationContext
+
+  extensions:
+    FriendsOfBehat\SymfonyExtension:
+      kernel:
+        environment: test
+        class: Infra\Framework\Kernel

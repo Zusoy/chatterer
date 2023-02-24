@@ -12,6 +12,7 @@
     "doctrine/doctrine-migrations-bundle": "^3.2",
     "doctrine/orm": "^2.12",
     "firebase/php-jwt": "^6.3",
+    "justinrainbow/json-schema": "^5.2",
     "ramsey/uuid": "^4.3",
     "symfony/console": "6.1.*",
     "symfony/dotenv": "6.1.*",
@@ -44,7 +45,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Context\\": "tests/context/",
+      "Test\\Acceptance\\": "tests/acceptance/",
       "Test\\Integrations\\Matcher\\": "tests/integrations/Matcher/"
     }
   },
@@ -81,6 +82,7 @@
   "require-dev": {
     "behat/behat": "^3.11",
     "fakerphp/faker": "^1.20",
+    "friends-of-behat/symfony-extension": "^2.4",
     "kahlan/kahlan": "^5.2",
     "phpspec/phpspec": "^7.2",
     "phpstan/phpstan": "^1.8",
