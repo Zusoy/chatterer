@@ -1,4 +1,5 @@
-version: '3.6'
+---
+version: '3.8'
 
 services:
   http:
@@ -11,22 +12,6 @@ services:
       - '8081:8081'
     volumes:
       - ./apps/api/public/media:/usr/src/app/media
-    networks:
-      - chatterer_default
-
-  client:
-    image: zusoy/chatterer-client:develop
-    command: 'ng serve'
-    stdin_open: true
-    env_file:
-      - .env
-    build:
-      context: apps/client
-      target: dev
-    ports:
-      - '4200:4200'
-    volumes:
-      - './apps/client:/usr/src/app'
     networks:
       - chatterer_default
 
