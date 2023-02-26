@@ -2,7 +2,8 @@
 name: API Linter
 
 on:
-  pull_request: ~
+  pull_request:
+    branches: [ master ]
   push:
     branches: [ master ]
 
@@ -14,7 +15,6 @@ jobs:
     name: lint with phpstan
     runs-on:
       - self-hosted
-      - 2GB
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v3
