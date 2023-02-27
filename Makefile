@@ -24,7 +24,7 @@ kill:
 
 .PHONY: api-analysis
 api-analysis:
-	@docker-compose run --rm --no-deps api phpstan --memory-limit=2G -n
+	@docker-compose run --rm --no-deps api ./vendor/bin/phpstan --memory-limit=2G -n
 
 .PHONY: api-integrations
 api-integrations:
@@ -47,6 +47,10 @@ api-setup-db-test:
 api-fixtures:
 	@docker-compose run --rm --no-deps api console app:data:fixtures -p
 
+.PHONY: api-vendor
+api-vendor:
+	@docker-compose run --rm --no-deps api composer install
+
 ##########
 # CLIENT #
 ##########
@@ -61,3 +65,4 @@ client-shell:
 
 .env:
 	cp -n .env.dist .env
+	cp -n apps/api/.env.dist apps/api/.env

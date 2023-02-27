@@ -1,0 +1,23 @@
+---
+name: Linter
+
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    branches: [ master ]
+
+env:
+  COMPOSE_FILE: docker-compose.dev.yaml
+
+jobs:
+  lint:
+    name: lint with phpstan
+    runs-on:
+      - self-hosted
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v3
+      - run: make .env
+      - run: make api-vendor
+      - run: make api-analysis
