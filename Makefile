@@ -47,6 +47,10 @@ api-setup-db-test:
 api-fixtures:
 	@docker-compose run --rm --no-deps api console app:data:fixtures -p
 
+.PHONY: api-vendor
+api-vendor:
+	@docker-compose run --rm --no-deps api composer install
+
 ##########
 # CLIENT #
 ##########
