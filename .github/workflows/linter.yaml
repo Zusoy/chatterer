@@ -1,5 +1,5 @@
 ---
-name: API Linting
+name: Linter
 
 on:
   pull_request:
@@ -18,7 +18,6 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v3
-      - run: cp --no-clobber .env.dist .env
-      - run: cp --no-clobber ./apps/api/.env.dist ./apps/api/.env
+      - run: make .env
       - run: make api-vendor
       - run: make api-analysis

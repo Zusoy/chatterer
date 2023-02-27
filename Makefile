@@ -65,3 +65,4 @@ client-shell:
 
 .env:
 	cp -n .env.dist .env
+	cp -n apps/api/.env.dist apps/api/.env
