@@ -17,5 +17,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: cp --no-clobber .env.dist .env
+      - run: cp --no-clobber ./apps/api/.env.dist ./apps/api/.env
       - run: make api-vendor
       - run: make api-analysis
