@@ -1,6 +1,4 @@
 ---
-name: API Linter
-
 on:
   pull_request:
     branches: [ master ]
@@ -19,4 +17,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: cp --no-clobber .env.dist .env
-      - run: make api-analysis
+      - run: make CI=1 api-analysis

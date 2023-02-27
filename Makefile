@@ -24,7 +24,7 @@ kill:
 
 .PHONY: api-analysis
 api-analysis:
-	@docker-compose run --rm --no-deps api phpstan --memory-limit=2G -n
+	@docker-compose run --rm --no-deps api ./vendor/bin/phpstan --memory-limit=2G -n
 
 .PHONY: api-integrations
 api-integrations:
