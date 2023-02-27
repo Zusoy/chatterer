@@ -1,4 +1,6 @@
 ---
+name: API Linting
+
 on:
   pull_request:
     branches: [ master ]
