@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Test\Acceptance\Context;
 
 use Domain\Model\User\Role;
@@ -138,11 +140,11 @@ final class RegistrationContext extends Context
     public function iShouldBeNotifiedThatTheAccountAlreadyExists(): void
     {
         $lastResponse = $this->http->getLastResponse();
-        $content = json_decode((string) $lastResponse->getContent(), associative: true, flags: JSON_THROW_ON_ERROR);
+        $payload = $this->http->getLastJson();
 
         Assert::that($lastResponse->getStatusCode())->eq(400);
-        Assert::that($content)->keyExists('error');
-        Assert::that(preg_match('/already exists/', $content['error']['message']))->eq(1);
+        Assert::that($payload)->keyExists('error');
+        Assert::that(preg_match('/already exists/', $payload['error']['message']))->eq(1);
     }
 
     /**
@@ -151,12 +153,12 @@ final class RegistrationContext extends Context
     public function iShouldBeNotifiedThatTheEmailIsInvalid(): void
     {
         $lastResponse = $this->http->getLastResponse();
-        $content = json_decode((string) $lastResponse->getContent(), associative: true, flags: JSON_THROW_ON_ERROR);
+        $payload = $this->http->getLastJson();
 
         Assert::that($lastResponse->getStatusCode())->eq(400);
-        Assert::that($content)->keyExists('error');
-        Assert::that($content['error']['extra'])->keyExists('email');
-        Assert::that(preg_match('/Value "invalidemail" was expected to be a valid e-mail address./', $content['error']['extra']['email'][0]['message']))->eq(1);
+        Assert::that($payload)->keyExists('error');
+        Assert::that($payload['error']['extra'])->keyExists('email');
+        Assert::that(preg_match('/Value "invalidemail" was expected to be a valid e-mail address./', $payload['error']['extra']['email'][0]['message']))->eq(1);
     }
 
     /**
@@ -165,11 +167,11 @@ final class RegistrationContext extends Context
     public function iShouldBeNotifiedThatThePasswordIsInvalid(): void
     {
         $lastResponse = $this->http->getLastResponse();
-        $content = json_decode((string) $lastResponse->getContent(), associative: true, flags: JSON_THROW_ON_ERROR);
+        $payload = $this->http->getLastJson();
 
         Assert::that($lastResponse->getStatusCode())->eq(400);
-        Assert::that($content)->keyExists('error');
-        Assert::that($content['error']['extra'])->keyExists('password');
-        Assert::that(preg_match('/should have at least 8 characters, but only has 3 characters/', $content['error']['extra']['password'][0]['message']))->eq(1);
+        Assert::that($payload)->keyExists('error');
+        Assert::that($payload['error']['extra'])->keyExists('password');
+        Assert::that(preg_match('/should have at least 8 characters, but only has 3 characters/', $payload['error']['extra']['password'][0]['message']))->eq(1);
     }
 }

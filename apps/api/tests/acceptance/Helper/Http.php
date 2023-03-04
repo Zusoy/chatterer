@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Test\Acceptance\Helper;
 
 use Application\Auth\Tokenizer;
@@ -35,6 +37,9 @@ final class Http extends Helper
         $this->token = $this->tokenizer->createToken($username);
     }
 
+    /**
+     * @throws RuntimeException
+     */
     public function getLastResponse(): Response
     {
         if (null === $this->response) {
@@ -42,6 +47,46 @@ final class Http extends Helper
         }
 
         return $this->response;
+    }
+
+    /**
+     * @throws RuntimeException
+     *
+     * @return array<mixed>
+     */
+    public function getLastJson(): array
+    {
+        $response = $this->getLastResponse();
+        $content = $response->getContent();
+
+        if (false === $content) {
+            throw new RuntimeException('No valid JSON response received.');
+        }
+
+        return json_decode(
+            json: $content,
+            associative: true,
+            flags: JSON_THROW_ON_ERROR
+        );
+    }
+
+    /**
+     * @throws RuntimeException
+     */
+    public function getLastJsonObjects(): mixed
+    {
+        $response = $this->getLastResponse();
+        $content = $response->getContent();
+
+        if (false === $content) {
+            throw new RuntimeException('No valid JSON response received.');
+        }
+
+        return json_decode(
+            json: $content,
+            associative: false,
+            flags: JSON_THROW_ON_ERROR
+        );
     }
 
     /**

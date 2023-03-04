@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Test\Acceptance\Helper;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
+use Domain\Repository\Stations;
 use Domain\Repository\Users;
 use Infra\Doctrine\Truncater;
 use Test\Acceptance\Helper;
@@ -12,6 +15,7 @@ final class Database extends Helper
 {
     public function __construct(
         public readonly Users $users,
+        public readonly Stations $stations,
         public readonly EntityManagerInterface $em,
         private readonly Connection $connection,
         private readonly Truncater $truncater,

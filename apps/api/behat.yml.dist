@@ -1,21 +1,16 @@
 ---
 default:
   suites:
-    registration:
+    auth:
       paths:
-        - '%paths.base%/doc/features/registration.feature'
-      contexts:
-        - Test\Acceptance\Context\RegistrationContext
-
-    login:
-      paths:
-        - '%paths.base%/doc/features/login.feature'
+        - '%paths.base%/doc/features/auth/'
       contexts:
         - Test\Acceptance\Context\LoginContext
+        - Test\Acceptance\Context\RegistrationContext
 
     stations:
       paths:
-        - '%paths.base%/doc/features/stations.feature'
+        - '%paths.base%/doc/features/stations/'
       contexts:
         - Test\Acceptance\Context\StationContext
 
