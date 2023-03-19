@@ -15,6 +15,10 @@ services:
     resource: '%kernel.project_dir%/src/Infra/Framework/Event/Listener'
     tags: [ kernel.event_listener ]
 
+  Infra\Framework\Event\Listener\PreflightRequestListerer:
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, priority: 512 }
+
   Infra\Framework\Event\Listener\DecodeRequestJSONBodyListener:
     tags:
       - { name: kernel.event_listener, event: kernel.request, priority: 128 }
@@ -25,6 +29,8 @@ services:
 
   Infra\Framework\Event\Listener\HandleCORSPermissionListener:
     arguments:
+      $defaultOriginHost: '%app_host%'
+      $defaultOriginPort: '%app_port%'
       $allowedPorts: '%cors_allowed_ports%'
     tags:
       - { name: kernel.event_listener, event: kernel.response }

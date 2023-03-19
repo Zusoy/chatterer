@@ -6,6 +6,10 @@
 build:
 	docker-compose build
 
+.PHONY: build-no-cache
+build-no-cache:
+	docker-compose build --no-cache
+
 .PHONY: start
 start:
 	docker-compose up -d --remove-orphans

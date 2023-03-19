@@ -25,6 +25,15 @@ final class User extends BaseController
         );
     }
 
+    #[Route('/me', name: 'me', methods: [Request::METHOD_GET])]
+    public function me(): Response
+    {
+        return $this->createJsonResponse(
+            data: $this->getCurrentUser(),
+            status: Response::HTTP_OK
+        );
+    }
+
     #[Route('/users', name: 'create', methods: [Request::METHOD_POST])]
     public function create(Payload $payload): Response
     {

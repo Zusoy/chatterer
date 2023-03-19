@@ -1,25 +1,33 @@
-import React from 'react';
-import { RootState } from 'app/store';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import authentication, { selectIsReAuthenticating } from 'features/Me/Authentication/slice';
 import Authentication from 'features/Me/Authentication';
-import { connect } from 'react-redux';
+import { selectIsAuth } from 'features/Me/slice';
 
-type Props = {
+interface Props {
   children: React.ReactNode;
-  isAuth: boolean;
 }
 
-const View: React.FC<Props> = ({ children, isAuth }) => {
+const Firewall: React.FC<Props> = ({ children }) => {
+  const isAuth = useSelector(selectIsAuth);
+  const isReauthenticating = useSelector(selectIsReAuthenticating);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(authentication.actions.reAuthenticate());
+  }, [ dispatch ]);
+
+  if (isReauthenticating) {
+    return <p>Loading...</p>
+  }
+
   if (!isAuth) {
     return <Authentication />
   }
 
-  return <>{ children }</>
+  return (
+    <>{ children }</>
+  )
 }
 
-const mapStateToProps = (state: RootState) => ({
-  isAuth: state.me.id !== null,
-})
-
-const Firewall = connect(mapStateToProps)(View)
-
-export default Firewall
+export default Firewall;

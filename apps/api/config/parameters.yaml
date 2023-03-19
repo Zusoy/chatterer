@@ -2,10 +2,11 @@ parameters:
   app_name: 'Chatterer'
   app_secret: '%env(APP_SECRET)%'
   app_host: '%env(APP_HOST)%'
+  app_port: '%env(APP_PORT)%'
   api_url: '%env(API_URL)%'
   auth_token_key: '%env(APP_AUTH_TOKEN_KEY)%'
 
-  cors_allowed_ports: '%env(CORS_ALLOWED_PORTS)%'
+  cors_allowed_ports: '%env(csv:CORS_ALLOWED_PORTS)%'
 
   mysql_host: '%env(MYSQL_HOST)%'
   mysql_port: '%env(MYSQL_PORT)%'

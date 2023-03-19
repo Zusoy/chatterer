@@ -7,8 +7,3 @@ export interface User {
   createdAt: string;
   updatedAt: string;
 }
-
-export interface UserLite {
-  id: string;
-  name: string;
-}

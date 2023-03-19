@@ -1,4 +1,4 @@
-import { StationLite } from 'models/station';
+import { StationLite } from 'models/Station';
 
 export interface Channel {
   id: string;
@@ -9,4 +9,7 @@ export interface Channel {
   station: StationLite;
 }
 
-export type ChannelLite = Omit<Channel, 'description'|'createdAt'|'updatedAt'|'station'>
+export interface ChannelLite {
+  id: string;
+  name: string;
+}
