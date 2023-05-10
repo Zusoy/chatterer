@@ -1,13 +1,13 @@
 <?php
 
-namespace Infra\Framework\Security\Authenticator;
+namespace Infra\Symfony\Security\Authenticator;
 
 use Application\Auth\Tokenizer;
 use Application\Normalizer\Normalizer;
 use Application\Serializer\Serializer;
 use Domain\Model\User;
 use Domain\Repository\Users;
-use Infra\Framework\Security\AuthCookie;
+use Infra\Symfony\Security\AuthCookie;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

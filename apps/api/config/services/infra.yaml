@@ -5,25 +5,25 @@ services:
 
   ## Framework
 
-  Infra\Framework\:
-    resource: '%kernel.project_dir%/src/Infra/Framework'
-    exclude: '%kernel.project_dir%/src/Infra/Framework/{Controller,DataCollector,Kernel.php}'
+  Infra\Symfony\:
+    resource: '%kernel.project_dir%/src/Infra/Symfony'
+    exclude: '%kernel.project_dir%/src/Infra/Symfony/{Controller,DataCollector,Kernel.php}'
 
   ## Listeners
 
-  Infra\Framework\Event\Listener\:
-    resource: '%kernel.project_dir%/src/Infra/Framework/Event/Listener'
+  Infra\Symfony\Event\Listener\:
+    resource: '%kernel.project_dir%/src/Infra/Symfony/Event/Listener'
     tags: [ kernel.event_listener ]
 
-  Infra\Framework\Event\Listener\DecodeRequestJSONBodyListener:
+  Infra\Symfony\Event\Listener\DecodeRequestJSONBodyListener:
     tags:
       - { name: kernel.event_listener, event: kernel.request, priority: 128 }
 
-  Infra\Framework\Event\Listener\FormatExceptionResponseListener:
+  Infra\Symfony\Event\Listener\FormatExceptionResponseListener:
     tags:
       - { name: kernel.event_listener, event: kernel.exception, priority: -32 }
 
-  Infra\Framework\Event\Listener\HandleCORSPermissionListener:
+  Infra\Symfony\Event\Listener\HandleCORSPermissionListener:
     arguments:
       $allowedPorts: '%cors_allowed_ports%'
     tags:
@@ -31,18 +31,18 @@ services:
 
   ## Argument Value Resolvers
 
-  Infra\Framework\HttpKernel\ArgumentValueResolver\:
-    resource: '%kernel.project_dir%/src/Infra/Framework/HttpKernel/ArgumentValueResolver'
+  Infra\Symfony\HttpKernel\ArgumentValueResolver\:
+    resource: '%kernel.project_dir%/src/Infra/Symfony/HttpKernel/ArgumentValueResolver'
     tags:
       - { name: controller.argument_value_resolver, priority: 128 }
 
   ## Security Voters
 
-  Infra\Framework\Security\Voter\:
-    resource: '%kernel.project_dir%/src/Infra/Framework/Security/Voter'
+  Infra\Symfony\Security\Voter\:
+    resource: '%kernel.project_dir%/src/Infra/Symfony/Security/Voter'
     tags: [ security.voter ]
 
-  Infra\Framework\Security\Voter\DomainRuleVoter:
+  Infra\Symfony\Security\Voter\DomainRuleVoter:
     $rules: !tagged_iterator domain.security.rule
 
   ## Faker

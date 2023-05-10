@@ -1,8 +1,8 @@
 <?php
 
-namespace Infra\Framework;
+namespace Infra\Symfony;
 
-use Infra\Framework\DependencyInjection\Compiler\ReplaceMercureDataCollectorPass;
+use Infra\Symfony\DependencyInjection\Compiler\ReplaceMercureDataCollectorPass;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;

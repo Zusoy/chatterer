@@ -4,7 +4,7 @@ namespace Application\HTTP\Controller;
 
 use Application\HTTP\Payload;
 use Domain\Identity\Identifier;
-use Infra\Framework\Controller\BaseController;
+use Infra\Symfony\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

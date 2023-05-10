@@ -1,6 +1,6 @@
 <?php
 
-namespace Infra\Framework\Event\Listener;
+namespace Infra\Symfony\Event\Listener;
 
 use Domain\Exception\ObjectNotFoundException;
 use Domain\Exception\OperationDeniedException;

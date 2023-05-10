@@ -1,6 +1,6 @@
 <?php
 
-namespace Infra\Framework\Event\Listener;
+namespace Infra\Symfony\Event\Listener;
 
 use JsonException;
 use Symfony\Component\HttpKernel\Event\RequestEvent;

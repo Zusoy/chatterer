@@ -7,7 +7,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 use Doctrine\ORM\EntityManagerInterface;
 use Domain\Bus;
 use Infra\Doctrine\Truncater;
-use Infra\Framework\Kernel;
+use Infra\Symfony\Kernel;
 use Kahlan\Filter\Filters;
 use Kahlan\Matcher;
 use Test\Integrations\Matcher\Assert\ToFailAssertionsAtPaths;

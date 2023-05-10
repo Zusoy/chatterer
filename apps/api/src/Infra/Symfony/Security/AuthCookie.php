@@ -1,6 +1,6 @@
 <?php
 
-namespace Infra\Framework\Security;
+namespace Infra\Symfony\Security;
 
 use DateTimeImmutable;
 use Symfony\Component\HttpFoundation\Cookie;
