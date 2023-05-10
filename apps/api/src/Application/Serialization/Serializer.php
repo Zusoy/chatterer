@@ -1,8 +1,8 @@
 <?php
 
-namespace Application\Serializer;
+declare(strict_types=1);
 
-use Application\Serializer\Exception\SerializerNotFoundException;
+namespace Application\Serialization;
 
 interface Serializer
 {
@@ -10,8 +10,5 @@ interface Serializer
 
     public function supports(mixed $data, string $format): bool;
 
-    /**
-     * @throws SerializerNotFoundException
-     */
     public function serialize(mixed $data, string $format): mixed;
 }

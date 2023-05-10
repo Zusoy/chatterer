@@ -1,10 +1,15 @@
 <?php
 
-namespace Application\Normalizer\Internal;
+declare(strict_types=1);
 
-use Application\Normalizer\Normalizer;
+namespace Application\Normalization\Normalizer;
+
+use Application\Normalization\Normalizer;
 use Domain\Model\Channel;
 
+/**
+ * @implements Normalizer<Channel>
+ */
 final class ChannelNormalizer implements Normalizer
 {
     /**
@@ -22,7 +27,7 @@ final class ChannelNormalizer implements Normalizer
      *
      * @return array<string,string|array<string,string>|null>
      */
-    public function normalize(mixed $data): array
+    public function normalize(mixed $data): mixed
     {
         return [
             'id'   => (string) $data->getIdentifier(),

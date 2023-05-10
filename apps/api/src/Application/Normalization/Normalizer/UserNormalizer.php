@@ -1,15 +1,17 @@
 <?php
 
-namespace Application\Normalizer\Internal;
+declare(strict_types=1);
 
-use Application\Normalizer\Normalizer;
+namespace Application\Normalization\Normalizer;
+
+use Application\Normalization\Normalizer;
 use Domain\Model\User;
 
+/**
+ * @implements Normalizer<User>
+ */
 final class UserNormalizer implements Normalizer
 {
-    /**
-     * {@inheritDoc}
-     */
     public function supports(mixed $data): bool
     {
         return $data instanceof User;

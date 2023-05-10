@@ -8,8 +8,8 @@ services:
 
   ## Normalizer/Serializer Implementations
 
-  Application\Normalizer\Normalizer: '@Application\Normalizer\AggregateNormalizer'
-  Application\Serializer\Serializer: '@Application\Serializer\AggregateSerializer'
+  Application\Normalization\Normalizer: '@Application\Normalization\Normalizer\AggregateNormalizer'
+  Application\Serialization\Serializer: '@Application\Serialization\Serializer\AggregateSerializer'
 
   ## Synchronization Implementations
 

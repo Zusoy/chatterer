@@ -1,16 +1,26 @@
 <?php
 
-namespace Application\Normalizer;
+declare(strict_types=1);
 
-use Application\Normalizer\Exception\NormalizerNotFoundException;
+namespace Application\Normalization\Normalizer;
 
+use Application\Normalization\Exception\NormalizerNotFoundException;
+use Application\Normalization\Normalizer;
+use Infra\Assert\Assert;
+
+/**
+ * @template T
+ *
+ * @implements Normalizer<T>
+ */
 final class AggregateNormalizer implements Normalizer
 {
     /**
-     * @param iterable<Normalizer> $normalizers
+     * @param iterable<Normalizer<T>> $normalizers
      */
-    public function __construct(private iterable $normalizers)
+    public function __construct(private readonly iterable $normalizers)
     {
+        Assert::thatAll($normalizers)->isInstanceOf(Normalizer::class);
     }
 
     /**
@@ -51,6 +61,11 @@ final class AggregateNormalizer implements Normalizer
         throw new NormalizerNotFoundException((string) get_class($data));
     }
 
+    /**
+     * @param T $data
+     *
+     * @return Normalizer<T>|null
+     */
     private function findNormalizer(mixed $data): ?Normalizer
     {
         foreach ($this->normalizers as $normalizer) {

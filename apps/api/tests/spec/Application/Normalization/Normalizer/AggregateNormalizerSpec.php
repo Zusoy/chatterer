@@ -1,9 +1,9 @@
 <?php
 
-namespace spec\Application\Normalizer;
+namespace spec\Application\Normalization\Normalizer;
 
-use Application\Normalizer\Exception\NormalizerNotFoundException;
-use Application\Normalizer\Normalizer;
+use Application\Normalization\Exception\NormalizerNotFoundException;
+use Application\Normalization\Normalizer;
 use PhpSpec\ObjectBehavior;
 use stdClass;
 
