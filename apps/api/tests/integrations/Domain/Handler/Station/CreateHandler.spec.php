@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Application\Synchronization;
 use Application\Synchronization\Hub;
 use Domain\EventLog;

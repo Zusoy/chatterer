@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Handler\Channel;
 
 use Domain\Event\Channel as Event;
@@ -35,11 +37,11 @@ final class JoinHandler implements Handler
     public function __invoke(Message\Join $message): Channel
     {
         if (!$channel = $this->channels->find($message->getChannelIdentifier())) {
-            throw new ObjectNotFoundException('Channel', $message->getChannelIdentifier());
+            throw new ObjectNotFoundException('Channel', (string) $message->getChannelIdentifier());
         }
 
         if (!$user = $this->users->find($message->getUserIdentifier())) {
-            throw new ObjectNotFoundException('User', $message->getUserIdentifier());
+            throw new ObjectNotFoundException('User', (string) $message->getUserIdentifier());
         }
 
         $this->accessControl->requires(

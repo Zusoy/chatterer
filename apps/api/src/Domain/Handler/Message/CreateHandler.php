@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Handler\Message;
 
 use Domain\Event\Message as Event;
@@ -33,11 +35,11 @@ final class CreateHandler implements Handler
     public function __invoke(Message\Create $message): Model\Message
     {
         if (!$author = $this->users->find($message->getAuthorId())) {
-            throw new ObjectNotFoundException('User', $message->getAuthorId());
+            throw new ObjectNotFoundException('User', (string) $message->getAuthorId());
         }
 
         if (!$channel = $this->channels->find($message->getChannelId())) {
-            throw new ObjectNotFoundException('Channel', $message->getChannelId());
+            throw new ObjectNotFoundException('Channel', (string) $message->getChannelId());
         }
 
         $newMessage = new Model\Message(

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Infra\Symfony\HttpKernel\ArgumentValueResolver;
 
 use Application\HTTP\Payload;

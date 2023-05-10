@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\Message\Station\Update;
 use Domain\Identity\Identifier;
 use Test\Integrations\Matcher\Assert\PropertyAssertionFailure;
@@ -8,7 +10,7 @@ describe(Update::class, function() {
     it ('holds required values', function () {
         $identifier = Identifier::generate();
         $message = new Update(
-            id: $identifier,
+            id: (string) $identifier,
             name: 'My Station',
             description: null
         );
@@ -21,7 +23,7 @@ describe(Update::class, function() {
     it ('holds optionals values', function () {
         $identifier = Identifier::generate();
         $message = new Update(
-            id: $identifier,
+            id: (string) $identifier,
             name: 'My Station',
             description: 'New description'
         );

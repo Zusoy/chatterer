@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\Message\Channel\Delete;
 use Test\Integrations\Matcher\Assert\PropertyAssertionFailure;
 

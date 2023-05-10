@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Handler\Station;
 
 use Domain\Event\Station as Event;
@@ -26,7 +28,7 @@ final class DeleteHandler implements Handler
     public function __invoke(Message\Delete $message): void
     {
         if (!$station = $this->stations->find($message->getIdentifier())) {
-            throw new ObjectNotFoundException('Station', $message->getIdentifier());
+            throw new ObjectNotFoundException('Station', (string) $message->getIdentifier());
         }
 
         $this->stations->remove($station);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\Synchronization\Hub;
 
 use Application\Synchronization\Hub;

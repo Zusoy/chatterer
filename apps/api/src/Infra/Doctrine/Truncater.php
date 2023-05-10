@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Infra\Doctrine;
 
 use Doctrine\DBAL\Connection;

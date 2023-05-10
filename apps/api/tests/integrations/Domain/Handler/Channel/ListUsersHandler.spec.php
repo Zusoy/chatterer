@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\Exception\ObjectNotFoundException;
 use Domain\Handler\Channel\ListUsersHandler;
 use Domain\Identity\Identifier;
@@ -46,7 +48,7 @@ describe(ListUsersHandler::class, function () {
 
         $this->em->flush();
 
-        $message = new ListUsers(id: $channel->getIdentifier());
+        $message = new ListUsers(id: (string) $channel->getIdentifier());
         $users = $this->bus->execute($message);
 
         expect(count($users))->toBe(2);
@@ -66,7 +68,7 @@ describe(ListUsersHandler::class, function () {
         $identifier = Identifier::generate();
 
         $closure = fn () => $this->bus->execute(new ListUsers(
-            id: $identifier
+            id: (string) $identifier
         ));
 
         expect($closure)->toThrow(new ObjectNotFoundException('Channel', (string) $identifier));

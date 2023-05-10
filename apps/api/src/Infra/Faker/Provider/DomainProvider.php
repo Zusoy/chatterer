@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Infra\Faker\Provider;
 
 use Domain\Model\Channel;

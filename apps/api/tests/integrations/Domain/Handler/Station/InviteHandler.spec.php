@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\Exception\ObjectAlreadyExistsException;
 use Domain\Exception\ObjectNotFoundException;
 use Domain\Handler\Station\InviteHandler;
@@ -21,7 +23,7 @@ describe(InviteHandler::class, function () {
         $this->em->persist($station);
         $this->em->flush();
 
-        $message = new Invite(id: $station->getIdentifier());
+        $message = new Invite(id: (string) $station->getIdentifier());
         $this->bus->execute($message);
 
         /** @var Invitation */
@@ -49,13 +51,13 @@ describe(InviteHandler::class, function () {
         $this->em->persist($invitation);
         $this->em->flush();
 
-        $message = new Invite(id: $station->getIdentifier());
+        $message = new Invite(id: (string) $station->getIdentifier());
 
         $closure = function () use ($message) {
             $this->bus->execute($message);
         };
 
         expect($closure)
-            ->toThrow(new ObjectAlreadyExistsException('Invitation', $station->getIdentifier()));
+            ->toThrow(new ObjectAlreadyExistsException('Invitation', (string) $station->getIdentifier()));
     });
 });

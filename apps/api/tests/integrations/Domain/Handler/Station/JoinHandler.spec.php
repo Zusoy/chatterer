@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\EventLog;
 use Domain\Exception\ObjectNotFoundException;
 use Domain\Exception\UserAlreadyJoinedException;
@@ -41,9 +43,9 @@ describe(JoinHandler::class, function () {
         $this->em->flush();
 
         $message = new Join(
-            stationId: $station->getIdentifier(),
-            userId: $user->getIdentifier(),
-            token: $invitation->getToken()
+            stationId: (string) $station->getIdentifier(),
+            userId: (string) $user->getIdentifier(),
+            token: (string) $invitation->getToken()
         );
 
         $this->bus->execute($message);
@@ -58,7 +60,7 @@ describe(JoinHandler::class, function () {
         expect($user === null)->toBeFalsy();
         expect($station->has($user))->toBeTruthy();
 
-        $invitation = $this->invitations->findByToken($invitation->getToken(), $station);
+        $invitation = $this->invitations->findByToken((string) $invitation->getToken(), $station);
         expect($invitation === null)->toBeTruthy();
 
         $events = $this->events->getSentEvents();
@@ -86,7 +88,7 @@ describe(JoinHandler::class, function () {
         $this->em->flush();
 
         expect(fn () => $this->bus->execute(new Join(
-            stationId: $station->getIdentifier(),
+            stationId: (string) $station->getIdentifier(),
             userId: 'a1bb4fa1-3a2a-4045-a66e-3435da68a00a',
             token: 'stationToken'
         )))->toThrow(new ObjectNotFoundException('User', 'a1bb4fa1-3a2a-4045-a66e-3435da68a00a'));
@@ -106,8 +108,8 @@ describe(JoinHandler::class, function () {
         $this->em->flush();
 
         expect(fn () => $this->bus->execute(new Join(
-            stationId: $station->getIdentifier(),
-            userId: $user->getIdentifier(),
+            stationId: (string) $station->getIdentifier(),
+            userId: (string) $user->getIdentifier(),
             token: 'stationToken'
         )))->toThrow(new ObjectNotFoundException('Invitation', 'stationToken'));
     });
@@ -132,9 +134,9 @@ describe(JoinHandler::class, function () {
         $this->em->flush();
 
         expect(fn () => $this->bus->execute(new Join(
-            stationId: $station->getIdentifier(),
-            userId: $user->getIdentifier(),
-            token: $invitation->getToken()
+            stationId: (string) $station->getIdentifier(),
+            userId: (string) $user->getIdentifier(),
+            token: (string) $invitation->getToken()
         )))->toThrow(new UserAlreadyJoinedException($station, $user));
     });
 });

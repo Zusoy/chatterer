@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\CLI;
 
 use Doctrine\ORM\EntityManagerInterface;

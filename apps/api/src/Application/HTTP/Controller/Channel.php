@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\HTTP\Controller;
 
 use Application\HTTP\Payload;
@@ -62,7 +64,7 @@ final class Channel extends BaseController
     {
         $channel = $this->bus->execute(new Message\Join(
             channelId: $id,
-            userId: $this->getCurrentUser()->getIdentifier()
+            userId: (string) $this->getCurrentUser()->getIdentifier()
         ));
 
         return $this->createJsonResponse(

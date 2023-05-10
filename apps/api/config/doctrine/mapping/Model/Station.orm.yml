@@ -1,3 +1,4 @@
+---
 Domain\Model\Station:
   type: entity
 

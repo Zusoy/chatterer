@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Handler\Channel;
 
 use Domain\Exception\ObjectAlreadyExistsException;
@@ -26,7 +28,7 @@ final class UpdateHandler implements Handler
     public function __invoke(Message\Update $message): Channel
     {
         if (!$channel = $this->channels->find($message->getIdentifier())) {
-            throw new ObjectNotFoundException('Channel', $message->getIdentifier());
+            throw new ObjectNotFoundException('Channel', (string) $message->getIdentifier());
         }
 
         if (null !== $this->channels->findByName($channel->getStationIdentifier(), $message->getName())) {

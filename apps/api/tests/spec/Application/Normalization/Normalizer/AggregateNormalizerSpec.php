@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Application\Normalization\Normalizer;
 
 use Application\Normalization\Exception\NormalizerNotFoundException;

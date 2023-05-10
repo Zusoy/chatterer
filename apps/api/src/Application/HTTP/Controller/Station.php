@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\HTTP\Controller;
 
 use Application\HTTP\Payload;
@@ -67,7 +69,7 @@ final class Station extends BaseController
     {
         $station = $this->bus->execute(new Message\Join(
             stationId: $id,
-            userId: $this->getCurrentUser()->getIdentifier(),
+            userId: (string) $this->getCurrentUser()->getIdentifier(),
             token: $payload->mandatory('token')
         ));
 

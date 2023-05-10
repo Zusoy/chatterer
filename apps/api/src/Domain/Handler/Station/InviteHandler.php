@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Handler\Station;
 
 use Domain\Exception\ObjectAlreadyExistsException;
@@ -32,13 +34,13 @@ final class InviteHandler implements Handler
     public function __invoke(Message\Invite $message): Invitation
     {
         if (!$station = $this->stations->find($message->getIdentifier())) {
-            throw new ObjectNotFoundException('Station', $message->getIdentifier());
+            throw new ObjectNotFoundException('Station', (string) $message->getIdentifier());
         }
 
         $this->accessControl->requires(Operation::INVITE_STATION, ['station' => $station]);
 
         if (null !== $this->invitations->findByStation($station)) {
-            throw new ObjectAlreadyExistsException('Invitation', $station->getIdentifier());
+            throw new ObjectAlreadyExistsException('Invitation', (string) $station->getIdentifier());
         }
 
         $invitation = new Invitation($station);

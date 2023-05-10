@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\HTTP\Controller;
 
 use Domain\Message\Config as Message;

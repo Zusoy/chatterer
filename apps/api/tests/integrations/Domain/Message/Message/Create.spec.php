@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\Message\Message\Create;
 use Test\Integrations\Matcher\Assert\PropertyAssertionFailure;
 

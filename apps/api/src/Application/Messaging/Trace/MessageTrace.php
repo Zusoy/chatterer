@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\Messaging\Trace;
 
 use Domain\Handler;

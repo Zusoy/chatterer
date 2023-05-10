@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Domain\Model;
 
 use Domain\Identity\Identifiable;

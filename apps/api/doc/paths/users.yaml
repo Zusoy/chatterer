@@ -1,3 +1,4 @@
+---
 get:
   tags: [ User ]
   summary: List all users

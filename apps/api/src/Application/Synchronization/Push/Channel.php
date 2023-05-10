@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\Synchronization\Push;
 
 use Application\Synchronization\Exception\MissingPayloadException;
@@ -16,17 +18,17 @@ final class Channel extends Push
 
     public static function insert(Model\Channel $channel): self
     {
-        return new self(Type::INSERT, self::CONTEXT, $channel->getIdentifier(), $channel);
+        return new self(Type::INSERT, self::CONTEXT, (string) $channel->getIdentifier(), $channel);
     }
 
     public static function update(Model\Channel $channel): self
     {
-        return new self(Type::UPDATE, self::CONTEXT, $channel->getIdentifier(), $channel);
+        return new self(Type::UPDATE, self::CONTEXT, (string) $channel->getIdentifier(), $channel);
     }
 
     public static function delete(Model\Channel $channel): self
     {
-        return new self(Type::DELETE, self::CONTEXT, $channel->getIdentifier(), $channel);
+        return new self(Type::DELETE, self::CONTEXT, (string) $channel->getIdentifier(), $channel);
     }
 
     /**

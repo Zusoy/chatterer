@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Infra\Assert;
 
 use Assert\Assert as BaseAssert;

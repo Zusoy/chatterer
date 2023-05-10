@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Handler\Channel;
 
 use Domain\Event\Channel as Event;
@@ -32,7 +34,7 @@ final class CreateHandler implements Handler
     public function __invoke(Message\Create $message): Channel
     {
         if (!$station = $this->stations->find($message->getStationId())) {
-            throw new ObjectNotFoundException('Station', $message->getStationId());
+            throw new ObjectNotFoundException('Station', (string) $message->getStationId());
         }
 
         if (null !== $this->channels->findByName($station->getIdentifier(), $message->getName())) {

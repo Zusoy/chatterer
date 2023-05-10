@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Test\Integrations\Matcher\Assert;
 
 final class PropertyAssertionFailure

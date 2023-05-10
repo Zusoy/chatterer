@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Infra\Symfony\DependencyInjection\Compiler;
 
 use Infra\Symfony\DataCollector\HubDataCollector;
