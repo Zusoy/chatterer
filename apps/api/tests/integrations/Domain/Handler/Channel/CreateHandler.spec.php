@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Application\Synchronization;
 use Application\Synchronization\Hub;
 use Domain\EventLog;
@@ -28,7 +30,7 @@ describe(CreateHandler::class, function () {
         $this->em->persist($station);
         $this->em->flush();
 
-        $message = new Create($station->getIdentifier(), 'Channel', 'desc');
+        $message = new Create((string) $station->getIdentifier(), 'Channel', 'desc');
 
         /** @var Channel */
         $createdChannel = $this->bus->execute($message);
@@ -64,7 +66,7 @@ describe(CreateHandler::class, function () {
         $this->em->persist($channel);
         $this->em->flush();
 
-        $message = new Create($station->getIdentifier(), 'My Channel', 'other');
+        $message = new Create((string) $station->getIdentifier(), 'My Channel', 'other');
         expect(fn () => $this->bus->execute($message))->toThrow(new ObjectAlreadyExistsException('Channel', 'My Channel'));
     });
 

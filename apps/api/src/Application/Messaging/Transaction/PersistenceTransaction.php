@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\Messaging\Transaction;
 
 use Doctrine\ORM\EntityManagerInterface;

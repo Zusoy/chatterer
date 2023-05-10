@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\Synchronization\Push;
 
 use Application\Synchronization\Exception\MissingPayloadException;
@@ -16,12 +18,12 @@ final class Message extends Push
 
     public static function insert(Model\Message $message): self
     {
-        return new self(Type::INSERT, self::CONTEXT, $message->getIdentifier(), $message);
+        return new self(Type::INSERT, self::CONTEXT, (string) $message->getIdentifier(), $message);
     }
 
     public static function delete(Model\Message $message): self
     {
-        return new self(Type::DELETE, self::CONTEXT, $message->getIdentifier(), $message);
+        return new self(Type::DELETE, self::CONTEXT, (string) $message->getIdentifier(), $message);
     }
 
     /**

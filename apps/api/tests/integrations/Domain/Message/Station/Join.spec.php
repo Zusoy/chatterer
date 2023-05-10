@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\Identity\Identifier;
 use Domain\Message\Station\Join;
 use Test\Integrations\Matcher\Assert\PropertyAssertionFailure;
@@ -9,8 +11,8 @@ describe(Join::class, function () {
         $stationIdentifier = Identifier::generate();
         $userIdentifier = Identifier::generate();
         $message = new Join(
-            stationId: $stationIdentifier,
-            userId: $userIdentifier,
+            stationId: (string) $stationIdentifier,
+            userId: (string) $userIdentifier,
             token: 'helloWorldToken'
         );
 

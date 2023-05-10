@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\Exception\ObjectAlreadyExistsException;
 use Domain\Handler\Channel\UpdateHandler;
 use Domain\Message\Channel\Update;
@@ -23,7 +25,7 @@ describe(UpdateHandler::class, function () {
         $this->em->persist($channel);
         $this->em->flush();
 
-        $message = new Update($channel->getIdentifier(), 'New Name', 'new desc');
+        $message = new Update((string) $channel->getIdentifier(), 'New Name', 'new desc');
         $this->bus->execute($message);
 
         $channel = $this->channels->find($channel->getIdentifier());
@@ -43,7 +45,7 @@ describe(UpdateHandler::class, function () {
         $this->em->persist($secondChannel);
         $this->em->flush();
 
-        $message = new Update($firstChannel->getIdentifier(), 'Other Channel', 'new desc');
+        $message = new Update((string) $firstChannel->getIdentifier(), 'Other Channel', 'new desc');
         expect(fn () => $this->bus->execute($message))
             ->toThrow(new ObjectAlreadyExistsException('Channel', 'Other Channel'));
     });

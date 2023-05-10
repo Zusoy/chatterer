@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\Exception\ObjectAlreadyExistsException;
 use Domain\Handler\User\CreateHandler;
 use Domain\Message\User\Create;

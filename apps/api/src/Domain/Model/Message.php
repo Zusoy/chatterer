@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Model;
 
 use DateTimeImmutable;
@@ -65,6 +67,6 @@ class Message implements Identifiable, HasTimestamp
 
     public function getAuthorName(): string
     {
-        return $this->author;
+        return (string) $this->author;
     }
 }

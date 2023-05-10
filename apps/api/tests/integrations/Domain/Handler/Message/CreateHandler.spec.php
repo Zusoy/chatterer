@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Application\Synchronization;
 use Application\Synchronization\Hub;
 use Domain\EventLog;
@@ -42,8 +44,8 @@ describe(CreateHandler::class, function () {
         $this->em->persist($author);
 
         $message = new Create(
-            authorId: $author->getIdentifier(),
-            channelId: $channel->getIdentifier(),
+            authorId: (string) $author->getIdentifier(),
+            channelId: (string) $channel->getIdentifier(),
             content: 'Hello World'
         );
         /** @var Message */
@@ -97,9 +99,9 @@ describe(CreateHandler::class, function () {
         $identifier = Identifier::generate();
 
         expect(fn () => $this->bus->execute(new Create(
-            authorId: $author->getIdentifier(),
+            authorId: (string) $author->getIdentifier(),
             channelId: (string) $identifier,
             content: 'Hello !'
-        )))->toThrow(new ObjectNotFoundException('Channel', $identifier));
+        )))->toThrow(new ObjectNotFoundException('Channel', (string) $identifier));
     });
 });

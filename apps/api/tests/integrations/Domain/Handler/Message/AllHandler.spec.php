@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\Exception\ObjectNotFoundException;
 use Domain\Message\Message\All;
 use Domain\Handler\Message\AllHandler;
@@ -40,7 +42,7 @@ describe(AllHandler::class, function () {
         $this->em->persist($secondMessage);
         $this->em->flush();
 
-        $message = new All(channelId: $channel->getIdentifier());
+        $message = new All(channelId: (string) $channel->getIdentifier());
         $messages = $this->bus->execute($message);
 
         expect(count($messages))->toBe(2);

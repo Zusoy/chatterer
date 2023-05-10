@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\EventLog;
 use Domain\Exception\ObjectNotFoundException;
 use Domain\Handler\Station\CreateDefaultChannelHandler;
@@ -27,7 +29,7 @@ describe(CreateDefaultChannelHandler::class, function () {
         $this->em->persist($station);
         $this->em->flush();
 
-        $message = new CreateDefaultChannel($station->getIdentifier());
+        $message = new CreateDefaultChannel((string) $station->getIdentifier());
         $this->bus->execute($message);
 
         $channel = $this->channels->findByName($station->getIdentifier(), $defaultChannelName);
@@ -49,7 +51,7 @@ describe(CreateDefaultChannelHandler::class, function () {
     it ('throws if station not found from database', function () {
         $identifier = Identifier::generate();
 
-        expect(fn () => $this->bus->execute(new CreateDefaultChannel(id: $identifier)))
-            ->toThrow(new ObjectNotFoundException('Station', $identifier));
+        expect(fn () => $this->bus->execute(new CreateDefaultChannel(id: (string) $identifier)))
+            ->toThrow(new ObjectNotFoundException('Station', (string) $identifier));
     });
 });

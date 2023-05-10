@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Handler\Channel;
 
 use Domain\Exception\ObjectNotFoundException;
@@ -30,7 +32,7 @@ final class ListUsersHandler implements Handler
     public function __invoke(Message\ListUsers $message): iterable
     {
         if (!$channel = $this->channels->find($message->getIdentifier())) {
-            throw new ObjectNotFoundException('Channel', $message->getIdentifier());
+            throw new ObjectNotFoundException('Channel', (string) $message->getIdentifier());
         }
 
         $this->accessControl->requires(Operation::LIST_USERS_CHANNEL, ['channel' => $channel]);

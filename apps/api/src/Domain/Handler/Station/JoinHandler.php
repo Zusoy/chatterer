@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Handler\Station;
 
 use Domain\Event\Station as Event;
@@ -34,11 +36,11 @@ final class JoinHandler implements Handler
     public function __invoke(Message\Join $message): Station
     {
         if (!$station = $this->stations->find($message->getStationIdentifier())) {
-            throw new ObjectNotFoundException('Station', $message->getStationIdentifier());
+            throw new ObjectNotFoundException('Station', (string) $message->getStationIdentifier());
         }
 
         if (!$user = $this->users->find($message->getUserIdentifier())) {
-            throw new ObjectNotFoundException('User', $message->getUserIdentifier());
+            throw new ObjectNotFoundException('User', (string) $message->getUserIdentifier());
         }
 
         if (!$invitation = $this->invitations->findByToken($message->getToken(), $station)) {

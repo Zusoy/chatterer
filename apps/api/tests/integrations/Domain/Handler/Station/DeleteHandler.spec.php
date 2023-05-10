@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Application\Synchronization;
 use Application\Synchronization\Hub;
 use Domain\EventLog;
@@ -28,7 +30,7 @@ describe(DeleteHandler::class, function () {
         $this->em->persist($station);
         $this->em->flush();
 
-        $message = new Delete($identifier);
+        $message = new Delete((string) $identifier);
         $this->bus->execute($message);
 
         $station = $this->stations->find($identifier);

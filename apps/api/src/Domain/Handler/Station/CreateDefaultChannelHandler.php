@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Handler\Station;
 
 use Domain\Event\Channel as Event;
@@ -32,7 +34,7 @@ final class CreateDefaultChannelHandler implements Handler
     public function __invoke(Message\CreateDefaultChannel $message): Channel
     {
         if (!$station = $this->stations->find($message->getIdentifier())) {
-            throw new ObjectNotFoundException('Station', $message->getIdentifier());
+            throw new ObjectNotFoundException('Station', (string) $message->getIdentifier());
         }
 
         $general = Channel::general(station: $station, name: $this->defaultChannelName);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\HTTP\Controller;
 
 use Application\HTTP\Payload;
@@ -29,7 +31,7 @@ final class Message extends BaseController
     public function create(string $channelId, Payload $payload): Response
     {
         $message = $this->bus->execute(new DomainMessage\Create(
-            authorId: $this->getCurrentUser()->getIdentifier(),
+            authorId: (string) $this->getCurrentUser()->getIdentifier(),
             channelId: $channelId,
             content: $payload->mandatory('content')
         ));

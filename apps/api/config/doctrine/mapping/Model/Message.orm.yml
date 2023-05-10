@@ -1,3 +1,4 @@
+---
 Domain\Model\Message:
   type: entity
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Application\Synchronization;
 use Application\Synchronization\Hub;
 use Domain\Exception\ObjectNotFoundException;
@@ -42,7 +44,7 @@ describe(DeleteHandler::class, function () {
         $this->em->persist($message);
         $this->em->flush();
 
-        $domainMessage = new Delete(id: $message->getIdentifier());
+        $domainMessage = new Delete(id: (string) $message->getIdentifier());
         $this->bus->execute($domainMessage);
 
         $deletedMessage = $this->messages->find($identifier);
@@ -63,6 +65,6 @@ describe(DeleteHandler::class, function () {
 
         expect(fn () => $this->bus->execute(new Delete(
             id: (string) $identifier
-        )))->toThrow(new ObjectNotFoundException('Message', $identifier));
+        )))->toThrow(new ObjectNotFoundException('Message', (string) $identifier));
     });
 });

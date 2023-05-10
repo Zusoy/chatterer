@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Handler\Channel;
 
 use Domain\Event\Channel as Event;
@@ -26,7 +28,7 @@ final class DeleteHandler implements Handler
     public function __invoke(Message\Delete $message): void
     {
         if (!$channel = $this->channels->find($message->getIdentifier())) {
-            throw new ObjectNotFoundException('Channel', $message->getIdentifier());
+            throw new ObjectNotFoundException('Channel', (string) $message->getIdentifier());
         }
 
         $this->channels->remove($channel);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Handler\Channel;
 
 use Domain\Exception\ObjectNotFoundException;
@@ -27,7 +29,7 @@ final class AllHandler implements Handler
     public function __invoke(Message\All $message): iterable
     {
         if (!$station = $this->stations->find($message->getStationId())) {
-            throw new ObjectNotFoundException('Station', $message->getStationId());
+            throw new ObjectNotFoundException('Station', (string) $message->getStationId());
         }
 
         $this->accessControl->requires(Operation::LIST_STATION_CHANNELS, ['station' => $station]);

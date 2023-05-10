@@ -6,7 +6,6 @@ namespace Application\Normalization\Normalizer;
 
 use Application\Normalization\Exception\NormalizerNotFoundException;
 use Application\Normalization\Normalizer;
-use Infra\Assert\Assert;
 
 /**
  * @template T
@@ -20,7 +19,6 @@ final class AggregateNormalizer implements Normalizer
      */
     public function __construct(private readonly iterable $normalizers)
     {
-        Assert::thatAll($normalizers)->isInstanceOf(Normalizer::class);
     }
 
     /**

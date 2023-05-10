@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\HTTP\Controller;
 
 use Application\HTTP\Payload;

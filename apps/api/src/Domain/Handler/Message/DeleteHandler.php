@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Handler\Message;
 
 use Application\EventLog;
@@ -26,7 +28,7 @@ final class DeleteHandler implements Handler
     public function __invoke(Message\Delete $message): void
     {
         if (!$messageToDelete = $this->messages->find($message->getId())) {
-            throw new ObjectNotFoundException('Message', $message->getId());
+            throw new ObjectNotFoundException('Message', (string) $message->getId());
         }
 
         $this->messages->remove($messageToDelete);

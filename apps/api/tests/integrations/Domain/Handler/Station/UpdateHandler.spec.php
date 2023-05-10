@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\Exception\ObjectAlreadyExistsException;
 use Domain\Exception\ObjectNotFoundException;
 use Domain\Handler\Station\UpdateHandler;
@@ -23,7 +25,7 @@ describe(UpdateHandler::class, function() {
         $this->em->persist($station);
         $this->em->flush();
 
-        $message = new Update($identifier, 'New station', 'new desc');
+        $message = new Update((string) $identifier, 'New station', 'new desc');
         $this->bus->execute($message);
 
         $station = $this->stations->find($identifier);
@@ -51,7 +53,7 @@ describe(UpdateHandler::class, function() {
         $this->em->flush();
 
         $closure = function () use ($identifier) {
-            $this->bus->execute(new Update($identifier, 'Name', 'other'));
+            $this->bus->execute(new Update((string) $identifier, 'Name', 'other'));
         };
 
         expect($closure)->toThrow(new ObjectAlreadyExistsException('Station', 'Name'));

@@ -1,3 +1,4 @@
+---
 Domain\Model\Invitation:
   type: entity
 

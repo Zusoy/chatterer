@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\Message\Station\Delete;
 use Domain\Identity\Identifier;
 use Test\Integrations\Matcher\Assert\PropertyAssertionFailure;
@@ -7,7 +9,7 @@ use Test\Integrations\Matcher\Assert\PropertyAssertionFailure;
 describe(Delete::class, function () {
     it ('holds required values', function () {
         $identifier = Identifier::generate();
-        $message = new Delete(id: $identifier);
+        $message = new Delete(id: (string) $identifier);
 
         expect((string)$message->getIdentifier())->toBe((string)$identifier);
     });

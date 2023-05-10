@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+declare(strict_types=1);
+
 use Infra\Symfony\Kernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 

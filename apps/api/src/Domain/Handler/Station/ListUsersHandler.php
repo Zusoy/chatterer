@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Handler\Station;
 
 use Domain\Exception\ObjectNotFoundException;
@@ -30,7 +32,7 @@ final class ListUsersHandler implements Handler
     public function __invoke(Message\ListUsers $message): iterable
     {
         if (!$station = $this->stations->find($message->getIdentifier())) {
-            throw new ObjectNotFoundException('Station', $message->getIdentifier());
+            throw new ObjectNotFoundException('Station', (string) $message->getIdentifier());
         }
 
         $this->accessControl->requires(Operation::LIST_STATION_USERS, ['station' => $station]);

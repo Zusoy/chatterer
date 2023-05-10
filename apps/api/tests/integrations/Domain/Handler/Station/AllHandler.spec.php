@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\Message\Station\All;
 use Domain\Handler\Station\AllHandler;
 use Domain\Model\Station;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Infra\Symfony;
 
 use Infra\Symfony\DependencyInjection\Compiler\ReplaceMercureDataCollectorPass;
@@ -9,7 +11,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
-class Kernel extends BaseKernel
+final class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\Repository;
 
 use Doctrine\ORM\EntityManagerInterface;

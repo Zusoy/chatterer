@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\Handler\Station\ListUsersHandler;
 use Domain\Message\Station\ListUsers;
 use Domain\Model\Station;
@@ -27,7 +29,7 @@ describe(ListUsersHandler::class, function () {
         $this->em->persist($user);
         $this->em->flush();
 
-        $message = new ListUsers(id: $station->getIdentifier());
+        $message = new ListUsers(id: (string) $station->getIdentifier());
         $users = $this->bus->execute($message);
 
         expect($users)->toHaveLength(1);

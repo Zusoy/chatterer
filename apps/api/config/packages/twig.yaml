@@ -1,3 +1,4 @@
+---
 twig:
   default_path: '%kernel.project_dir%/src/Infra/Framework/Resources/templates'
 

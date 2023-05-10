@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\EventLog;
 use Domain\Exception\ObjectNotFoundException;
 use Domain\Message\Channel\Join;
@@ -41,8 +43,8 @@ describe(JoinHandler::class, function () {
         $this->em->flush();
 
         $message = new Join(
-            channelId: $channel->getIdentifier(),
-            userId: $user->getIdentifier()
+            channelId: (string) $channel->getIdentifier(),
+            userId: (string) $user->getIdentifier()
         );
         $this->bus->execute($message);
 
@@ -72,10 +74,10 @@ describe(JoinHandler::class, function () {
         $identifier = Identifier::generate();
 
         $closure = fn () => $this->bus->execute(new Join(
-            channelId: $identifier,
-            userId: $identifier
+            channelId: (string) $identifier,
+            userId: (string) $identifier
         ));
 
-        expect($closure)->toThrow(new ObjectNotFoundException('Channel', $identifier));
+        expect($closure)->toThrow(new ObjectNotFoundException('Channel', (string) $identifier));
     });
 });

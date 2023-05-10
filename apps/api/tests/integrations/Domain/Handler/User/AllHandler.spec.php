@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\Handler\User\AllHandler;
 use Domain\Message\User\All;
 use Domain\Model\User;

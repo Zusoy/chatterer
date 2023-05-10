@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Handler\Message;
 
 use Domain\Exception\ObjectNotFoundException;
@@ -29,7 +31,7 @@ final class AllHandler implements Handler
     public function __invoke(Message\All $message): iterable
     {
         if (!$channel = $this->channels->find($message->getChannelId())) {
-            throw new ObjectNotFoundException('Channel', $message->getChannelId());
+            throw new ObjectNotFoundException('Channel', (string) $message->getChannelId());
         }
 
         return $this->messages->findAll($channel);
