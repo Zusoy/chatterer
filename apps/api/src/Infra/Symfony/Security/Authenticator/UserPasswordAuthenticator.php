@@ -3,8 +3,8 @@
 namespace Infra\Symfony\Security\Authenticator;
 
 use Application\Auth\Tokenizer;
-use Application\Normalizer\Normalizer;
-use Application\Serializer\Serializer;
+use Application\Normalization\Normalizer;
+use Application\Serialization\Serializer;
 use Domain\Model\User;
 use Domain\Repository\Users;
 use Infra\Symfony\Security\AuthCookie;
@@ -25,6 +25,9 @@ final class UserPasswordAuthenticator extends AbstractAuthenticator
 {
     private const LOGIN_ROUTE = '/auth';
 
+    /**
+     * @param Normalizer<User> $normalizer
+     */
     public function __construct(
         private Users $users,
         private Normalizer $normalizer,

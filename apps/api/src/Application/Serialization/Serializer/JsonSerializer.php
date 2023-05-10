@@ -1,8 +1,10 @@
 <?php
 
-namespace Application\Serializer\Internal;
+declare(strict_types=1);
 
-use Application\Serializer\Serializer;
+namespace Application\Serialization\Serializer;
+
+use Application\Serialization\Serializer;
 
 final class JsonSerializer implements Serializer
 {

@@ -34,21 +34,21 @@ services:
 
   ## Normalization
 
-  Application\Normalizer\Internal\:
-    resource: '%kernel.project_dir%/src/Application/Normalizer/Internal'
-    tags: [ app.normalizer.internal ]
+  Application\Normalization\Normalizer\:
+    resource: '%kernel.project_dir%/src/Application/Normalization/Normalizer'
+    tags: [ app.normalizer ]
 
-  Application\Normalizer\AggregateNormalizer:
-    $normalizers: !tagged_iterator { tag: app.normalizer.internal }
+  Application\Normalization\Normalizer\AggregateNormalizer:
+    $normalizers: !tagged_iterator { tag: app.normalizer }
 
   ## Serialization
 
-  Application\Serializer\Internal\:
-    resource: '%kernel.project_dir%/src/Application/Serializer/Internal'
-    tags: [ app.serializer.internal ]
+  Application\Serialization\Serializer\:
+    resource: '%kernel.project_dir%/src/Application/Serialization/Serializer'
+    tags: [ app.serializer ]
 
-  Application\Serializer\AggregateSerializer:
-    $serializers: !tagged_iterator { tag: app.serializer.internal }
+  Application\Serialization\Serializer\AggregateSerializer:
+    $serializers: !tagged_iterator { tag: app.serializer }
 
   ## Synchorinzation
 

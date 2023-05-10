@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Application\Normalizer\Internal;
+namespace spec\Application\Normalization\Normalizer;
 
 use Domain\Identity\Identifier;
 use Domain\Model\Invitation;

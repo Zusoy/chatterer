@@ -2,8 +2,8 @@
 
 namespace Application\Synchronization\Hub;
 
-use Application\Normalizer\Normalizer;
-use Application\Serializer\Serializer;
+use Application\Normalization\Normalizer;
+use Application\Serialization\Serializer;
 use Application\Synchronization\Hub;
 use Application\Synchronization\Push;
 use Symfony\Component\Mercure\HubInterface;
@@ -21,6 +21,9 @@ final class MercureHub implements Hub
      */
     private array $pushs;
 
+    /**
+     * @param Normalizer<Push<T>> $normalizer
+     */
     public function __construct(
         private HubInterface $hub,
         private Normalizer $normalizer,

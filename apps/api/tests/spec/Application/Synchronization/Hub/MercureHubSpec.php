@@ -2,8 +2,8 @@
 
 namespace spec\Application\Synchronization\Hub;
 
-use Application\Normalizer\Normalizer;
-use Application\Serializer\Serializer;
+use Application\Normalization\Normalizer;
+use Application\Serialization\Serializer;
 use Application\Synchronization\Hub;
 use Application\Synchronization\Push;
 use PhpSpec\ObjectBehavior;

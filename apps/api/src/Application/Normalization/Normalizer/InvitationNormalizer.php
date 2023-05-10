@@ -1,10 +1,15 @@
 <?php
 
-namespace Application\Normalizer\Internal;
+declare(strict_types=1);
 
-use Application\Normalizer\Normalizer;
+namespace Application\Normalization\Normalizer;
+
+use Application\Normalization\Normalizer;
 use Domain\Model\Invitation;
 
+/**
+ * @implements Normalizer<Invitation>
+ */
 final class InvitationNormalizer implements Normalizer
 {
     /**
@@ -19,6 +24,8 @@ final class InvitationNormalizer implements Normalizer
      * {@inheritDoc}
      *
      * @param Invitation $data
+     *
+     * @return array<string>
      */
     public function normalize(mixed $data): mixed
     {

@@ -2,8 +2,8 @@
 
 namespace Infra\Symfony\Controller;
 
-use Application\Normalizer\Normalizer;
-use Application\Serializer\Serializer;
+use Application\Normalization\Normalizer;
+use Application\Serialization\Serializer;
 use Application\Synchronization\Hub;
 use Domain\Bus;
 use Domain\Model\User;
@@ -16,6 +16,9 @@ class BaseController
 {
     private const DISCOVERY_LINK_TEMPLATE = '<%s>; rel="%s"';
 
+    /**
+     * @param Normalizer<mixed> $normalizer
+     */
     public function __construct(
         protected Bus $bus,
         private Normalizer $normalizer,

@@ -1,16 +1,23 @@
 <?php
 
-namespace Application\Normalizer\Internal;
+declare(strict_types=1);
 
-use Application\Normalizer\Normalizer;
+namespace Application\Normalization\Normalizer;
+
+use Application\Normalization\Normalizer;
 use Application\Synchronization\Push;
 
 /**
  * @template T
+ *
+ * @implements Normalizer<Push<T>>
  */
 final class PushNormalizer implements Normalizer
 {
-    public function __construct(private Normalizer $normalizer)
+    /**
+     * @param Normalizer<T> $normalizer
+     */
+    public function __construct(private readonly Normalizer $normalizer)
     {
     }
 
@@ -29,9 +36,12 @@ final class PushNormalizer implements Normalizer
      *
      * @return array<string,string|mixed>
      */
-    public function normalize(mixed $data): array
+    public function normalize(mixed $data): mixed
     {
-        $payload = $this->normalizer->normalize($data->getPayload());
+        $pushPayload = $data->getPayload();
+
+        /** @var T|null */
+        $payload = $pushPayload ? $this->normalizer->normalize($pushPayload) : null;
 
         return [
             'type' => $data->getType()->value,
