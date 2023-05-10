@@ -1,10 +1,10 @@
 <?php
 
-namespace Infra\Framework\Security\Authenticator;
+namespace Infra\Symfony\Security\Authenticator;
 
 use Application\Auth\Extractor;
 use DomainException;
-use Infra\Framework\Security\AuthCookie;
+use Infra\Symfony\Security\AuthCookie;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

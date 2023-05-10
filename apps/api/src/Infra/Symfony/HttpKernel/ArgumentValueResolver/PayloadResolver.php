@@ -1,6 +1,6 @@
 <?php
 
-namespace Infra\Framework\HttpKernel\ArgumentValueResolver;
+namespace Infra\Symfony\HttpKernel\ArgumentValueResolver;
 
 use Application\HTTP\Payload;
 use Symfony\Component\HttpFoundation\Request;

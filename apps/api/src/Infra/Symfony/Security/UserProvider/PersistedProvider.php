@@ -1,6 +1,6 @@
 <?php
 
-namespace Infra\Framework\Security\UserProvider;
+namespace Infra\Symfony\Security\UserProvider;
 
 use Domain\Model\User;
 use Domain\Repository\Users;

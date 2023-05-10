@@ -1,8 +1,8 @@
 <?php
 
-namespace Infra\Framework\DependencyInjection\Compiler;
+namespace Infra\Symfony\DependencyInjection\Compiler;
 
-use Infra\Framework\DataCollector\HubDataCollector;
+use Infra\Symfony\DataCollector\HubDataCollector;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;

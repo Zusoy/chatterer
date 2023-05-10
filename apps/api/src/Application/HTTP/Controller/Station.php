@@ -6,7 +6,7 @@ use Application\HTTP\Payload;
 use Domain\Identity\Identifier;
 use Domain\Message\Station as Message;
 use Domain\Model\Invitation;
-use Infra\Framework\Controller\BaseController;
+use Infra\Symfony\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

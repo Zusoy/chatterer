@@ -1,6 +1,6 @@
 <?php
 
-namespace Infra\Framework\DataCollector;
+namespace Infra\Symfony\DataCollector;
 
 use Symfony\Bundle\MercureBundle\DataCollector\MercureDataCollector;
 use Symfony\Component\HttpFoundation\Request;

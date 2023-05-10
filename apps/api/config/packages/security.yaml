@@ -10,7 +10,7 @@ security:
 
   providers:
     users:
-      id: Infra\Framework\Security\UserProvider\PersistedProvider
+      id: Infra\Symfony\Security\UserProvider\PersistedProvider
 
   firewalls:
     dev:
@@ -24,14 +24,14 @@ security:
         path: logout
       stateless: true
       custom_authenticators:
-        - Infra\Framework\Security\Authenticator\UserPasswordAuthenticator
+        - Infra\Symfony\Security\Authenticator\UserPasswordAuthenticator
 
     api:
       pattern: ^/
       provider: users
       stateless: true
       custom_authenticators:
-        - Infra\Framework\Security\Authenticator\JWTTokenAuthenticator
+        - Infra\Symfony\Security\Authenticator\JWTTokenAuthenticator
       switch_user:
         role: 'user:impersonate'
         parameter: X-Impersonate

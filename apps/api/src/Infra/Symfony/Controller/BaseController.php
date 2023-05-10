@@ -1,6 +1,6 @@
 <?php
 
-namespace Infra\Framework\Controller;
+namespace Infra\Symfony\Controller;
 
 use Application\Normalizer\Normalizer;
 use Application\Serializer\Serializer;

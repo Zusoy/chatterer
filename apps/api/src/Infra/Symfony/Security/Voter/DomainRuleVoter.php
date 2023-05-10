@@ -1,6 +1,6 @@
 <?php
 
-namespace Infra\Framework\Security\Voter;
+namespace Infra\Symfony\Security\Voter;
 
 use Domain\Model\User;
 use Domain\Security\Operation;
