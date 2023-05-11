@@ -54,11 +54,11 @@ final class MercureHub implements Hub
 
             $this->hub->publish(
                 new Update(
-                    array_map(
+                    topics: array_map(
                         fn ($topic) => $this->getUriForTopic($topic),
                         $push->getTopics()
                     ),
-                    $this->serializer->serialize($data, Serializer::JSON_FORMAT)
+                    data: $this->serializer->serialize($data, Serializer::JSON_FORMAT)
                 )
             );
         }

@@ -34,8 +34,8 @@ final class Channel extends BaseController
     {
         $channel = $this->bus->execute(new Command\Create(
             $stationId,
-            $payload->mandatory('name'),
-            $payload->optional('description')
+            name: (string) $payload->mandatory('name'),
+            description: (string) $payload->optional('description')
         ));
 
         return $this->createJsonResponse(
@@ -49,8 +49,8 @@ final class Channel extends BaseController
     {
         $channel = $this->bus->execute(new Command\Update(
             $id,
-            $payload->mandatory('name'),
-            $payload->optional('description')
+            name: (string) $payload->mandatory('name'),
+            description: (string) $payload->optional('description')
         ));
 
         return $this->createJsonResponse(

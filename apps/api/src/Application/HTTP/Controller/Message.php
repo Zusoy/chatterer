@@ -33,7 +33,7 @@ final class Message extends BaseController
         $message = $this->bus->execute(new Command\Create(
             authorId: (string) $this->getCurrentUser()->getIdentifier(),
             channelId: $channelId,
-            content: $payload->mandatory('content')
+            content: (string) $payload->mandatory('content')
         ));
 
         return $this->createJsonResponse(

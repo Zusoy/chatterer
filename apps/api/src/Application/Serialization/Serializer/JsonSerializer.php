@@ -19,7 +19,7 @@ final class JsonSerializer implements Serializer
     /**
      * {@inheritDoc}
      */
-    public function serialize(mixed $data, string $format): mixed
+    public function serialize(mixed $data, string $format): string
     {
         return json_encode($data, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT);
     }

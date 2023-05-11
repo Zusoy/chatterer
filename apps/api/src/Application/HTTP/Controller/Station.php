@@ -42,8 +42,8 @@ final class Station extends BaseController
     public function create(Payload $payload): Response
     {
         $station = $this->bus->execute(new Command\Create(
-            $payload->mandatory('name'),
-            $payload->optional('description')
+            name: (string) $payload->mandatory('name'),
+            description: (string) $payload->optional('description')
         ));
 
         return $this->createJsonResponse(
@@ -70,7 +70,7 @@ final class Station extends BaseController
         $station = $this->bus->execute(new Command\Join(
             stationId: $id,
             userId: (string) $this->getCurrentUser()->getIdentifier(),
-            token: $payload->mandatory('token')
+            token: (string) $payload->mandatory('token')
         ));
 
         return $this->createJsonResponse(
@@ -84,8 +84,8 @@ final class Station extends BaseController
     {
         $station = $this->bus->execute(new Command\Update(
             $id,
-            $payload->mandatory('name'),
-            $payload->optional('description')
+            name: (string) $payload->mandatory('name'),
+            description: (string) $payload->optional('description')
         ));
 
         return $this->createJsonResponse(

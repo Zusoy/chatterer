@@ -32,11 +32,11 @@ final class User extends BaseController
     {
         /** @var UserModel */
         $user = $this->bus->execute(new Command\Create(
-            firstname: $payload->mandatory('firstname'),
-            lastname: $payload->mandatory('lastname'),
-            email: $payload->mandatory('email'),
-            password: $payload->mandatory('password'),
-            isAdmin: $payload->optional('isAdmin', defaultValue: false)
+            firstname: (string) $payload->mandatory('firstname'),
+            lastname: (string) $payload->mandatory('lastname'),
+            email: (string) $payload->mandatory('email'),
+            password: (string) $payload->mandatory('password'),
+            isAdmin: (bool) $payload->optional('isAdmin', defaultValue: false)
         ));
 
         return $this->createJsonResponse(
@@ -50,10 +50,10 @@ final class User extends BaseController
     {
         /** @var UserModel */
         $user = $this->bus->execute(new Command\Register(
-            firstname: $payload->mandatory('firstname'),
-            lastname: $payload->mandatory('lastname'),
-            email: $payload->mandatory('email'),
-            password: $payload->mandatory('password')
+            firstname: (string) $payload->mandatory('firstname'),
+            lastname: (string) $payload->mandatory('lastname'),
+            email: (string) $payload->mandatory('email'),
+            password: (string) $payload->mandatory('password')
         ));
 
         return $this->createJsonResponse(

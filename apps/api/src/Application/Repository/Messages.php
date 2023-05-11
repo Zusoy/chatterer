@@ -44,12 +44,15 @@ final class Messages implements \Domain\Repository\Messages
      */
     public function findAll(Channel $channel): iterable
     {
-        return $this->repository
+        /** @var iterable<Message> */
+        $results = $this->repository
             ->createQueryBuilder('msg')
             ->andWhere('msg.channel = :channel')
             ->setParameter('channel', $channel)
             ->getQuery()
             ->getResult();
+
+        return $results;
     }
 
     /**

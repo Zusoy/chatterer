@@ -19,6 +19,7 @@ final class DecodeRequestJSONBodyListener
         }
 
         try {
+            /** @var array<mixed> */
             $body = json_decode(
                 json: (string) $request->getContent(),
                 associative: true,
