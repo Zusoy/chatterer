@@ -8,20 +8,20 @@ services:
     resource: '%kernel.project_dir%/src/Domain'
     exclude: '%kernel.project_dir%/src/Domain/{Model,Message}'
 
-  Domain\Handler\:
-    resource: '%kernel.project_dir%/src/Domain/Handler'
-    tags: [ app.message.handler ]
+  Domain\CommandHandler\:
+    resource: '%kernel.project_dir%/src/Domain/CommandHandler'
+    tags: [ messenger.message_handler ]
 
   Domain\Security\Rule\:
     resource: '%kernel.project_dir%/src/Domain/Security/Rule'
     tags: [ domain.security.rule ]
 
-  Domain\Handler\Config\GetHandler:
+  Domain\CommandHandler\Config\GetHandler:
     arguments:
       $apiURL: '%api_url%'
-    tags: [ app.message.handler ]
+    tags: [ messenger.message_handler ]
 
-  Domain\Handler\Station\CreateDefaultChannelHandler:
+  Domain\CommandHandler\Station\CreateDefaultChannelHandler:
     arguments:
       $defaultChannelName: '%default_channel_name%'
-    tags: [ app.message.handler ]
+    tags: [ messenger.message_handler ]

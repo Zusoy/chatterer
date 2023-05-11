@@ -6,10 +6,10 @@ namespace Application\CLI;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Domain\Bus;
-use Domain\Message\Channel as ChannelMessage;
-use Domain\Message\Message as MessagesMessage;
-use Domain\Message\Station as StationMessage;
-use Domain\Message\User as UserMessage;
+use Domain\Command\Channel as ChannelCommand;
+use Domain\Command\Message as MessageCommand;
+use Domain\Command\Station as StationCommand;
+use Domain\Command\User as UserCommand;
 use Domain\Model\Channel;
 use Domain\Model\Message;
 use Domain\Model\Station;
@@ -142,7 +142,7 @@ final class InsertFixturesCommand extends Command
             /** @var User */
             $admin = $this->domainGenerator->admin($this->domainGenerator->email());
 
-            $newAdmin = $this->bus->execute(new UserMessage\Create(
+            $newAdmin = $this->bus->execute(new UserCommand\Create(
                 firstname: $admin->getFirstname(),
                 lastname: $admin->getLastname(),
                 email: $admin->getEmail(),
@@ -161,7 +161,7 @@ final class InsertFixturesCommand extends Command
             /** @var User */
             $user = $this->domainGenerator->user($this->domainGenerator->email());
 
-            $newUser = $this->bus->execute(new UserMessage\Create(
+            $newUser = $this->bus->execute(new UserCommand\Create(
                 firstname: $user->getFirstname(),
                 lastname: $user->getLastname(),
                 email: $user->getEmail(),
@@ -180,7 +180,7 @@ final class InsertFixturesCommand extends Command
             /** @var Station */
             $station = $this->domainGenerator->station();
 
-            $newStation = $this->bus->execute(new StationMessage\Create(
+            $newStation = $this->bus->execute(new StationCommand\Create(
                 name: $station->getName(),
                 description: $station->getDescription()
             ));
@@ -194,7 +194,7 @@ final class InsertFixturesCommand extends Command
                 /** @var Channel */
                 $channel = $this->domainGenerator->channel([ $station ]);
 
-                $newChannel = $this->bus->execute(new ChannelMessage\Create(
+                $newChannel = $this->bus->execute(new ChannelCommand\Create(
                     stationId: (string) $station->getIdentifier(),
                     name: $channel->getName(),
                     description: $channel->getDescription()
@@ -213,7 +213,7 @@ final class InsertFixturesCommand extends Command
                     [ $channel ]
                 );
 
-                $newMessage = $this->bus->execute(new MessagesMessage\Create(
+                $newMessage = $this->bus->execute(new MessageCommand\Create(
                     authorId: (string) $message->getAuthorIdentifier(),
                     channelId: (string) $channel->getIdentifier(),
                     content: $message->getContent()

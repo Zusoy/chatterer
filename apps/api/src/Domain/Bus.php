@@ -11,5 +11,5 @@ interface Bus
      *
      * @return mixed
      */
-    public function execute(Message $message): mixed;
+    public function execute(object $message): mixed;
 }

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Application\HTTP\Controller;
 
 use Application\HTTP\Payload;
+use Domain\Command\Station as Command;
 use Domain\Identity\Identifier;
-use Domain\Message\Station as Message;
 use Domain\Model\Invitation;
 use Infra\Symfony\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +19,7 @@ final class Station extends BaseController
     #[Route('/stations', name: 'list', methods: [Request::METHOD_GET])]
     public function list(): Response
     {
-        $stations = $this->bus->execute(new Message\All());
+        $stations = $this->bus->execute(new Command\All());
 
         return $this->createJsonResponse(
             data: $stations,
@@ -30,7 +30,7 @@ final class Station extends BaseController
     #[Route('/station/{id}', name: 'get', requirements: ['id' => Identifier::PATTERN], methods: [Request::METHOD_GET])]
     public function get(string $id): Response
     {
-        $station = $this->bus->execute(new Message\Get($id));
+        $station = $this->bus->execute(new Command\Get($id));
 
         return $this->createJsonResponse(
             data: $station,
@@ -41,7 +41,7 @@ final class Station extends BaseController
     #[Route('/stations', name: 'create', methods: [Request::METHOD_POST])]
     public function create(Payload $payload): Response
     {
-        $station = $this->bus->execute(new Message\Create(
+        $station = $this->bus->execute(new Command\Create(
             $payload->mandatory('name'),
             $payload->optional('description')
         ));
@@ -56,7 +56,7 @@ final class Station extends BaseController
     public function invite(string $id): Response
     {
         /** @var Invitation */
-        $invitation = $this->bus->execute(new Message\Invite($id));
+        $invitation = $this->bus->execute(new Command\Invite($id));
 
         return $this->createJsonResponse(
             data: $invitation,
@@ -67,7 +67,7 @@ final class Station extends BaseController
     #[Route('/station/{id}/join', name: 'join', requirements: ['id' => Identifier::PATTERN], methods: [Request::METHOD_POST])]
     public function join(string $id, Payload $payload): Response
     {
-        $station = $this->bus->execute(new Message\Join(
+        $station = $this->bus->execute(new Command\Join(
             stationId: $id,
             userId: (string) $this->getCurrentUser()->getIdentifier(),
             token: $payload->mandatory('token')
@@ -82,7 +82,7 @@ final class Station extends BaseController
     #[Route('/station/{id}', name: 'update', requirements: ['id' => Identifier::PATTERN], methods: [Request::METHOD_PUT])]
     public function update(string $id, Payload $payload): Response
     {
-        $station = $this->bus->execute(new Message\Update(
+        $station = $this->bus->execute(new Command\Update(
             $id,
             $payload->mandatory('name'),
             $payload->optional('description')
@@ -97,7 +97,7 @@ final class Station extends BaseController
     #[Route('station/{id}/users', name: 'list_users', requirements: ['id' => Identifier::PATTERN], methods: [Request::METHOD_GET])]
     public function users(string $id): Response
     {
-        $users = $this->bus->execute(new Message\ListUsers($id));
+        $users = $this->bus->execute(new Command\ListUsers($id));
 
         return $this->createJsonResponse(
             data: $users,
@@ -108,7 +108,7 @@ final class Station extends BaseController
     #[Route('/station/{id}', name: 'delete', requirements: ['id' => Identifier::PATTERN], methods: [Request::METHOD_DELETE])]
     public function delete(string $id): Response
     {
-        $this->bus->execute(new Message\Delete($id));
+        $this->bus->execute(new Command\Delete($id));
 
         return $this->createJsonResponse(status: Response::HTTP_NO_CONTENT);
     }

@@ -14,18 +14,9 @@ services:
   Application\CLI\:
     resource: '%kernel.project_dir%/src/Application/CLI'
 
-  ## Messaging
+  ## Messenger
 
-  Application\Messaging\Map\InMemoryHandlerMap:
-    $handlers: !tagged_iterator { tag: app.message.handler }
-
-  Application\Messaging\Transaction\PersistenceTransaction: ~
-
-  Application\Messaging\TransactionalMessageBus:
-    tags: ['message.bus']
-
-  Application\Messaging\TraceableMessageBus:
-    tags: ['message.bus']
+  Application\MessengerBus: ~
 
   ## HTTP
 

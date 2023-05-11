@@ -1,0 +1,11 @@
+---
+framework:
+  messenger:
+    transports:
+      sync: 'sync://'
+
+when@test:
+  framework:
+    messenger:
+      transports:
+        async: 'in-memory://'

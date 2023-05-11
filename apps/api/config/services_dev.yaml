@@ -5,5 +5,3 @@ services:
     autoconfigure: true
 
   ## Alias overrides
-
-  Domain\Bus: '@Application\Messaging\TraceableMessageBus'
