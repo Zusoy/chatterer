@@ -7,8 +7,8 @@ namespace Application\Event\Listener;
 use Application\Synchronization\Hub;
 use Application\Synchronization\Push;
 use Domain\Bus;
+use Domain\Command\Station as Command;
 use Domain\Event\Station as Event;
-use Domain\Message\Station as Message;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class StationEventListener implements EventSubscriberInterface
@@ -32,7 +32,7 @@ final class StationEventListener implements EventSubscriberInterface
     public function onStationCreated(Event\Created $event): void
     {
         $this->hub->push(Push\Station::insert($event->station));
-        $this->bus->execute(new Message\CreateDefaultChannel(id: (string) $event->station->getIdentifier()));
+        $this->bus->execute(new Command\CreateDefaultChannel(id: (string) $event->station->getIdentifier()));
     }
 
     public function onStationDeleted(Event\Deleted $event): void

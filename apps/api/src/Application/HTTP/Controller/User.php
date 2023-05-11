@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Application\HTTP\Controller;
 
 use Application\HTTP\Payload;
-use Domain\Message\User as Message;
+use Domain\Command\User as Command;
 use Domain\Model\User as UserModel;
 use Infra\Symfony\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +19,7 @@ final class User extends BaseController
     public function list(): Response
     {
         /** @var iterable<UserModel> */
-        $users = $this->bus->execute(new Message\All());
+        $users = $this->bus->execute(new Command\All());
 
         return $this->createJsonResponse(
             data: $users,
@@ -31,12 +31,12 @@ final class User extends BaseController
     public function create(Payload $payload): Response
     {
         /** @var UserModel */
-        $user = $this->bus->execute(new Message\Create(
-            firstname: $payload->mandatory('firstname'),
-            lastname: $payload->mandatory('lastname'),
-            email: $payload->mandatory('email'),
-            password: $payload->mandatory('password'),
-            isAdmin: $payload->optional('isAdmin', defaultValue: false)
+        $user = $this->bus->execute(new Command\Create(
+            firstname: (string) $payload->mandatory('firstname'),
+            lastname: (string) $payload->mandatory('lastname'),
+            email: (string) $payload->mandatory('email'),
+            password: (string) $payload->mandatory('password'),
+            isAdmin: (bool) $payload->optional('isAdmin', defaultValue: false)
         ));
 
         return $this->createJsonResponse(
@@ -49,11 +49,11 @@ final class User extends BaseController
     public function register(Payload $payload): Response
     {
         /** @var UserModel */
-        $user = $this->bus->execute(new Message\Register(
-            firstname: $payload->mandatory('firstname'),
-            lastname: $payload->mandatory('lastname'),
-            email: $payload->mandatory('email'),
-            password: $payload->mandatory('password')
+        $user = $this->bus->execute(new Command\Register(
+            firstname: (string) $payload->mandatory('firstname'),
+            lastname: (string) $payload->mandatory('lastname'),
+            email: (string) $payload->mandatory('email'),
+            password: (string) $payload->mandatory('password')
         ));
 
         return $this->createJsonResponse(

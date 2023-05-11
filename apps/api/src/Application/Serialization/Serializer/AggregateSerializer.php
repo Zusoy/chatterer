@@ -29,7 +29,7 @@ final class AggregateSerializer implements Serializer
     /**
      * {@inheritDoc}
      */
-    public function serialize(mixed $data, string $format): mixed
+    public function serialize(mixed $data, string $format): string
     {
         foreach ($this->serializers as $serializer) {
             if ($serializer->supports($data, $format)) {

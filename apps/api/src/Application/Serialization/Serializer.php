@@ -10,5 +10,5 @@ interface Serializer
 
     public function supports(mixed $data, string $format): bool;
 
-    public function serialize(mixed $data, string $format): mixed;
+    public function serialize(mixed $data, string $format): string;
 }

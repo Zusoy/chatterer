@@ -14,6 +14,9 @@ final class Payload
     {
     }
 
+    /**
+     * @return string|int|float|bool|null
+     */
     public function mandatory(string $name): mixed
     {
         if (!$this->request->request->has($name) && !$this->request->query->has($name)) {
@@ -23,13 +26,16 @@ final class Payload
         return $this->optional($name);
     }
 
+    /**
+     * @return string|int|float|bool|null
+     */
     public function optional(string $name, mixed $defaultValue = null): mixed
     {
         return $this->request->query->get($name, $this->request->request->get($name, $defaultValue));
     }
 
     /**
-     * @return mixed[]
+     * @return array<string|int|float|bool>
      */
     public function mandatories(string $name): array
     {
@@ -41,7 +47,7 @@ final class Payload
     }
 
     /**
-     * @return mixed[]
+     * @return array<string|int|float|bool>
      */
     public function optionals(string $name): array
     {
@@ -57,6 +63,12 @@ final class Payload
             throw new BadRequestHttpException("File '{$name}' is missing.");
         }
 
-        return $this->request->files->get($name);
+        $file = $this->request->files->get($name);
+
+        if (!$file instanceof UploadedFile) {
+            throw new BadRequestHttpException("File '{$name}' is invalid.");
+        }
+
+        return $file;
     }
 }

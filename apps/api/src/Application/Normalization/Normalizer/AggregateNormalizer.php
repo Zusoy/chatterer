@@ -56,7 +56,7 @@ final class AggregateNormalizer implements Normalizer
             return $normalized;
         }
 
-        throw new NormalizerNotFoundException((string) get_class($data));
+        throw new NormalizerNotFoundException(gettype($data));
     }
 
     /**
