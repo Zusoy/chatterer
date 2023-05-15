@@ -22,10 +22,6 @@ kill:
 # API #
 #######
 
-.PHONY: api-analysis
-api-analysis:
-	@docker-compose run --rm --no-deps api ./vendor/bin/phpstan --memory-limit=2G -n
-
 .PHONY: api-integrations
 api-integrations:
 	@docker-compose run --rm --no-deps api kahlan
@@ -58,6 +54,16 @@ api-vendor:
 .PHONY: client-shell
 client-shell:
 	@docker exec -it "$$(docker ps -q -f name=chatterer_client)" sh
+
+#########
+# TOOLS #
+#########
+
+.PHONY: phpstan
+phpstan:
+	docker-compose -f docker-compose.tools.yaml build phpstan > /dev/null
+	docker-compose -f docker-compose.tools.yaml run --rm --user=$$(id -u) -w /code --entrypoint=sh phpstan -c "composer install $(COMPOSER_OPTIONS)"
+	docker-compose -f docker-compose.tools.yaml run --rm --user=$$(id -u) -w /code --entrypoint=sh phpstan -c "phpstan analyse --memory-limit=-1"
 
 #################
 # MISCELLANEOUS #

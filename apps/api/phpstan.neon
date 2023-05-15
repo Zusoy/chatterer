@@ -8,6 +8,3 @@ parameters:
     - '#Call to an undefined method Faker\\Generator::(.*)#'
     - '#Call to an undefined method Assert\\LazyAssertion::identifier#'
     - '#Call to an undefined method Assert\\AssertionChain<string>::identifier#'
-
-includes:
-	- vendor/phpstan/phpstan-beberlei-assert/extension.neon

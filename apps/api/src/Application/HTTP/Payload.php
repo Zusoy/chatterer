@@ -31,7 +31,10 @@ final class Payload
      */
     public function optional(string $name, mixed $defaultValue = null): mixed
     {
-        return $this->request->query->get($name, $this->request->request->get($name, $defaultValue));
+        /** @var string|null */
+        $default = $this->request->request->get($name, $defaultValue);
+
+        return $this->request->query->get($name, $default);
     }
 
     /**

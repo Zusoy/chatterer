@@ -10,7 +10,7 @@ use Stringable;
 
 final class Identifier implements Stringable
 {
-    public const PATTERN = Uuid::VALID_PATTERN;
+    public const PATTERN = '\A[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}\z';
 
     public static function generate(): self
     {
