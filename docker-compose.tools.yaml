@@ -1,0 +1,11 @@
+---
+version: '3.8'
+
+services:
+  phpstan:
+    build: tools/phpstan
+    env_file:
+      - .env
+    volumes:
+      - ./apps/api:/code
+    network_mode: host

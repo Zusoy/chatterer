@@ -55,14 +55,14 @@ services:
       - chatterer_default
 
   hub:
-    image: dunglas/mercure:v0.12
+    build:
+      context: apps/hub
     env_file:
       - .env
     environment:
       SERVER_NAME: ':80'
     ports:
       - '8080:80'
-    command: ['caddy', 'run', '-config', '/etc/caddy/Caddyfile.dev']
     networks:
       - chatterer_default
 

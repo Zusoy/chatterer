@@ -1,0 +1,19 @@
+{
+  "require": {
+    "phpstan/extension-installer": "^1.2",
+    "phpstan/phpstan": "^1.9",
+    "phpstan/phpstan-deprecation-rules": "^1.1",
+    "phpstan/phpstan-doctrine": "^1.3",
+    "phpstan/phpstan-symfony": "^1.2",
+    "phpstan/phpstan-beberlei-assert": "^1.0"
+  },
+  "conflict": {
+    "phpstan/phpstan-doctrine": ">1.3.28"
+  },
+  "config": {
+    "allow-plugins": {
+      "phpstan/extension-installer": true
+    },
+    "sort-packages": true
+  }
+}
