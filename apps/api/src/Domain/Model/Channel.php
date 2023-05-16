@@ -6,23 +6,22 @@ namespace Domain\Model;
 
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Domain\Group\UserCollectionGroupTrait;
+use Domain\Group\UserGroup;
 use Domain\Identity\Identifiable;
 use Domain\Identity\Identifier;
-use Domain\Model\User;
 use Domain\Time\HasTimestamp;
 use Domain\Time\HasTimestampTrait;
 
-class Channel implements Identifiable, HasTimestamp, HasUsers
+class Channel implements Identifiable, HasTimestamp, UserGroup
 {
     use HasTimestampTrait;
+    use UserCollectionGroupTrait;
 
     private Identifier $id;
     private string $name;
     private ?string $description;
     private Station $station;
-    /** @var Collection<int,User> */
-    private Collection $users;
 
     public static function general(Station $station, string $name): Channel
     {
@@ -83,46 +82,6 @@ class Channel implements Identifiable, HasTimestamp, HasUsers
     public function setDescription(?string $description): void
     {
         $this->description = $description;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function add(User $user): void
-    {
-        if ($this->users->contains($user)) {
-            return;
-        }
-
-        $this->users->add($user);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function remove(User $user): void
-    {
-        if (!$this->users->contains($user)) {
-            return;
-        }
-
-        $this->users->removeElement($user);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function has(User $user): bool
-    {
-        return $this->users->contains($user);
-    }
-
-    /**
-     * @return User[]
-     */
-    public function getUsers(): array
-    {
-        return $this->users->toArray();
     }
 
     /**

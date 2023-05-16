@@ -7,6 +7,7 @@ namespace Domain\CommandHandler\Station;
 use Domain\Command\Station as Command;
 use Domain\Event\Station as Event;
 use Domain\EventLog;
+use Domain\Exception\InvalidInvitationTokenException;
 use Domain\Exception\ObjectNotFoundException;
 use Domain\Exception\UserAlreadyJoinedException;
 use Domain\Model\Station;
@@ -14,7 +15,7 @@ use Domain\Repository\Invitations;
 use Domain\Repository\Stations;
 use Domain\Repository\Users;
 
-final class JoinHandler
+final class AddUserHandler
 {
     public function __construct(
         private readonly Stations $stations,
@@ -24,7 +25,7 @@ final class JoinHandler
     ) {
     }
 
-    public function __invoke(Command\Join $command): Station
+    public function __invoke(Command\AddUser $command): Station
     {
         if (!$station = $this->stations->find($command->getStationIdentifier())) {
             throw new ObjectNotFoundException('Station', $command->stationId);
@@ -34,16 +35,19 @@ final class JoinHandler
             throw new ObjectNotFoundException('User', $command->userId);
         }
 
-        if (!$invitation = $this->invitations->findByToken($command->token, $station)) {
+        if (!$stationInvitation = $this->invitations->findByStation($station)) {
             throw new ObjectNotFoundException('Invitation', $command->token);
         }
 
-        if ($station->has($user)) {
+        if ($command->token !== (string) $stationInvitation->getToken()) {
+            throw new InvalidInvitationTokenException($command->token);
+        }
+
+        if ($station->hasUser($user)) {
             throw new UserAlreadyJoinedException($station, $user);
         }
 
-        $user->joinStation($station);
-        $this->invitations->remove($invitation);
+        $user->joinGroup($station);
 
         $this->eventLog->record(new Event\NewMember($station, $user));
 

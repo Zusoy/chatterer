@@ -37,7 +37,7 @@ final class Channel implements Rule
     {
         return match($operation) {
             Operation::JOIN_CHANNEL => $context !== null && $user->isInStation($context['channel']->getStation()),
-            Operation::LIST_USERS_CHANNEL => ($context !== null && $user->isInChannel($context['channel'])) || $user->isAdmin(),
+            Operation::LIST_USERS_CHANNEL => ($context !== null && $context['channel']->hasUser($user)) || $user->isAdmin(),
 
             default => $user->isAdmin()
         };

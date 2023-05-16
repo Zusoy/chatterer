@@ -24,4 +24,6 @@ enum Operation: string
 
     case CREATE_MESSAGE = 'message:create';
     case DELETE_MESSAGE = 'message:delete';
+
+    case DELETE_INVITATION = 'invitation:delete';
 }

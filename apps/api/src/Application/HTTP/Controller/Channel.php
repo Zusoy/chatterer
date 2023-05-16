@@ -62,7 +62,7 @@ final class Channel extends BaseController
     #[Route('channel/{id}/join', name: 'join', requirements: ['id' => Identifier::PATTERN], methods: [Request::METHOD_POST])]
     public function join(string $id): Response
     {
-        $channel = $this->bus->execute(new Command\Join(
+        $channel = $this->bus->execute(new Command\AddUser(
             channelId: $id,
             userId: (string) $this->getCurrentUser()->getIdentifier()
         ));

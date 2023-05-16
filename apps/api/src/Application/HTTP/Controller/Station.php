@@ -67,7 +67,7 @@ final class Station extends BaseController
     #[Route('/station/{id}/join', name: 'join', requirements: ['id' => Identifier::PATTERN], methods: [Request::METHOD_POST])]
     public function join(string $id, Payload $payload): Response
     {
-        $station = $this->bus->execute(new Command\Join(
+        $station = $this->bus->execute(new Command\AddUser(
             stationId: $id,
             userId: (string) $this->getCurrentUser()->getIdentifier(),
             token: (string) $payload->mandatory('token')

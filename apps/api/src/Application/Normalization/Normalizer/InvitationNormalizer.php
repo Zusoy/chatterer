@@ -32,7 +32,9 @@ final class InvitationNormalizer implements Normalizer
         return [
             'id' => (string) $data->getIdentifier(),
             'station' => (string) $data->getStationIdentifier(),
-            'token' => (string) $data->getToken()
+            'token' => (string) $data->getToken(),
+            'createdAt' => $data->getCreatedAt()->format('Y-m-d'),
+            'updatedAt' => $data->getUpdatedAt()->format('Y-m-d')
         ];
     }
 }

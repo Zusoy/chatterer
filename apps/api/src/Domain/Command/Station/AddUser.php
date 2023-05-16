@@ -2,28 +2,31 @@
 
 declare(strict_types=1);
 
-namespace Domain\Command\Channel;
+namespace Domain\Command\Station;
 
 use Domain\Identity\Identifier;
 use Infra\Assert\Assert;
 
-final class Join
+final class AddUser
 {
     public function __construct(
-        public readonly string $channelId,
-        public readonly string $userId
+        public readonly string $stationId,
+        public readonly string $userId,
+        public readonly string $token,
     ) {
         Assert::lazy()
-            ->that($channelId, propertyPath: 'channelId')
+            ->that($stationId, propertyPath: 'stationId')
                 ->identifier()
             ->that($userId, propertyPath: 'userId')
                 ->identifier()
+            ->that($token, propertyPath: 'token')
+                ->notEmpty()
             ->verifyNow();
     }
 
-    public function getChannelIdentifier(): Identifier
+    public function getStationIdentifier(): Identifier
     {
-        return new Identifier($this->channelId);
+        return new Identifier($this->stationId);
     }
 
     public function getUserIdentifier(): Identifier

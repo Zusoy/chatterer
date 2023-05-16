@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace spec\Domain\Model;
 
 use DateTimeImmutable;
+use Domain\Group\UserGroup;
 use Domain\Identity\Identifiable;
 use Domain\Identity\Identifier;
-use Domain\Model\HasUsers;
 use Domain\Model\Station;
 use Domain\Model\User;
 use Domain\Time\HasTimestamp;
@@ -28,7 +28,7 @@ class StationSpec extends ObjectBehavior
         $this->shouldHaveType(Station::class);
         $this->shouldImplement(Identifiable::class);
         $this->shouldImplement(HasTimestamp::class);
-        $this->shouldImplement(HasUsers::class);
+        $this->shouldImplement(UserGroup::class);
     }
 
     public function it_exposes_some_state(): void
@@ -42,8 +42,8 @@ class StationSpec extends ObjectBehavior
 
     public function it_contains_users(User $user1, User $user2): void
     {
-        $this->add($user1);
-        $this->has($user1)->shouldBe(true);
-        $this->has($user2)->shouldBe(false);
+        $this->addUser($user1);
+        $this->hasUser($user1)->shouldBe(true);
+        $this->hasUser($user2)->shouldBe(false);
     }
 }

@@ -37,11 +37,11 @@ describe(ListUsersHandler::class, function () {
             password: 'hello'
         );
 
-        $firstUser->joinStation($station);
-        $firstUser->joinChannel($channel);
+        $firstUser->joinGroup($station);
+        $firstUser->joinGroup($channel);
 
-        $secondUser->joinStation($station);
-        $secondUser->joinChannel($channel);
+        $secondUser->joinGroup($station);
+        $secondUser->joinGroup($channel);
 
         $this->em->persist($firstUser);
         $this->em->persist($secondUser);

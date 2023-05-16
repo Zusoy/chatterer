@@ -21,6 +21,9 @@ final class Users implements \Domain\Repository\Users
         $this->repository = $manager->getRepository(User::class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function find(Identifier $identifier): ?User
     {
         return $this->repository->find($identifier);
@@ -34,6 +37,9 @@ final class Users implements \Domain\Repository\Users
         return $this->repository->findAll();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function add(User $user): void
     {
         $this->manager->persist($user);
