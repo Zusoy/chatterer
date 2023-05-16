@@ -36,7 +36,7 @@ final class Channel implements Rule
     public function allows(User $user, Operation $operation, mixed $context = null): bool
     {
         return match($operation) {
-            Operation::JOIN_CHANNEL => $context !== null && $context['channel']->getStation()->hasUser($user),
+            Operation::JOIN_CHANNEL => $user->isInStation($context['channel']->getStation()),
             Operation::LIST_USERS_CHANNEL => ($context !== null && $context['channel']->hasUser($user)) || $user->isAdmin(),
 
             default => $user->isAdmin()

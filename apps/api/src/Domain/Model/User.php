@@ -122,6 +122,16 @@ class User implements Identifiable, HasTimestamp, UserInterface, PasswordAuthent
         };
     }
 
+    public function isInStation(Station $station): bool
+    {
+        return $this->stations->contains($station);
+    }
+
+    public function isInChannel(Channel $channel): bool
+    {
+        return $this->channels->contains($channel);
+    }
+
     /**
      * {@inheritDoc}
      */
