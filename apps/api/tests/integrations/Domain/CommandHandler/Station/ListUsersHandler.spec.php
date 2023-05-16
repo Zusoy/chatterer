@@ -24,7 +24,7 @@ describe(ListUsersHandler::class, function () {
             password: 'helloworld@123'
         );
 
-        $user->joinStation($station);
+        $user->joinGroup($station);
 
         $this->em->persist($user);
         $this->em->flush();

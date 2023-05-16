@@ -26,6 +26,7 @@ final class Station implements Rule
             Operation::INVITE_STATION,
             Operation::LIST_STATION_CHANNELS,
             Operation::LIST_STATION_USERS,
+            Operation::DELETE_INVITATION,
         ];
     }
 
@@ -40,7 +41,8 @@ final class Station implements Rule
             Operation::CREATE_STATION => $user->isAdmin(),
             Operation::LIST_STATION_CHANNELS,
             Operation::LIST_STATION_USERS,
-            Operation::INVITE_STATION => ($context !== null && $user->isInStation($context['station'])) || $user->isAdmin(),
+            Operation::DELETE_INVITATION,
+            Operation::INVITE_STATION => ($context !== null && $context['station']->hasUser($user)) || $user->isAdmin(),
 
             default => $user->isAdmin()
         };

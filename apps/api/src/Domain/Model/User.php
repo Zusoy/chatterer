@@ -7,6 +7,7 @@ namespace Domain\Model;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Domain\Group\UserGroup;
 use Domain\Identity\Identifiable;
 use Domain\Identity\Identifier;
 use Domain\Model\Station;
@@ -101,26 +102,24 @@ class User implements Identifiable, HasTimestamp, UserInterface, PasswordAuthent
         return $this->role === Role::ADMIN;
     }
 
-    public function joinStation(Station $station): void
+    /**
+     * @template T of UserGroup
+     *
+     * @param T $group
+     */
+    public function joinGroup(UserGroup $group): void
     {
-        $station->add($this);
-        $this->stations->add($station);
-    }
+        $group->addUser($this);
 
-    public function isInStation(Station $station): bool
-    {
-        return $this->stations->contains($station);
-    }
+        switch (true) {
+            case $group instanceof Station:
+                $this->stations->add($group);
+                break;
 
-    public function joinChannel(Channel $channel): void
-    {
-        $channel->add($this);
-        $this->channels->add($channel);
-    }
-
-    public function isInChannel(Channel $channel): bool
-    {
-        return $this->channels->contains($channel);
+            case $group instanceof Channel:
+                $this->channels->add($group);
+                break;
+        };
     }
 
     /**

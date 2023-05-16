@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-use Domain\Command\Station\Join;
-use Domain\CommandHandler\Station\JoinHandler;
+use Domain\Command\Station\AddUser;
+use Domain\CommandHandler\Station\AddUserHandler;
 use Domain\EventLog;
+use Domain\Exception\InvalidInvitationTokenException;
 use Domain\Exception\ObjectNotFoundException;
 use Domain\Exception\UserAlreadyJoinedException;
 use Domain\Model\Invitation;
 use Domain\Model\Station;
 use Domain\Model\User;
-use Domain\Repository\Invitations;
 use Domain\Repository\Stations;
 use Domain\Repository\Users;
 
-describe(JoinHandler::class, function () {
+describe(AddUserHandler::class, function () {
     beforeEach(function () {
         $this->em->clear();
         $this->truncater->truncateAll();
@@ -23,10 +23,9 @@ describe(JoinHandler::class, function () {
 
     given('stations', fn () => $this->container->get(Stations::class));
     given('users', fn () => $this->container->get(Users::class));
-    given('invitations', fn () => $this->container->get(Invitations::class));
     given('events', fn () => $this->container->get(EventLog::class));
 
-    it ('add user in station and removes user invitation', function () {
+    it ('adds user in station', function () {
         $station = new Station(name: 'Hello', description: null);
         $this->em->persist($station);
 
@@ -42,7 +41,7 @@ describe(JoinHandler::class, function () {
         $this->em->persist($user);
         $this->em->flush();
 
-        $command = new Join(
+        $command = new AddUser(
             stationId: (string) $station->getIdentifier(),
             userId: (string) $user->getIdentifier(),
             token: (string) $invitation->getToken()
@@ -58,10 +57,7 @@ describe(JoinHandler::class, function () {
 
         expect($station === null)->toBeFalsy();
         expect($user === null)->toBeFalsy();
-        expect($station->has($user))->toBeTruthy();
-
-        $invitation = $this->invitations->findByToken((string) $invitation->getToken(), $station);
-        expect($invitation === null)->toBeTruthy();
+        expect($station->hasUser($user))->toBeTruthy();
 
         $events = $this->events->getSentEvents();
         expect(count($events))->toBe(1);
@@ -75,7 +71,7 @@ describe(JoinHandler::class, function () {
     });
 
     it ('throws when station not found from database', function () {
-        expect(fn () => $this->bus->execute(new Join(
+        expect(fn () => $this->bus->execute(new AddUser(
             stationId: 'a1bb4fa1-3a2a-4045-a66e-3435da68a00a',
             userId: 'a1bb4fa1-3a2a-4045-a66e-3435da68a00a',
             token: 'stationToken'
@@ -87,7 +83,7 @@ describe(JoinHandler::class, function () {
         $this->em->persist($station);
         $this->em->flush();
 
-        expect(fn () => $this->bus->execute(new Join(
+        expect(fn () => $this->bus->execute(new AddUser(
             stationId: (string) $station->getIdentifier(),
             userId: 'a1bb4fa1-3a2a-4045-a66e-3435da68a00a',
             token: 'stationToken'
@@ -107,11 +103,35 @@ describe(JoinHandler::class, function () {
         $this->em->persist($user);
         $this->em->flush();
 
-        expect(fn () => $this->bus->execute(new Join(
+        expect(fn () => $this->bus->execute(new AddUser(
             stationId: (string) $station->getIdentifier(),
             userId: (string) $user->getIdentifier(),
             token: 'stationToken'
         )))->toThrow(new ObjectNotFoundException('Invitation', 'stationToken'));
+    });
+
+    it ('throws when given token not exists', function () {
+        $station = new Station(name: 'Hello', description: null);
+        $this->em->persist($station);
+
+        $invitation = new Invitation($station);
+        $this->em->persist($invitation);
+
+        $user = new User(
+            firstname: 'John',
+            lastname: 'Doe',
+            email: 'john.doe@gmail.com',
+            password: 'helloworld@123'
+        );
+        $this->em->persist($user);
+
+        $this->em->flush();
+
+        expect(fn () => $this->bus->execute(new AddUser(
+            stationId: (string) $station->getIdentifier(),
+            userId: (string) $user->getIdentifier(),
+            token: 'wrongtokenprovided'
+        )))->toThrow(new InvalidInvitationTokenException('wrongtokenprovided'));
     });
 
     it ('throws if user already joined the station', function () {
@@ -129,11 +149,11 @@ describe(JoinHandler::class, function () {
         );
         $this->em->persist($user);
 
-        $user->joinStation($station);
+        $user->joinGroup($station);
 
         $this->em->flush();
 
-        expect(fn () => $this->bus->execute(new Join(
+        expect(fn () => $this->bus->execute(new AddUser(
             stationId: (string) $station->getIdentifier(),
             userId: (string) $user->getIdentifier(),
             token: (string) $invitation->getToken()

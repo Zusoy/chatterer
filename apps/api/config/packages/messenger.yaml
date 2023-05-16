@@ -1,6 +1,11 @@
 ---
 framework:
   messenger:
+    buses:
+      messenger.bus.default:
+        middleware:
+          - 'doctrine_transaction'
+
     transports:
       sync: 'sync://'
 

@@ -7,7 +7,6 @@ namespace spec\Domain\Model;
 use DateTimeImmutable;
 use Domain\Identity\Identifiable;
 use Domain\Identity\Identifier;
-use Domain\Model\Station;
 use Domain\Model\User;
 use Domain\Time\HasTimestamp;
 use PhpSpec\ObjectBehavior;
@@ -45,12 +44,5 @@ class UserSpec extends ObjectBehavior
         $this->isAdmin()->shouldBe(false);
         $this->getCreatedAt()->shouldHaveType(DateTimeImmutable::class);
         $this->getUpdatedAt()->shouldHaveType(DateTimeImmutable::class);
-    }
-
-    public function it_can_be_in_station(Station $station1, Station $station2): void
-    {
-        $this->joinStation($station1);
-        $this->isInStation($station1)->shouldBe(true);
-        $this->isInStation($station2)->shouldBe(false);
     }
 }

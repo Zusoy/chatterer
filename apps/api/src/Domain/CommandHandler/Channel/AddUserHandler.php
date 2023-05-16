@@ -15,7 +15,7 @@ use Domain\Repository\Users;
 use Domain\Security\AccessControl;
 use Domain\Security\Operation;
 
-final class JoinHandler
+final class AddUserHandler
 {
     public function __construct(
         private readonly Channels $channels,
@@ -25,7 +25,7 @@ final class JoinHandler
     ) {
     }
 
-    public function __invoke(Command\Join $command): Channel
+    public function __invoke(Command\AddUser $command): Channel
     {
         if (!$channel = $this->channels->find($command->getChannelIdentifier())) {
             throw new ObjectNotFoundException('Channel', (string) $command->getChannelIdentifier());
@@ -41,11 +41,12 @@ final class JoinHandler
             user: $user
         );
 
-        if ($channel->has($user)) {
+        if ($channel->hasUser($user)) {
             throw new UserAlreadyJoinedException($channel, $user);
         }
 
-        $user->joinChannel($channel);
+        $user->joinGroup($channel);
+
         $this->eventLog->record(new Event\NewMember($channel, $user));
 
         return $channel;

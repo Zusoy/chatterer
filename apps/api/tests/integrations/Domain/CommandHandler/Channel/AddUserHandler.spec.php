@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Domain\Command\Channel\Join;
-use Domain\CommandHandler\Channel\JoinHandler;
+use Domain\Command\Channel\AddUser;
+use Domain\CommandHandler\Channel\AddUserHandler;
 use Domain\EventLog;
 use Domain\Exception\ObjectNotFoundException;
 use Domain\Identity\Identifier;
@@ -13,7 +13,7 @@ use Domain\Model\User;
 use Domain\Repository\Channels;
 use Domain\Repository\Users;
 
-describe(JoinHandler::class, function () {
+describe(AddUserHandler::class, function () {
     beforeEach(function () {
         $this->em->clear();
         $this->truncater->truncateAll();
@@ -38,11 +38,11 @@ describe(JoinHandler::class, function () {
             password: 'hello'
         );
         $this->em->persist($user);
-        $user->joinStation($station);
+        $user->joinGroup($station);
 
         $this->em->flush();
 
-        $command = new Join(
+        $command = new AddUser(
             channelId: (string) $channel->getIdentifier(),
             userId: (string) $user->getIdentifier()
         );
@@ -56,8 +56,7 @@ describe(JoinHandler::class, function () {
         expect(null === $user)->toBeFalsy();
         expect(null === $channel)->toBeFalsy();
 
-        expect($channel->has($user))->toBeTruthy();
-        expect($user->isInChannel($channel))->toBeTruthy();
+        expect($channel->hasUser($user))->toBeTruthy();
 
         $events = $this->events->getSentEvents();
         expect(count($events))->toBe(1);
@@ -73,7 +72,7 @@ describe(JoinHandler::class, function () {
     it ('throws if channel not found from database', function () {
         $identifier = Identifier::generate();
 
-        $closure = fn () => $this->bus->execute(new Join(
+        $closure = fn () => $this->bus->execute(new AddUser(
             channelId: (string) $identifier,
             userId: (string) $identifier
         ));
