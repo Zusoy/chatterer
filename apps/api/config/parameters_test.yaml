@@ -1,0 +1,3 @@
+---
+parameters:
+  schema_base_path: '%kernel.project_dir%/doc/schema'

@@ -22,6 +22,10 @@ kill:
 # API #
 #######
 
+.PHONY: api-acceptance
+api-acceptance:
+	@docker exec -it "$$(docker ps -q -f name=chatterer_api)" vendor/bin/behat
+
 .PHONY: api-integrations
 api-integrations:
 	@docker-compose run --rm --no-deps api kahlan

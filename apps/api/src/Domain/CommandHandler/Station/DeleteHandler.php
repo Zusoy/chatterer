@@ -9,10 +9,13 @@ use Domain\Event\Station as Event;
 use Domain\EventLog;
 use Domain\Exception\ObjectNotFoundException;
 use Domain\Repository\Stations;
+use Domain\Security\AccessControl;
+use Domain\Security\Operation;
 
 final class DeleteHandler
 {
     public function __construct(
+        private readonly AccessControl $accessControl,
         private readonly Stations $stations,
         private readonly EventLog $eventLog
     ) {
@@ -23,6 +26,8 @@ final class DeleteHandler
         if (!$station = $this->stations->find($command->getIdentifier())) {
             throw new ObjectNotFoundException('Station', $command->id);
         }
+
+        $this->accessControl->requires(Operation::DELETE_STATION);
 
         $this->stations->remove($station);
         $this->eventLog->record(new Event\Deleted($station));

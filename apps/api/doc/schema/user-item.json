@@ -29,11 +29,11 @@
     },
     "createdAt": {
       "type": "string",
-      "format": "date-time"
+      "format": "date"
     },
     "updatedAt": {
       "type": "string",
-      "format": "date-time"
+      "format": "date"
     }
   },
   "required": [
@@ -41,7 +41,6 @@
     "firstname",
     "lastname",
     "email",
-    "role",
     "createdAt",
     "updatedAt"
   ]

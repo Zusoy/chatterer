@@ -38,6 +38,8 @@ final class Station implements Rule
     public function allows(User $user, Operation $operation, mixed $context = null): bool
     {
         return match($operation) {
+            Operation::DELETE_STATION,
+            Operation::UPDATE_STATION,
             Operation::CREATE_STATION => $user->isAdmin(),
             Operation::LIST_STATION_CHANNELS,
             Operation::LIST_STATION_USERS,

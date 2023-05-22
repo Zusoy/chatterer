@@ -1,14 +1,17 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://chatterer.io/message-item.json",
+  "id": "http://chatterer.io/invitation-item.json",
   "additionalProperties": false,
-  "title": "Message item",
+  "title": "Invitation item",
   "type": "object",
   "properties": {
     "id": {
       "type": "string"
     },
-    "content": {
+    "station": {
+      "type": "string"
+    },
+    "token": {
       "type": "string"
     },
     "createdAt": {
@@ -18,19 +21,12 @@
     "updatedAt": {
       "type": "string",
       "format": "date"
-    },
-    "channel": {
-      "$ref": "./channel-lite.json"
-    },
-    "author": {
-      "$ref": "./user-lite.json"
     }
   },
   "required": [
     "id",
-    "name",
-    "channel",
-    "author",
+    "station",
+    "token",
     "createdAt",
     "updatedAt"
   ]

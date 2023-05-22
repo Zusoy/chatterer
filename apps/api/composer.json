@@ -46,6 +46,7 @@
   "autoload-dev": {
     "psr-4": {
       "Context\\": "tests/context/",
+      "Test\\Acceptance\\": "tests/acceptance/",
       "Test\\Integrations\\Matcher\\": "tests/integrations/Matcher/"
     }
   },
@@ -80,8 +81,10 @@
     }
   },
   "require-dev": {
-    "behat/behat": "^3.11",
+    "behat/behat": "^3.13",
     "fakerphp/faker": "^1.20",
+    "friends-of-behat/symfony-extension": "^2.4",
+    "justinrainbow/json-schema": "^5.2",
     "kahlan/kahlan": "^5.2",
     "phpspec/phpspec": "^7.2",
     "symfony/debug-bundle": "6.1.*",

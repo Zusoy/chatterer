@@ -26,7 +26,7 @@ final class DecodeRequestJSONBodyListener
                 flags: JSON_THROW_ON_ERROR
             );
 
-            $request->request->replace($body);
+            $request->request->replace($body ?: []);
         } catch (JsonException $error) {
             throw new BadRequestHttpException('Invalid JSON provided', $error);
         }
