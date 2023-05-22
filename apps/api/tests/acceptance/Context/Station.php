@@ -309,7 +309,7 @@ final class Station extends Context
 
         $this->validateJsonSchema(
             $this->http->getLastJsonObjects(),
-            schema: 'station-invitation-item'
+            schema: 'invitation-item'
         );
     }
 
