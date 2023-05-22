@@ -20,7 +20,6 @@ final class Login extends Context
 
     /**
      * @BeforeScenario
-     * @Given I don't have an account
      */
     public function reset(): void
     {
