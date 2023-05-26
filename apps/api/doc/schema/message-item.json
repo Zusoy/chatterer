@@ -28,7 +28,7 @@
   },
   "required": [
     "id",
-    "name",
+    "content",
     "channel",
     "author",
     "createdAt",

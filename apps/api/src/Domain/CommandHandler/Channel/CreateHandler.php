@@ -12,10 +12,13 @@ use Domain\Exception\ObjectNotFoundException;
 use Domain\Model\Channel;
 use Domain\Repository\Channels;
 use Domain\Repository\Stations;
+use Domain\Security\AccessControl;
+use Domain\Security\Operation;
 
 final class CreateHandler
 {
     public function __construct(
+        private readonly AccessControl $accessControl,
         private readonly Stations $stations,
         private readonly Channels $channels,
         private readonly EventLog $eventLog
@@ -31,6 +34,8 @@ final class CreateHandler
         if (null !== $this->channels->findByName($station->getIdentifier(), $command->name)) {
             throw new ObjectAlreadyExistsException('Channel', $command->name);
         }
+
+        $this->accessControl->requires(Operation::CREATE_CHANNEL);
 
         $channel = new Channel(
             $station,

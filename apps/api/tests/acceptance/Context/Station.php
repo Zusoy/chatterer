@@ -344,9 +344,21 @@ final class Station extends Context
     }
 
     /**
+     * @Then I should be notified that I'm not authorized
+     */
+    public function iShouldBeNotifiedThatImNotAuthorized(): void
+    {
+        if (!$response = $this->http->getLastResponse()) {
+            throw new RuntimeException('No requests during this scenario.');
+        }
+
+        Assert::that($response->getStatusCode())->eq(Response::HTTP_UNAUTHORIZED);
+    }
+
+    /**
      * @Then I should be notified that I'm not authorized for operation ":operation"
      */
-    public function iShouldBeNotifiedThatImNotAuthorized(string $operation): void
+    public function iShouldBeNotifiedThatImNotAuthorizedForOperation(string $operation): void
     {
         if (!$response = $this->http->getLastResponse()) {
             throw new RuntimeException('No requests during this scenario.');

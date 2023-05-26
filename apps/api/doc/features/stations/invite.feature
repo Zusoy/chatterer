@@ -13,7 +13,7 @@ Feature: Invite members
   Scenario: Not authorized to create station invitation without being member
     Given I am a user
     And There is an existing "Test" station
-    And I am not member of the station
+    But I am not member of the station
     When I create a new invitation for the station
     Then I should be notified that I'm not authorized for operation "station:invite"
 

@@ -11,7 +11,18 @@ default:
       paths:
         - '%paths.base%/doc/features/stations/'
       contexts:
+        - Test\Acceptance\Context\Stations
         - Test\Acceptance\Context\Station
+    channels:
+      paths:
+        - '%paths.base%/doc/features/channels/'
+      contexts:
+        - Test\Acceptance\Context\Channel
+    messages:
+      paths:
+        - '%paths.base%/doc/features/messages/'
+      contexts:
+        - Test\Acceptance\Context\Message
 
   extensions:
     FriendsOfBehat\SymfonyExtension:

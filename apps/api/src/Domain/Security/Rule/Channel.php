@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Domain\Security\Rule;
 
 use Domain\Model\Channel as ChannelModel;
+use Domain\Model\Station;
 use Domain\Model\User;
 use Domain\Security\Operation;
 use Domain\Security\Rule;
 
 /**
- * @phpstan-type ChannelContext array{channel: ChannelModel}
+ * @phpstan-type ChannelContext array{channel: ChannelModel, station: Station}
  */
 final class Channel implements Rule
 {
@@ -36,6 +37,9 @@ final class Channel implements Rule
     public function allows(User $user, Operation $operation, mixed $context = null): bool
     {
         return match($operation) {
+            Operation::DELETE_CHANNEL,
+            Operation::UPDATE_CHANNEL,
+            Operation::CREATE_CHANNEL => $user->isAdmin(),
             Operation::JOIN_CHANNEL => $context !== null && $user->isInStation($context['channel']->getStation()),
             Operation::LIST_USERS_CHANNEL => ($context !== null && $context['channel']->hasUser($user)) || $user->isAdmin(),
 
