@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://chatterer.io/station-invitation-item.json",
+  "id": "http://chatterer.io/invitation-item.json",
   "additionalProperties": false,
-  "title": "Station invitation",
+  "title": "Invitation item",
   "type": "object",
   "properties": {
     "id": {
@@ -13,11 +13,21 @@
     },
     "token": {
       "type": "string"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date"
     }
   },
   "required": [
     "id",
     "station",
-    "token"
+    "token",
+    "createdAt",
+    "updatedAt"
   ]
 }

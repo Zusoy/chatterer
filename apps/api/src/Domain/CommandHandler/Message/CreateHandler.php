@@ -12,10 +12,13 @@ use Domain\Model;
 use Domain\Repository\Channels;
 use Domain\Repository\Messages;
 use Domain\Repository\Users;
+use Domain\Security\AccessControl;
+use Domain\Security\Operation;
 
 final class CreateHandler
 {
     public function __construct(
+        private readonly AccessControl $accessControl,
         private readonly Users $users,
         private readonly Channels $channels,
         private readonly Messages $messages,
@@ -32,6 +35,8 @@ final class CreateHandler
         if (!$channel = $this->channels->find($command->getChannelId())) {
             throw new ObjectNotFoundException('Channel', (string) $command->getChannelId());
         }
+
+        $this->accessControl->requires(Operation::CREATE_MESSAGE, context: ['channel' => $channel]);
 
         $newMessage = new Model\Message(
             author: $author,

@@ -102,6 +102,11 @@ class User implements Identifiable, HasTimestamp, UserInterface, PasswordAuthent
         return $this->role === Role::ADMIN;
     }
 
+    public function isAuthorOf(Message $message): bool
+    {
+        return $message->getAuthorIdentifier() === $this->id;
+    }
+
     /**
      * @template T of UserGroup
      *

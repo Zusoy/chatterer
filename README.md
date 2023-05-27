@@ -60,7 +60,7 @@ So feel free to:
 Chatterer is built with :
 
 * [![Docker][Docker.com]][Docker-url]
-* [![Angular][Angular.io]][Angular-url]
+* [![React][React]][React-url]
 * [![Symfony][Symfony.com]][Symfony-url]
 * [![Nginx][Nginx.com]][Nginx-url]
 * [![Swagger][Swagger.io]][Swagger-url]
@@ -120,8 +120,8 @@ Project Link: [https://github.com/Zusoy/chatterer](https://github.com/Zusoy/chat
 
 [Docker.com]: https://img.shields.io/badge/DOCKER-2496ED?style=for-the-badge&logo=docker&logoColor=white
 [Docker-url]: https://www.docker.com/
-[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[Angular-url]: https://angular.io/
+[React]: https://img.shields.io/badge/React-3998B6?style=for-the-badge&logo=react&logoColor=white
+[React-url]: https://react.dev/
 [Symfony.com]: https://img.shields.io/badge/Symfony-000000?style=for-the-badge&logo=symfony&logoColor=white
 [Symfony-url]: https://symfony.com/
 [Nginx.com]: https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=nginx&logoColor=white

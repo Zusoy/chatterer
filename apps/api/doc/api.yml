@@ -85,4 +85,4 @@ components:
     User:
       $ref: ./schema/user-item.json
     Invitation:
-      $ref: ./schema/station-invitation-item.json
+      $ref: ./schema/invitation-item.json

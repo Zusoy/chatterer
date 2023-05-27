@@ -13,11 +13,11 @@
     },
     "createdAt": {
       "type": "string",
-      "format": "date-time"
+      "format": "date"
     },
     "updatedAt": {
       "type": "string",
-      "format": "date-time"
+      "format": "date"
     },
     "channel": {
       "$ref": "./channel-lite.json"
@@ -28,7 +28,7 @@
   },
   "required": [
     "id",
-    "name",
+    "content",
     "channel",
     "author",
     "createdAt",
