@@ -196,6 +196,23 @@ final class Channel extends Context
     }
 
     /**
+     * @When I update the channel with name ":name" and description ":description"
+     */
+    public function iUpdateTheChannelWithNameAndDescription(string $name, string $description): void
+    {
+        if (null === $this->channel) {
+            throw new RuntimeException('No channel created during this scenario.');
+        }
+
+        $id = (string) $this->channel->getIdentifier();
+
+        $this->http->put(
+            uri: "/channel/{$id}",
+            content: [ 'name' => $name, 'description' => $description ]
+        );
+    }
+
+    /**
      * @When I create a channel ":name" for non existing station
      */
     public function iCreateAChannelForNonExistingStation(string $name): void
@@ -302,6 +319,23 @@ final class Channel extends Context
         }
 
         Assert::that($response->getStatusCode())->eq(Response::HTTP_CREATED);
+
+        $this->validateJsonSchema(
+            $this->http->getLastJsonObjects(),
+            schema: 'channel-item'
+        );
+    }
+
+    /**
+     * @Then I should be notified that the channel is updated
+     */
+    public function iShouldBeNotifiedThatTheChannelIsUpdated(): void
+    {
+        if (!$response = $this->http->getLastResponse()) {
+            throw new RuntimeException('No requests during this scenario.');
+        }
+
+        Assert::that($response->getStatusCode())->eq(Response::HTTP_OK);
 
         $this->validateJsonSchema(
             $this->http->getLastJsonObjects(),

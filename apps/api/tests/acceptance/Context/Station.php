@@ -163,6 +163,23 @@ final class Station extends Context
     }
 
     /**
+     * @When I update the station with name ":name" and description ":description"
+     */
+    public function iUpdateTheStationWithName(string $name, string $description): void
+    {
+        if (null === $this->station) {
+            throw new RuntimeException('No station created during this scenario.');
+        }
+
+        $id = (string) $this->station->getIdentifier();
+
+        $this->http->put(
+            uri: "/station/{$id}",
+            content: [ 'name' => $name, 'description' => $description ]
+        );
+    }
+
+    /**
      * @When I delete the station
      */
     public function iDeleteTheStation(): void
@@ -277,6 +294,23 @@ final class Station extends Context
         }
 
         Assert::that($response->getStatusCode())->eq(Response::HTTP_CREATED);
+
+        $this->validateJsonSchema(
+            $this->http->getLastJsonObjects(),
+            schema: 'station-item'
+        );
+    }
+
+    /**
+     * @Then I should be notified that the station is updated
+     */
+    public function iShouldBeNotifiedThatTheStationIsUpdated(): void
+    {
+        if (!$response = $this->http->getLastResponse()) {
+            throw new RuntimeException('No station created during this scenario.');
+        }
+
+        Assert::that($response->getStatusCode())->eq(Response::HTTP_OK);
 
         $this->validateJsonSchema(
             $this->http->getLastJsonObjects(),

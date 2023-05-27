@@ -107,6 +107,15 @@ class Http extends Helper
     }
 
     /**
+     * @param mixed                 $content
+     * @param array<string,string>  $headers
+     */
+    public function put(string $uri, $content = null, array $headers = []): Response
+    {
+        return $this->request(Request::METHOD_PUT, $uri, $content, $headers);
+    }
+
+    /**
      * @param array<string,string> $headers
      */
     public function delete(string $uri, array $headers = []): Response
