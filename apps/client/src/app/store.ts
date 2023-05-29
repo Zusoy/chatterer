@@ -13,4 +13,6 @@ export const store = configureStore({
 sagaMiddleware.run(effects)
 
 export type RootState = ReturnType<typeof store.getState>
+export type Selector<S> = (state: RootState) => S
+export type CreateSelector<S> = (state: RootState, ...params: any) => S
 export type AppDispatch = typeof store.dispatch
