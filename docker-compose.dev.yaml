@@ -12,8 +12,6 @@ services:
       - '8081:8081'
     volumes:
       - ./apps/api/public/media:/usr/src/app/media
-    networks:
-      - chatterer_default
 
   api:
     image: zusoy/chatterer-api:develop
@@ -24,8 +22,6 @@ services:
       - .env
     volumes:
       - ./apps/api:/usr/src/app
-    networks:
-      - chatterer_default
 
   swagger:
     image: zusoy/chatterer-swagger:develop
@@ -36,8 +32,6 @@ services:
       URL: doc/api.yml
     volumes:
       - ./apps/api/doc:/usr/share/nginx/html/doc
-    networks:
-      - chatterer_default
 
   database:
     image: zusoy/chatterer-database:develop
@@ -51,8 +45,6 @@ services:
       - '3306:3306'
     volumes:
       - database:/var/lib/mysql
-    networks:
-      - chatterer_default
 
   hub:
     build:
@@ -63,13 +55,6 @@ services:
       SERVER_NAME: ':80'
     ports:
       - '8080:80'
-    networks:
-      - chatterer_default
-
-networks:
-  chatterer_default:
-    driver: overlay
-    attachable: true
 
 volumes:
   database: ~
