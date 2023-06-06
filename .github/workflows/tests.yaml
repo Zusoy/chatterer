@@ -19,6 +19,6 @@ jobs:
       - name: build
         run: make build
       - name: PHPSpec
-        run: make STAGE=test phpspec
+        run: make api-specs
       - name: clean
         run: docker-compose down --volumes --rmi local --remove-orphans
