@@ -10,7 +10,7 @@ on:
 jobs:
   phpspec:
     env:
-      COMPOSE_FILE: 'docker.compose.test.yaml'
+      COMPOSE_FILE: 'docker-compose.test.yaml'
       STAGE: 'test'
     runs-on:
       - ubuntu-latest
