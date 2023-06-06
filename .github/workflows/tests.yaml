@@ -7,18 +7,22 @@ on:
     branches:
       - master
 
+env:
+  COMPOSE_FILE: docker-compose.dev.yaml
+  STAGE: dev
+
 jobs:
   phpspec:
-    env:
-      COMPOSE_FILE: 'docker-compose.test.yaml'
-      STAGE: 'test'
     runs-on:
       - ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
       - name: build
-        run: docker-compose build api
+        run: make build
+
+      - name: install
+        run: make api-vendor
 
       - name: PHPSpec
         run: make api-specs

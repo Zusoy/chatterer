@@ -35,6 +35,7 @@ RUN composer install --no-scripts --prefer-dist --no-interaction
 FROM base as test
 
 COPY --chown=docker . /usr/src/app
+COPY --chown=docker .env.dist .env
 
 RUN composer install --prefer-dist --no-interaction
 
