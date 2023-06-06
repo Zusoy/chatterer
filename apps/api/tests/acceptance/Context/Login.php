@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Test\Acceptance\Context;
 
 use Infra\Assert\Assert;
-use Infra\Symfony\Security\AuthCookie;
 use RuntimeException;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Response;
 use Test\Acceptance\Context;
 
@@ -114,16 +112,6 @@ final class Login extends Context
         }
 
         Assert::that($lastResponse->getStatusCode())->eq(Response::HTTP_OK);
-        $cookies = $lastResponse->headers->getCookies();
-
-        Assert::that(count($cookies))->greaterThan(0);
-
-        $filtered = array_filter(
-            $cookies,
-            fn (Cookie $cookie): bool => $cookie->getName() === AuthCookie::NAME
-        );
-
-        Assert::that(count($filtered))->eq(1);
     }
 
     /**
@@ -135,13 +123,6 @@ final class Login extends Context
             throw new RuntimeException('No authentication requested during the current scenario');
         }
 
-        $cookies = $lastResponse->headers->getCookies();
-        $filtered = array_filter(
-            $cookies,
-            fn (Cookie $cookie): bool => $cookie->getName() === AuthCookie::NAME
-        );
-
-        Assert::that(count($filtered))->eq(0);
         Assert::that($lastResponse->getStatusCode())->eq(Response::HTTP_FORBIDDEN);
     }
 }

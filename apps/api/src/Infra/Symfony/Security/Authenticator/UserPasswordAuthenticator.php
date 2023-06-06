@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace Infra\Symfony\Security\Authenticator;
 
 use Application\Auth\Tokenizer;
-use Application\Normalization\Normalizer;
 use Application\Serialization\Serializer;
 use Domain\Model\User;
 use Domain\Repository\Users;
-use Infra\Symfony\Security\AuthCookie;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,16 +23,11 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 
 final class UserPasswordAuthenticator extends AbstractAuthenticator
 {
-    private const LOGIN_ROUTE = '/auth';
-
-    /**
-     * @param Normalizer<User> $normalizer
-     */
     public function __construct(
-        private Users $users,
-        private Normalizer $normalizer,
-        private Serializer $serializer,
-        private Tokenizer $tokenizer
+        private readonly Users $users,
+        private readonly Serializer $serializer,
+        private readonly Tokenizer $tokenizer,
+        private readonly string $authRoute
     ) {
     }
 
@@ -43,7 +36,7 @@ final class UserPasswordAuthenticator extends AbstractAuthenticator
      */
     public function supports(Request $request): ?bool
     {
-        if (self::LOGIN_ROUTE !== $request->getPathInfo() || !$request->isMethod(Request::METHOD_POST)) {
+        if ($this->authRoute !== $request->getPathInfo() || !$request->isMethod(Request::METHOD_POST)) {
             return false;
         }
 
@@ -85,17 +78,16 @@ final class UserPasswordAuthenticator extends AbstractAuthenticator
             throw new UnsupportedUserException('User does not have a username.');
         }
 
-        $normalizedUser = $this->normalizer->normalize($user);
+        $payload = $this->serializer->serialize(
+            data: [ 'token' => $this->tokenizer->createToken($user->getUserIdentifier()) ],
+            format: Serializer::JSON_FORMAT
+        );
 
         $response = new JsonResponse(
-            data: $this->serializer->serialize($normalizedUser, Serializer::JSON_FORMAT),
+            data: $payload,
             status: Response::HTTP_OK,
             json: true
         );
-
-        $response->headers->setCookie(AuthCookie::fromToken(
-            $this->tokenizer->createToken($user->getUserIdentifier())
-        ));
 
         return $response;
     }
