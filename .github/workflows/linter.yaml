@@ -18,5 +18,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: make .env
-      - run: make api-vendor
-      - run: make phpstan
+      - run: make CI=1 phpstan
