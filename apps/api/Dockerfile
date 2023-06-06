@@ -32,11 +32,11 @@ FROM base as dev
 
 RUN composer install --no-scripts --prefer-dist --no-interaction
 
-FROM base as ci
+FROM base as test
 
 COPY --chown=docker . /usr/src/app
 
-RUN composer install --no-scripts --prefer-dist --no-interaction
+RUN composer install --prefer-dist --no-interaction
 
 FROM base as prod
 

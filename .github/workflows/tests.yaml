@@ -10,15 +10,18 @@ on:
 jobs:
   phpspec:
     env:
-      COMPOSE_FILE: 'docker.compose.dev.yaml'
+      COMPOSE_FILE: 'docker.compose.test.yaml'
       STAGE: 'test'
     runs-on:
       - ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: build
-        run: make build
+        run: docker-compose build api
+
       - name: PHPSpec
         run: make api-specs
+
       - name: clean
         run: docker-compose down --volumes --rmi local --remove-orphans
