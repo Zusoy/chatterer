@@ -1,0 +1,24 @@
+---
+name: Automated tests
+
+on:
+  pull_request: ~
+  push:
+    branches:
+      - master
+
+jobs:
+  phpspec:
+    env:
+      COMPOSE_FILE: 'docker.compose.dev.yaml'
+      STAGE: 'test'
+    runs-on:
+      - ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: build
+        run: make build
+      - name: PHPSpec
+        run: make STAGE=test phpspec
+      - name: clean
+        run: docker-compose down --volumes --rmi local --remove-orphans
