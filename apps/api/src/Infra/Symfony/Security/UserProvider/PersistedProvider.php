@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 final class PersistedProvider implements UserProviderInterface
 {
-    public function __construct(private Users $users)
+    public function __construct(private readonly Users $users)
     {
     }
 

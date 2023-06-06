@@ -24,7 +24,7 @@ final class JWTTokenAuthenticator extends AbstractAuthenticator
 {
     private const AUTH_SCHEME = 'Bearer ';
 
-    public function __construct(private Extractor $extractor)
+    public function __construct(private readonly Extractor $extractor)
     {
     }
 

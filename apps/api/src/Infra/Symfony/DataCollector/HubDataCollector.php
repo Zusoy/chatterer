@@ -14,7 +14,7 @@ use Throwable;
 
 final class HubDataCollector implements LateDataCollectorInterface, DataCollectorInterface
 {
-    public function __construct(private MercureDataCollector $innerCollector)
+    public function __construct(private readonly MercureDataCollector $innerCollector)
     {
     }
 
