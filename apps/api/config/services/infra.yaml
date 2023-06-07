@@ -37,6 +37,12 @@ services:
     tags:
       - { name: controller.argument_value_resolver, priority: 128 }
 
+  ## Security Authenticators
+
+  Infra\Symfony\Security\Authenticator\UserPasswordAuthenticator:
+    arguments:
+      $authRoute: '%auth_path%'
+
   ## Security Voters
 
   Infra\Symfony\Security\Voter\:

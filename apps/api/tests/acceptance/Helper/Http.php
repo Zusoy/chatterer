@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Test\Acceptance\Helper;
 
 use Application\Auth\Tokenizer;
-use Infra\Symfony\Security\AuthCookie;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -145,7 +144,7 @@ class Http extends Helper
         }
 
         if ($this->token !== null) {
-            $request->cookies->set(AuthCookie::NAME, $this->token);
+            $request->headers->set('Authorization', "Bearer {$this->token}");
         }
 
         return $this->lastResponse = $this->kernel->handle($request);

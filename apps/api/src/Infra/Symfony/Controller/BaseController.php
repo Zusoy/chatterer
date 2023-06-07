@@ -22,11 +22,11 @@ class BaseController
      * @param Normalizer<mixed> $normalizer
      */
     public function __construct(
-        protected Bus $bus,
-        private Normalizer $normalizer,
-        private Serializer $serializer,
-        private Hub $hub,
-        private UserProvider $userProvider
+        protected readonly Bus $bus,
+        private readonly Normalizer $normalizer,
+        private readonly Serializer $serializer,
+        private readonly Hub $hub,
+        private readonly UserProvider $userProvider
     ) {
     }
 

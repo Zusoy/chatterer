@@ -6,7 +6,6 @@ namespace Infra\Symfony\Security\Authenticator;
 
 use Application\Auth\Extractor;
 use DomainException;
-use Infra\Symfony\Security\AuthCookie;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +22,9 @@ use UnexpectedValueException;
 
 final class JWTTokenAuthenticator extends AbstractAuthenticator
 {
-    public function __construct(private Extractor $extractor)
+    private const AUTH_SCHEME = 'Bearer ';
+
+    public function __construct(private readonly Extractor $extractor)
     {
     }
 
@@ -32,7 +33,11 @@ final class JWTTokenAuthenticator extends AbstractAuthenticator
      */
     public function supports(Request $request): ?bool
     {
-        return $request->cookies->has(AuthCookie::NAME);
+        if (!$authorization = $request->headers->get('Authorization')) {
+            return false;
+        }
+
+        return 0 === strpos($authorization, self::AUTH_SCHEME);
     }
 
     /**
@@ -40,9 +45,11 @@ final class JWTTokenAuthenticator extends AbstractAuthenticator
      */
     public function authenticate(Request $request): Passport
     {
-        if (!$token = $request->cookies->get(AuthCookie::NAME)) {
-            throw new AuthenticationCredentialsNotFoundException('Auth cookie not found');
+        if (!$authorization = $request->headers->get('Authorization')) {
+            throw new AuthenticationCredentialsNotFoundException('Authorization token not found');
         }
+
+        $token = $this->getAuthorizationToken($authorization);
 
         try {
             $username = $this->extractor->extract(
@@ -85,5 +92,10 @@ final class JWTTokenAuthenticator extends AbstractAuthenticator
             ],
             status: Response::HTTP_FORBIDDEN,
         );
+    }
+
+    private function getAuthorizationToken(string $authorization): string
+    {
+        return substr($authorization, offset: strlen(self::AUTH_SCHEME));
     }
 }
