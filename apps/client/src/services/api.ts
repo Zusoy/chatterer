@@ -1,3 +1,5 @@
+import storage from 'services/storage'
+
 export type ApiError = {
   code: 0
   extra: {
@@ -30,7 +32,17 @@ const handleResponseErrors = async (response: Response) => {
 }
 
 async function http(path: string, config: RequestInit) {
-  const request = new Request(`http://127.0.0.1:8081${path}`, config)
+  const authToken: string|null = storage.get('token') || null
+
+  const init: RequestInit = authToken ? {
+    ...config,
+    headers: {
+      ...config?.headers,
+      'Authorization': `Bearer ${authToken}`
+    }
+  } : config
+
+  const request = new Request(`http://127.0.0.1:8081${path}`, init)
   const response = await fetch(request)
 
   await handleResponseErrors(response)

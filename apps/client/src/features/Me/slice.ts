@@ -8,7 +8,7 @@ interface State {
 }
 
 const initialState: State = {
-  id: null
+  id: null,
 }
 
 const slice = createSlice({

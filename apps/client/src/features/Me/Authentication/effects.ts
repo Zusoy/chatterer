@@ -2,15 +2,16 @@ import { PayloadAction } from '@reduxjs/toolkit'
 import { call, takeLatest, put } from 'redux-saga/effects'
 import { get, post } from 'services/api'
 import { User } from 'models/user'
+import storage from 'services/storage'
 import authentication, { AuthenticationPayload } from 'features/Me/Authentication/slice'
 
 export function* authenticate(action: PayloadAction<AuthenticationPayload>): Generator {
   const payload = action.payload
 
   try {
-    const user = (yield call(post, '/auth', payload)) as User
+    const { token } = (yield call(post, '/auth', payload)) as { token: string }
 
-    yield put(authentication.actions.authenticated(user.id))
+    storage.set('token', token, { path: '/' })
   } catch (e) {
     console.error(e)
     yield put(authentication.actions.error())
