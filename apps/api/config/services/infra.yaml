@@ -16,6 +16,10 @@ services:
     resource: '%kernel.project_dir%/src/Infra/Symfony/Event/Listener'
     tags: [ kernel.event_listener ]
 
+  Infra\Symfony\Event\Listener\AllowPreflightRequestListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, priority: 512 }
+
   Infra\Symfony\Event\Listener\DecodeRequestJSONBodyListener:
     tags:
       - { name: kernel.event_listener, event: kernel.request, priority: 128 }
@@ -26,6 +30,8 @@ services:
 
   Infra\Symfony\Event\Listener\HandleCORSPermissionListener:
     arguments:
+      $defaultOriginHost: '%app_host%'
+      $defaultOriginPort: '%app_port%'
       $allowedPorts: '%cors_allowed_ports%'
     tags:
       - { name: kernel.event_listener, event: kernel.response }

@@ -23,6 +23,20 @@ services:
     volumes:
       - ./apps/api:/usr/src/app
 
+  client:
+    image: zusoy/chatterer-client:develop
+    command: 'yarn start'
+    stdin_open: true
+    build:
+      context: apps/client
+      target: dev
+    env_file:
+      - .env
+    ports:
+      - 3000:3000
+    volumes:
+      - ./apps/client:/usr/src/app
+
   swagger:
     image: zusoy/chatterer-swagger:develop
     build:
