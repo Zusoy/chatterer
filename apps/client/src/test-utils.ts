@@ -1,5 +1,6 @@
 import { Station } from 'models/station'
 import { Channel } from 'models/channel'
+import { Message } from 'models/message'
 
 export const stationMock: Station = {
   id: 'c3e014f3-dc32-4b2b-afd9-ab597da74046',
@@ -17,4 +18,16 @@ export const channelMock: Channel = {
   createdAt: '2023-01-01',
   updatedAt: '2023-01-01',
   station: stationMock
+}
+
+export const messageMock: Message = {
+  id: '15b5c108-8372-4a13-9de1-8841b9cdf196',
+  content: 'Hello world !',
+  createdAt: '2023-01-01',
+  updatedAt: '2023-01-01',
+  author: {
+    id: 'ad53d256-a27e-4212-89a0-a7732e10b904',
+    name: 'John Doe',
+  },
+  channel: channelMock
 }

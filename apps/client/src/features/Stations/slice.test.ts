@@ -34,9 +34,9 @@ describe('Features/Stations', () => {
 
   describe('changeStation', () => {
     it('ignores not found station', () => {
-      expect(slice.reducer(initialState, changeStation('c3e014f3-dc32-4b2b-afd9-ab597da74046'))).toEqual({
-        ...initialState,
-      })
+      expect(slice.reducer(initialState, changeStation('c3e014f3-dc32-4b2b-afd9-ab597da74046'))).toEqual(
+        initialState
+      )
     })
 
     it('updates current station', () => {

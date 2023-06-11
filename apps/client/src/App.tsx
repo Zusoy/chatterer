@@ -3,10 +3,12 @@ import GlobalStyle from 'app/GlobalStyle'
 import Firewall from 'features/Firewall'
 import Stations from 'features/Stations'
 import Channels from 'features/Channels'
+import Messages from 'features/Messages'
 import StationControl from 'features/StationControl'
-import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import { selectCurrentStation } from 'features/Stations/slice'
+import { selectCurrentChannel } from 'features/Channels/slice'
+import styled from 'styled-components'
 
 const App: React.FC = () =>
   <>
@@ -18,6 +20,7 @@ const App: React.FC = () =>
 
 const AuthenticatedApp: React.FC = () => {
   const station = useSelector(selectCurrentStation)
+  const channel = useSelector(selectCurrentChannel)
 
   return (
     <Background>
@@ -36,7 +39,9 @@ const AuthenticatedApp: React.FC = () => {
             </SecondarySidebarContainer>
           }
           <ContentContainer>
-            Content
+            { channel &&
+              <Messages channel={ channel } />
+            }
           </ContentContainer>
         </ContentGrid>
       </Main>
@@ -85,6 +90,7 @@ const SecondarySidebarContainer = styled.aside(({ theme }) => `
 `)
 
 const ContentContainer = styled.div(({ theme }) => `
+  position: relative;
   background-color: ${ theme.colors.dark25 };
 `)
 

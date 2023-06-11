@@ -3,9 +3,11 @@ import slice, {
   fetchAll,
   received,
   error,
-  ChannelsStatus
+  changeChannel,
+  ChannelsStatus,
+  State
 } from 'features/Channels/slice'
-import { channelMock } from 'test-utils'
+import { channelMock, messageMock } from 'test-utils'
 
 describe('Features/Channels', () => {
   it('reduces fetchAll action', () => {
@@ -27,6 +29,24 @@ describe('Features/Channels', () => {
     expect(slice.reducer(initialState, error())).toEqual({
       ...initialState,
       status: ChannelsStatus.Error,
+    })
+  })
+
+  describe('changeChannel', () => {
+    it('ignores not found channel', () => {
+      expect(slice.reducer(initialState, changeChannel('id'))).toEqual(initialState)
+    })
+
+    it('updates current channel', () => {
+      const initial: State = {
+        ...initialState,
+        items: [ channelMock ]
+      }
+
+      expect(slice.reducer(initial, changeChannel(channelMock.id))).toEqual({
+        ...initial,
+        channel: channelMock
+      })
     })
   })
 })
