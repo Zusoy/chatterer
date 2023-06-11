@@ -9,13 +9,13 @@ export enum ChannelsStatus {
   Error = 'Error'
 }
 
-interface State {
+export interface State {
   items: Channel[]
   channel: Nullable<Channel>
   status: ChannelsStatus
 }
 
-const initialState: State = {
+export const initialState: State = {
   items: [],
   channel: null,
   status: ChannelsStatus.Fetching,

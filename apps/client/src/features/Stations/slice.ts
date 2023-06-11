@@ -9,13 +9,13 @@ export enum StationsStatus {
   Error = 'Error'
 }
 
-interface State {
+export interface State {
   items: Station[]
   station: Nullable<Station>
   status: StationsStatus
 }
 
-const initialState: State = {
+export const initialState: State = {
   items: [],
   station: null,
   status: StationsStatus.Fetching,
