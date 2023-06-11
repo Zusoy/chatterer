@@ -1,7 +1,12 @@
 import React from 'react'
 import GlobalStyle from 'app/GlobalStyle'
-import styled from 'styled-components'
 import Firewall from 'features/Firewall'
+import Stations from 'features/Stations'
+import Channels from 'features/Channels'
+import StationControl from 'features/StationControl'
+import styled from 'styled-components'
+import { useSelector } from 'react-redux'
+import { selectCurrentStation } from 'features/Stations/slice'
 
 const App: React.FC = () =>
   <>
@@ -11,22 +16,33 @@ const App: React.FC = () =>
     </Firewall>
   </>
 
-const AuthenticatedApp: React.FC = () =>
-  <Background>
-    <Main>
-      <ContentGrid>
-        <HeaderContainer>
-          Header
-        </HeaderContainer>
-        <SidebarContainer>
-          Sidebar
-        </SidebarContainer>
-        <ContentContainer>
-          Content
-        </ContentContainer>
-      </ContentGrid>
-    </Main>
+const AuthenticatedApp: React.FC = () => {
+  const station = useSelector(selectCurrentStation)
+
+  return (
+    <Background>
+      <Main>
+        <ContentGrid hasStation={ !!station }>
+          <HeaderContainer>
+            Header
+          </HeaderContainer>
+          <SidebarContainer>
+            <Stations />
+          </SidebarContainer>
+          { station &&
+            <SecondarySidebarContainer>
+              <StationControl station={ station } />
+              <Channels stationId={ station.id } />
+            </SecondarySidebarContainer>
+          }
+          <ContentContainer>
+            Content
+          </ContentContainer>
+        </ContentGrid>
+      </Main>
   </Background>
+  )
+}
 
 const Main = styled.main(({ theme }) => `
   position: relative;
@@ -42,14 +58,14 @@ const Background = styled.div(({ theme }) => `
   background-color: ${ theme.colors.dark75 };
 `)
 
-const ContentGrid = styled.section`
+const ContentGrid = styled.section<{ hasStation: boolean }>(({ hasStation }) => `
   display: grid;
   grid-template-rows: 50px 1fr;
-  grid-template-columns: 0.5fr 9fr;
+  grid-template-columns: 0.5fr ${ hasStation ? '1fr' : '' } 8fr;
   grid-template-areas:
-    "header header"
-    "sidebar content"
-`
+    "header header ${ hasStation ? 'header' : '' }"
+    "sidebar ${ hasStation ? 'second-sidebar' : '' } content"
+`)
 
 const HeaderContainer = styled.header(({ theme }) => `
   grid-area: header;
@@ -59,6 +75,12 @@ const HeaderContainer = styled.header(({ theme }) => `
 const SidebarContainer = styled.aside(({ theme }) => `
   grid-area: sidebar;
   background-color: ${ theme.colors.dark50 };
+  height: calc(100vh - 50px);
+`)
+
+const SecondarySidebarContainer = styled.aside(({ theme }) => `
+  grid-area: second-sidebar;
+  background-color: ${ theme.colors.dark75 };
   height: calc(100vh - 50px);
 `)
 

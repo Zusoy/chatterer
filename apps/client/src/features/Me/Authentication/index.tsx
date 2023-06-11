@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Form from 'widgets/Form/Form'
 import Input from 'widgets/Form/Input'
 import PrimaryButton from 'widgets/Button/Primary'
-import authentication from 'features/Me/Authentication/slice'
+import { authenticate } from 'features/Me/Authentication/slice'
 import { useDispatch } from 'react-redux'
 
 const Login: React.FC = () => {
@@ -14,7 +14,7 @@ const Login: React.FC = () => {
   const onSubmitHandler: React.FormEventHandler = e => {
     e.preventDefault()
 
-    dispatch(authentication.actions.authenticate({ username, password }))
+    dispatch(authenticate({ username, password }))
   }
 
   return (

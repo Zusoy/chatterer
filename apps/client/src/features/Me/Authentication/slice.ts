@@ -50,6 +50,14 @@ const slice = createSlice({
   }
 })
 
+export const {
+  authenticate,
+  reAuthenticate,
+  notReAuthenticated,
+  authenticated,
+  error,
+} = slice.actions
+
 export const selectIsAuthenticating: Selector<boolean> = state =>
   state.authentication.status === AuthenticationStatus.Authenticating
 

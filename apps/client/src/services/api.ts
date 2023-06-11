@@ -1,4 +1,5 @@
 import storage from 'services/storage'
+import { Nullable } from 'utils'
 
 export type ApiError = {
   code: 0
@@ -32,7 +33,7 @@ const handleResponseErrors = async (response: Response) => {
 }
 
 async function http(path: string, config: RequestInit) {
-  const authToken: string|null = storage.get('token') || null
+  const authToken: Nullable<string> = storage.get('token') || null
 
   const init: RequestInit = authToken ? {
     ...config,

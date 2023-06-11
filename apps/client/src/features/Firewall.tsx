@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import authentication, { selectIsReAuthenticating } from 'features/Me/Authentication/slice'
+import { selectIsReAuthenticating, reAuthenticate } from 'features/Me/Authentication/slice'
 import Login from 'features/Me/Authentication'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectIsAuth } from 'features/Me/slice'
@@ -14,7 +14,7 @@ const Firewall: React.FC<Props> = ({ children }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(authentication.actions.reAuthenticate())
+    dispatch(reAuthenticate())
   }, [ dispatch ])
 
   if (isReAuthenticating) {
