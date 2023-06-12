@@ -49,6 +49,7 @@ final class Messages implements \Domain\Repository\Messages
             ->createQueryBuilder('msg')
             ->andWhere('msg.channel = :channel')
             ->setParameter('channel', $channel)
+            ->orderBy('msg.createdAt', 'ASC')
             ->getQuery()
             ->getResult();
 

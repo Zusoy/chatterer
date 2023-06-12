@@ -11,8 +11,8 @@ export enum AuthenticationStatus {
 }
 
 export interface AuthenticationPayload {
-  username: string
-  password: string
+  readonly username: string
+  readonly password: string
 }
 
 interface State {

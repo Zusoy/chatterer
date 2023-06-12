@@ -6,15 +6,17 @@ interface Props {
   readonly placeholder: string
   readonly required: boolean
   readonly type: React.HTMLInputTypeAttribute
+  readonly value?: string
 }
 
-const Input: React.FC<Props> = ({ onChange, placeholder, required, type }) =>
+const Input: React.FC<Props> = ({ onChange, placeholder, required, type, value }) =>
   <Wrapper>
     <BaseInput
       type={ type }
       required={ required }
       onChange={ onChange }
       placeholder={ placeholder }
+      value={ value }
     />
   </Wrapper>
 

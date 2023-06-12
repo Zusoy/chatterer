@@ -4,6 +4,7 @@ import Firewall from 'features/Firewall'
 import Stations from 'features/Stations'
 import Channels from 'features/Channels'
 import Messages from 'features/Messages'
+import Message from 'features/Message'
 import StationControl from 'features/StationControl'
 import { useSelector } from 'react-redux'
 import { selectCurrentStation } from 'features/Stations/slice'
@@ -40,7 +41,12 @@ const AuthenticatedApp: React.FC = () => {
           }
           <ContentContainer>
             { channel &&
-              <Messages channel={ channel } />
+              <Content>
+                <Messages channel={ channel } />
+                <ControlContainer>
+                  <Message channelId={ channel.id } />
+                </ControlContainer>
+              </Content>
             }
           </ContentContainer>
         </ContentGrid>
@@ -92,6 +98,21 @@ const SecondarySidebarContainer = styled.aside(({ theme }) => `
 const ContentContainer = styled.div(({ theme }) => `
   position: relative;
   background-color: ${ theme.colors.dark25 };
+`)
+
+const Content = styled.div(({ theme }) => `
+  display: flex;
+  flex-direction: column;
+`)
+
+const ControlContainer = styled.div(({ theme }) => `
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color ${ theme.colors.dark25 };
 `)
 
 export default App

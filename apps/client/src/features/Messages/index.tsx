@@ -44,8 +44,8 @@ const Wrapper = styled.div(({ theme }) => `
   overflow-y: scroll;
   overflow-x: hidden;
   overflow-anchor: none;
-  min-height: 100%;
   align-items: stretch;
+  height: calc(100% - 40px - 40px);
 `)
 
 export default Messages

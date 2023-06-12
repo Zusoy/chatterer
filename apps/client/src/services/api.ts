@@ -1,5 +1,6 @@
 import storage from 'services/storage'
 import { Nullable } from 'utils'
+import { getStreamSources } from 'services/synchronization'
 
 export type ApiError = {
   code: 0
@@ -32,16 +33,20 @@ const handleResponseErrors = async (response: Response) => {
   }
 }
 
-async function http(path: string, config: RequestInit) {
+function withBearer(config: RequestInit): RequestInit {
   const authToken: Nullable<string> = storage.get('token') || null
 
-  const init: RequestInit = authToken ? {
+  return authToken ? {
     ...config,
     headers: {
       ...config?.headers,
-      'Authorization': `Bearer ${authToken}`
+      'Authorization': `Bearer ${ authToken }`
     }
   } : config
+}
+
+async function http(path: string, config: RequestInit) {
+  const init = withBearer(config)
 
   const request = new Request(`http://127.0.0.1:8081${path}`, init)
   const response = await fetch(request)
@@ -56,6 +61,35 @@ export const get: ApiGet = (path, config) => {
   const init: RequestInit = { ...config, method: 'get' }
 
   return http(path, init)
+}
+
+export type StreamResponse<T> = [ Promise<T>, Nullable<EventSource> ]
+export type ApiGetAndStream = <T>(path: string, config?: RequestInit) => Promise<StreamResponse<T>>
+export const getAndStream: ApiGetAndStream = async (path, config) => {
+  const init = withBearer({
+    ...config,
+    method: 'get'
+  })
+
+  const request = new Request(`http://127.0.0.1:8081${path}`, init)
+  const response = await fetch(request)
+
+  await handleResponseErrors(response)
+
+  const data = response.json().catch(() => {})
+  const sourceLink = response.headers.get('Link')
+  const sources = sourceLink ? getStreamSources(sourceLink) : null
+
+  if (!sourceLink || !sources) {
+    return [ data, null ]
+  }
+
+  const url = new URL(sources.url)
+  url.searchParams.append('topic', sources.topic)
+
+  const eventSource = new EventSource(url)
+
+  return [ data, eventSource ]
 }
 
 export type ApiPost = <T>(path: string, body?: Object, config?: RequestInit) => Promise<T>
