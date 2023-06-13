@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import Form from 'widgets/Form/Form'
 import Input from 'widgets/Form/Input'
 import styled from 'styled-components'
-import { useDispatch } from 'react-redux'
-import { post } from 'features/Message/slice'
+import { useDispatch, useSelector } from 'react-redux'
+import { post, selectIsPosting } from 'features/Message/slice'
 
 interface Props {
   readonly channelId: string
@@ -12,6 +12,7 @@ interface Props {
 const Message: React.FC<Props> = ({ channelId }) => {
   const [ content, setContent ] = useState<string>('')
   const dispatch = useDispatch()
+  const isPosting = useSelector(selectIsPosting)
 
   const onSubmitHandler: React.FormEventHandler = e => {
     e.preventDefault()
@@ -28,6 +29,7 @@ const Message: React.FC<Props> = ({ channelId }) => {
           placeholder={ 'Say something...' }
           required={ true }
           value={ content }
+          disabled={ isPosting }
           type='text'
         />
       </Form>

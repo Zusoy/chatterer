@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Selector } from 'app/store'
 
 export enum MessageStatus {
   Initial = 'Initial',
@@ -43,5 +44,8 @@ export const {
   posted,
   error,
 } = slice.actions
+
+export const selectIsPosting: Selector<boolean> = state =>
+  state.message.status === MessageStatus.Posting
 
 export default slice
