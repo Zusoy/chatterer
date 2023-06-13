@@ -9,7 +9,7 @@ import { userMock } from 'test-utils'
 
 describe('Effects/Authentication', () => {
   describe('Authenticate', () => {
-    it('handles authentication', () => {
+    it('handles authentication and store token', () => {
       const action = authenticate({ username: 'test', password: 'test' })
       const iterator = authenticateEffect(action)
 
