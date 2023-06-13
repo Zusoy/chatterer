@@ -31,6 +31,13 @@ const slice = createSlice({
       items: action.payload,
       status: MessagesStatus.Received,
     }),
+    upsertMany: (state, action: PayloadAction<Message[]>) => ({
+      ...state,
+      items: [
+        ...state.items,
+        ...action.payload,
+      ]
+    }),
     error: state => ({
       ...state,
       status: MessagesStatus.Error,
@@ -42,6 +49,7 @@ export const {
   fetchAll,
   received,
   error,
+  upsertMany,
 } = slice.actions
 
 export const selectItems: Selector<Message[]> = state =>

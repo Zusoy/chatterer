@@ -80,7 +80,7 @@ export const getAndStream: ApiGetAndStream = async (path, config) => {
   const sourceLink = response.headers.get('Link')
   const sources = sourceLink ? getStreamSources(sourceLink) : null
 
-  if (!sourceLink || !sources) {
+  if (!sources) {
     return [ data, null ]
   }
 

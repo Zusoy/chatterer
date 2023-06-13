@@ -1,22 +1,47 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, put, take, cancelled, takeLatest, takeEvery } from 'redux-saga/effects'
 import { fetchAll, received, error } from 'features/Messages/slice'
-import { get } from 'services/api'
+import { getAndStream } from 'services/api'
 import { Message } from 'models/message'
+import { Nullable } from 'utils'
+import { createSynchronizationChannel, Push, Type } from 'services/synchronization'
 
-export function* fetchAllEffect(action: PayloadAction<string>): Generator {
+export function* fetchAllAndSubscribeEffect(action: PayloadAction<string>): Generator {
   const id = action.payload
 
   try {
-    const messages = (yield call(get, `/channel/${id}/messages`)) as Message[]
+    const info = (yield call(getAndStream, `/channel/${id}/messages`)) as [ Promise<Message[]>, Nullable<EventSource> ]
+    const items = (yield info[0]) as Message[]
+    const eventSource = info[1]
 
-    yield put(received(messages))
+    yield put(received(items))
+
+    if (eventSource) {
+      yield eventSourceHandler(eventSource)
+    }
   } catch (e) {
     console.error(e)
     yield put(error)
   }
 }
 
+export function* eventSourceHandler(eventSource: EventSource): Generator {
+  const eventSourceChannel: any = yield call(createSynchronizationChannel<Message>, eventSource)
+
+  while (true) {
+    try {
+      const push = (yield take(eventSourceChannel)) as Push<Message>
+      console.log(push)
+    } catch (e) {
+      console.error(e)
+    } finally {
+      if (yield cancelled()) {
+        eventSource.close()
+      }
+    }
+  }
+}
+
 export default function* rootSaga(): Generator {
-  yield takeLatest(fetchAll, fetchAllEffect)
+  yield takeLatest(fetchAll, fetchAllAndSubscribeEffect)
 }

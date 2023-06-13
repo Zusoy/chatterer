@@ -13,18 +13,18 @@ export enum Context {
   Message = 'message'
 }
 
-export interface Push {
+export interface Push<T> {
   readonly type: Type
   readonly context: Context
   readonly identifier: string
   readonly topic: string[]
-  readonly payload: Nullable<Record<string, any>>
+  readonly payload: Nullable<T>
 }
 
-export function createSynchronizationChannel(eventSource: EventSource): EventChannel<Push> {
+export function createSynchronizationChannel<T>(eventSource: EventSource): EventChannel<Push<T>> {
   return eventChannel(emitter => {
     const messageHandler = (event: MessageEvent) => {
-      const data = (JSON.parse(event.data)) as Push
+      const data = (JSON.parse(event.data)) as Push<T>
       emitter(data)
     }
 

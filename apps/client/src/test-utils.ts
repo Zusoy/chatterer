@@ -1,6 +1,17 @@
 import { Station } from 'models/station'
 import { Channel } from 'models/channel'
 import { Message } from 'models/message'
+import { User } from 'models/user'
+
+export const userMock: User = {
+  id: 'ac199cb3-4211-4912-a32b-ab93d3a5bb7d',
+  firstname: 'John',
+  lastname: 'Doe',
+  email: 'john.doe@fake.com',
+  isAdmin: false,
+  createdAt: '2023-01-01',
+  updatedAt: '2023-01-01',
+}
 
 export const stationMock: Station = {
   id: 'c3e014f3-dc32-4b2b-afd9-ab597da74046',

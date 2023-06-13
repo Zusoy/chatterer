@@ -34,6 +34,13 @@ const slice = createSlice({
       items: action.payload,
       status: StationsStatus.Received,
     }),
+    upsertMany: (state, action: PayloadAction<Station[]>) => ({
+      ...state,
+      items: [
+        ...state.items,
+        ...action.payload
+      ]
+    }),
     changeStation: (state, action: PayloadAction<Station['id']>) => ({
       ...state,
       station: state.items.find(station => station.id === action.payload) || null,
@@ -50,6 +57,7 @@ export const {
   received,
   changeStation,
   error,
+  upsertMany,
 } = slice.actions
 
 export const selectStations: Selector<Station[]> = state =>

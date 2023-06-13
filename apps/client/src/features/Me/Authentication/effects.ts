@@ -20,7 +20,6 @@ export function* authenticateEffect(action: PayloadAction<AuthenticationPayload>
 
     storage.set('token', token, { path: '/' })
   } catch (e) {
-    console.error(e)
     yield put(error())
   }
 }
@@ -30,7 +29,6 @@ export function* reAuthenticateEffect(): Generator {
     const me = (yield call(get, '/me')) as User
     yield put(authenticated(me.id))
   } catch (e) {
-    console.error(e)
     yield put(notReAuthenticated())
   }
 }

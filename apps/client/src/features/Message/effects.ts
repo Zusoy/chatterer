@@ -1,15 +1,15 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import { post, error, PostPayload } from 'features/Message/slice'
+import { post, posted, error, PostPayload } from 'features/Message/slice'
 import { PayloadAction } from '@reduxjs/toolkit'
 import { post as httpPost } from 'services/api'
 
 export function* postMessageEffect(action: PayloadAction<PostPayload>): Generator {
   const { content, channelId } = action.payload
-
-  yield (call(httpPost, `/channel/${channelId}/messages`, { content }))
   try {
+    yield (call(httpPost, `/channel/${channelId}/messages`, { content }))
+
+    yield put(posted())
   } catch(e) {
-    console.error(e)
     yield put(error())
   }
 }
