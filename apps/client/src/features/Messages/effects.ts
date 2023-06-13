@@ -1,10 +1,10 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import { call, put, take, cancelled, takeLatest, takeEvery } from 'redux-saga/effects'
+import { call, put, take, cancelled, takeLatest } from 'redux-saga/effects'
 import { fetchAll, received, error } from 'features/Messages/slice'
 import { getAndStream } from 'services/api'
 import { Message } from 'models/message'
 import { Nullable } from 'utils'
-import { createSynchronizationChannel, Push, Type } from 'services/synchronization'
+import { createSynchronizationChannel, Push } from 'services/synchronization'
 
 export function* fetchAllAndSubscribeEffect(action: PayloadAction<string>): Generator {
   const id = action.payload
