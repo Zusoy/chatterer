@@ -9,7 +9,7 @@ Domain\Model\Message:
 
   fields:
     content:
-      type: string
+      type: text
     createdAt:
       type: datetime_immutable
     updatedAt:
