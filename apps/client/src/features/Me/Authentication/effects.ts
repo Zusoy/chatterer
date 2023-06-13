@@ -2,7 +2,7 @@ import { PayloadAction } from '@reduxjs/toolkit'
 import { call, takeLatest, put } from 'redux-saga/effects'
 import { get, post } from 'services/api'
 import { User } from 'models/user'
-import storage from 'services/storage'
+import { save } from 'services/storage'
 import {
   AuthenticationPayload,
   authenticate,
@@ -18,7 +18,7 @@ export function* authenticateEffect(action: PayloadAction<AuthenticationPayload>
   try {
     const { token } = (yield call(post, '/auth', payload)) as { token: string }
 
-    storage.set('token', token, { path: '/' })
+    yield call(save, 'token', token, { path: '/' })
   } catch (e) {
     yield put(error())
   }
