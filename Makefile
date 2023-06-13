@@ -59,6 +59,18 @@ api-vendor:
 client-shell:
 	@docker exec -it "$$(docker ps -q -f name=chatterer_client)" sh
 
+.PHONY: client-install
+client-install:
+	@docker-compose run --rm --no-deps client yarn install
+
+.PHONY: client-build
+client-build:
+	@docker-compose run --rm --no-deps client yarn build --if-present
+
+.PHONY: client-test
+client-test:
+	@docker-compose run --rm --no-deps client yarn test
+
 #########
 # TOOLS #
 #########

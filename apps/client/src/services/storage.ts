@@ -1,3 +1,5 @@
 import Cookies from 'universal-cookie'
 
-export default new Cookies()
+const cookies = new Cookies()
+
+export default cookies

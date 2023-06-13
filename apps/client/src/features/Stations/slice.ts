@@ -9,13 +9,13 @@ export enum StationsStatus {
   Error = 'Error'
 }
 
-interface State {
+export interface State {
   items: Station[]
   station: Nullable<Station>
   status: StationsStatus
 }
 
-const initialState: State = {
+export const initialState: State = {
   items: [],
   station: null,
   status: StationsStatus.Fetching,
@@ -34,6 +34,13 @@ const slice = createSlice({
       items: action.payload,
       status: StationsStatus.Received,
     }),
+    upsertMany: (state, action: PayloadAction<Station[]>) => ({
+      ...state,
+      items: [
+        ...state.items,
+        ...action.payload
+      ]
+    }),
     changeStation: (state, action: PayloadAction<Station['id']>) => ({
       ...state,
       station: state.items.find(station => station.id === action.payload) || null,
@@ -50,6 +57,7 @@ export const {
   received,
   changeStation,
   error,
+  upsertMany,
 } = slice.actions
 
 export const selectStations: Selector<Station[]> = state =>

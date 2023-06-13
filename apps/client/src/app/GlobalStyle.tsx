@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle<{ theme: Theme }>(({ theme }) => `
 
   body {
     margin: 0;
+    overflow: hidden;
   }
 `)
 

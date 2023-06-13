@@ -12,7 +12,6 @@ export function* fetchAllEffect(action: PayloadAction<string>): Generator {
 
     yield put(received(items))
   } catch (e) {
-    console.error(e)
     yield put(error())
   }
 }
