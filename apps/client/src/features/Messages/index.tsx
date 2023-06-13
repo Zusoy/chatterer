@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAll, selectItems } from 'features/Messages/slice'
+import { fetchListAndSubscribe, unsubscribeList, selectItems } from 'features/Messages/slice'
 import { Channel } from 'models/channel'
 import Message from 'widgets/Message/Message'
 import styled from 'styled-components'
@@ -14,7 +14,11 @@ const Messages: React.FC<Props> = ({ channel }) => {
   const items = useSelector(selectItems)
 
   useEffect(() => {
-    dispatch(fetchAll(channel.id))
+    dispatch(fetchListAndSubscribe(channel.id))
+
+    return () => {
+      dispatch(unsubscribeList())
+    }
   }, [ dispatch, channel ])
 
   return (

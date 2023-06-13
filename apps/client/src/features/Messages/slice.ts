@@ -26,6 +26,11 @@ const slice = createSlice({
       ...state,
       status: MessagesStatus.Fetching,
     }),
+    fetchListAndSubscribe: (state, _action: PayloadAction<string>) => ({
+      ...state,
+      status: MessagesStatus.Fetching,
+    }),
+    unsubscribeList: state => state,
     received: (state, action: PayloadAction<Message[]>) => ({
       ...state,
       items: action.payload,
@@ -36,7 +41,7 @@ const slice = createSlice({
       items: [
         ...state.items,
         ...action.payload,
-      ]
+      ],
     }),
     error: state => ({
       ...state,
@@ -47,9 +52,11 @@ const slice = createSlice({
 
 export const {
   fetchAll,
+  fetchListAndSubscribe,
+  unsubscribeList,
   received,
-  error,
   upsertMany,
+  error,
 } = slice.actions
 
 export const selectItems: Selector<Message[]> = state =>
