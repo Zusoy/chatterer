@@ -65,6 +65,11 @@ Chatterer is built with :
 * [![Nginx][Nginx.com]][Nginx-url]
 * [![Swagger][Swagger.io]][Swagger-url]
 
+### Features
+
+Chatterer is mostly inspired by Slack and Discord.
+If you want to see the features documentation you can go to the [API Gherkin Documentation](https://github.com/Zusoy/chatterer/tree/master/apps/api/doc/features) which is API behaviour tests (Behat)
+
 <!-- GETTING STARTED -->
 ## Getting Started
 
