@@ -70,7 +70,7 @@ Chatterer is built with :
 ### Features
 
 Chatterer is mostly inspired by Slack and Discord.
-If you want to see the features documentation you can go to the [API Gherkin Documentation](https://github.com/Zusoy/chatterer/tree/master/apps/api/doc/features) which is API behaviour tests (Behat)
+If you want to see the features documentation you can go to the [API Gherkin Documentation](https://github.com/Zusoy/chatterer/tree/master/apps/api/doc/features) which is API acceptances tests (Behat)
 
 <img src="preview_0.0.1.png" alt="Logo" width="1024">
 <br/>
