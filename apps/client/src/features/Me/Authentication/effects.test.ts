@@ -22,7 +22,7 @@ describe('Effects/Authentication', () => {
 
       assert.deepEqual(
         iterator.next(tokenPayload).value,
-        call(save, 'token', tokenPayload.token, { path: '/' })
+        call(save, 'token', tokenPayload.token)
       )
     })
 
