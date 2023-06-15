@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Application\HTTP\Controller;
 
-use Application\HTTP\Payload;
+use Application\HTTP\Payload\Station as Payload;
 use Domain\Command\Station as Command;
 use Domain\Identity\Identifier;
 use Domain\Model\Invitation;
 use Infra\Symfony\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(name: 'station_')]
@@ -39,11 +40,11 @@ final class Station extends BaseController
     }
 
     #[Route('/stations', name: 'create', methods: [Request::METHOD_POST])]
-    public function create(Payload $payload): Response
+    public function create(#[MapRequestPayload()] Payload\Create $payload): Response
     {
         $station = $this->bus->execute(new Command\Create(
-            name: (string) $payload->mandatory('name'),
-            description: (string) $payload->optional('description')
+            name: $payload->name,
+            description: $payload->description
         ));
 
         return $this->createJsonResponse(
@@ -65,12 +66,12 @@ final class Station extends BaseController
     }
 
     #[Route('/station/{id}/join', name: 'join', requirements: ['id' => Identifier::PATTERN], methods: [Request::METHOD_POST])]
-    public function join(string $id, Payload $payload): Response
+    public function join(string $id, #[MapRequestPayload()] Payload\Join $payload): Response
     {
         $station = $this->bus->execute(new Command\AddUser(
             stationId: $id,
             userId: (string) $this->getCurrentUser()->getIdentifier(),
-            token: (string) $payload->mandatory('token')
+            token: $payload->token
         ));
 
         return $this->createJsonResponse(
@@ -80,12 +81,12 @@ final class Station extends BaseController
     }
 
     #[Route('/station/{id}', name: 'update', requirements: ['id' => Identifier::PATTERN], methods: [Request::METHOD_PUT])]
-    public function update(string $id, Payload $payload): Response
+    public function update(string $id, #[MapRequestPayload()] Payload\Update $payload): Response
     {
         $station = $this->bus->execute(new Command\Update(
             $id,
-            name: (string) $payload->mandatory('name'),
-            description: (string) $payload->optional('description')
+            name: $payload->name,
+            description: $payload->description
         ));
 
         return $this->createJsonResponse(

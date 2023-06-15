@@ -20,10 +20,6 @@ services:
     tags:
       - { name: kernel.event_listener, event: kernel.request, priority: 512 }
 
-  Infra\Symfony\Event\Listener\DecodeRequestJSONBodyListener:
-    tags:
-      - { name: kernel.event_listener, event: kernel.request, priority: 128 }
-
   Infra\Symfony\Event\Listener\FormatExceptionResponseListener:
     tags:
       - { name: kernel.event_listener, event: kernel.exception, priority: -32 }
@@ -35,13 +31,6 @@ services:
       $allowedPorts: '%cors_allowed_ports%'
     tags:
       - { name: kernel.event_listener, event: kernel.response }
-
-  ## Argument Value Resolvers
-
-  Infra\Symfony\HttpKernel\ArgumentValueResolver\:
-    resource: '%kernel.project_dir%/src/Infra/Symfony/HttpKernel/ArgumentValueResolver'
-    tags:
-      - { name: controller.argument_value_resolver, priority: 128 }
 
   ## Security Authenticators
 

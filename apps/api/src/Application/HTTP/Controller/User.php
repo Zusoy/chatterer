@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Application\HTTP\Controller;
 
-use Application\HTTP\Payload;
+use Application\HTTP\Payload\User as Payload;
 use Domain\Command\User as Command;
 use Domain\Model\User as UserModel;
 use Infra\Symfony\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(name: 'user_')]
@@ -28,15 +29,15 @@ final class User extends BaseController
     }
 
     #[Route('/users', name: 'create', methods: [Request::METHOD_POST])]
-    public function create(Payload $payload): Response
+    public function create(#[MapRequestPayload()] Payload\Create $payload): Response
     {
         /** @var UserModel */
         $user = $this->bus->execute(new Command\Create(
-            firstname: (string) $payload->mandatory('firstname'),
-            lastname: (string) $payload->mandatory('lastname'),
-            email: (string) $payload->mandatory('email'),
-            password: (string) $payload->mandatory('password'),
-            isAdmin: (bool) $payload->optional('isAdmin', defaultValue: false)
+            firstname: $payload->firstname,
+            lastname: $payload->lastname,
+            email: $payload->email,
+            password: $payload->password,
+            isAdmin: $payload->isAdmin
         ));
 
         return $this->createJsonResponse(
@@ -46,14 +47,14 @@ final class User extends BaseController
     }
 
     #[Route('/register', name: 'register', methods: [Request::METHOD_POST])]
-    public function register(Payload $payload): Response
+    public function register(#[MapRequestPayload()] Payload\Register $payload): Response
     {
         /** @var UserModel */
         $user = $this->bus->execute(new Command\Register(
-            firstname: (string) $payload->mandatory('firstname'),
-            lastname: (string) $payload->mandatory('lastname'),
-            email: (string) $payload->mandatory('email'),
-            password: (string) $payload->mandatory('password')
+            firstname: $payload->firstname,
+            lastname: $payload->lastname,
+            email: $payload->email,
+            password: $payload->password
         ));
 
         return $this->createJsonResponse(
