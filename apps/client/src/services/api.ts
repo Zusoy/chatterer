@@ -1,4 +1,4 @@
-import storage from 'services/storage'
+import { get as storageGet } from 'services/storage'
 import { Nullable } from 'utils'
 import { getStreamSources } from 'services/synchronization'
 
@@ -33,20 +33,22 @@ const handleResponseErrors = async (response: Response) => {
   }
 }
 
-function withBearer(config: RequestInit): RequestInit {
-  const authToken: Nullable<string> = storage.get('token') || null
+async function withBearer(config: RequestInit): Promise<RequestInit> {
+  const authToken: Nullable<string> = await storageGet('token')
 
-  return authToken ? {
+  const init = authToken ? {
     ...config,
     headers: {
       ...config?.headers,
       'Authorization': `Bearer ${ authToken }`
     }
   } : config
+
+  return Promise.resolve(init)
 }
 
 async function http(path: string, config: RequestInit) {
-  const init = withBearer(config)
+  const init = await withBearer(config)
 
   const request = new Request(`http://127.0.0.1:8081${path}`, init)
   const response = await fetch(request)
@@ -66,7 +68,7 @@ export const get: ApiGet = (path, config) => {
 export type StreamResponse<T> = [ Promise<T>, Nullable<EventSource> ]
 export type ApiGetAndStream = <T>(path: string, config?: RequestInit) => Promise<StreamResponse<T>>
 export const getAndStream: ApiGetAndStream = async (path, config) => {
-  const init = withBearer({
+  const init = await withBearer({
     ...config,
     method: 'get'
   })

@@ -18,7 +18,7 @@ export function* authenticateEffect(action: PayloadAction<AuthenticationPayload>
   try {
     const { token } = (yield call(post, '/auth', payload)) as { token: string }
 
-    yield call(save, 'token', token, { path: '/' })
+    yield call(save, 'token', token)
   } catch (e) {
     yield put(error())
   }
