@@ -6,6 +6,7 @@ import Channels from 'features/Channels'
 import Messages from 'features/Messages'
 import Message from 'features/Message'
 import StationControl from 'features/StationControl'
+import Logout from 'features/Me/Logout'
 import { useSelector } from 'react-redux'
 import { selectCurrentStation } from 'features/Stations/slice'
 import { selectCurrentChannel } from 'features/Channels/slice'
@@ -28,7 +29,12 @@ const AuthenticatedApp: React.FC = () => {
       <Main>
         <ContentGrid hasStation={ !!station }>
           <HeaderContainer>
-            Header
+            <HeaderWrapper>
+              <HeaderTitle>CHATTERER</HeaderTitle>
+            </HeaderWrapper>
+            <HeaderWrapper>
+              <Logout />
+            </HeaderWrapper>
           </HeaderContainer>
           <SidebarContainer>
             <Stations />
@@ -42,10 +48,12 @@ const AuthenticatedApp: React.FC = () => {
           <ContentContainer>
             { channel &&
               <Content>
-                <Messages channel={ channel } />
-                <ControlContainer>
-                  <Message channelId={ channel.id } />
-                </ControlContainer>
+                <Messenger>
+                  <Messages channel={ channel } />
+                  <ControlContainer>
+                    <Message channelId={ channel.id } />
+                  </ControlContainer>
+                </Messenger>
               </Content>
             }
           </ContentContainer>
@@ -55,7 +63,7 @@ const AuthenticatedApp: React.FC = () => {
   )
 }
 
-const Main = styled.main(({ theme }) => `
+const Main = styled.div(({ theme }) => `
   position: relative;
   color: ${ theme.colors.white };
 
@@ -79,8 +87,21 @@ const ContentGrid = styled.section<{ hasStation: boolean }>(({ hasStation }) => 
 `)
 
 const HeaderContainer = styled.header(({ theme }) => `
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   grid-area: header;
   background-color: ${ theme.colors.lightDark };
+`)
+
+const HeaderWrapper = styled.div(({ theme }) => `
+  display: flex;
+  padding: ${ theme.gap.s };
+`)
+
+const HeaderTitle = styled.h3(({ theme }) => `
+  padding: ${ theme.gap.s };
+  color: ${ theme.colors.lightBlue };
 `)
 
 const SidebarContainer = styled.aside(({ theme }) => `
@@ -95,15 +116,19 @@ const SecondarySidebarContainer = styled.aside(({ theme }) => `
   height: calc(100vh - 50px);
 `)
 
-const ContentContainer = styled.div(({ theme }) => `
+const ContentContainer = styled.main(({ theme }) => `
   position: relative;
   background-color: ${ theme.colors.dark25 };
 `)
 
 const Content = styled.div(({ theme }) => `
   display: flex;
-  flex-direction: column;
 `)
+
+const Messenger = styled.div`
+  display: flex;
+  flex-direction: column;
+`
 
 const ControlContainer = styled.div(({ theme }) => `
   position: absolute;

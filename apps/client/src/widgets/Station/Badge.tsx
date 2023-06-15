@@ -16,8 +16,8 @@ const Wrapper = styled.div<{ active: boolean }>(({ theme, active }) => `
   display: flex;
   color: ${ theme.colors.white };
   background-color: ${ theme.colors.lightDark };
-  border: 1px solid ${ active ? theme.colors.blue : theme.colors.lightDark };
-  border-radius: 100px;
+  border: 1px solid ${ active ? theme.colors.lightBlue : theme.colors.lightDark };
+  border-radius: ${ active ? '15px' : '100px' };
   width: 50px;
   height: 50px;
   align-items: center;
@@ -25,7 +25,7 @@ const Wrapper = styled.div<{ active: boolean }>(({ theme, active }) => `
   cursor: pointer;
 
   &:hover {
-    border: 1px solid ${ theme.colors.blue };
+    border: 1px solid ${ theme.colors.lightBlue };
   }
 
   ${ active &&
