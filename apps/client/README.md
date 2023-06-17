@@ -38,6 +38,8 @@ If you want to tests the app, run :
 yarn test
 ```
 
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [Redux]: https://img.shields.io/badge/Redux-purple?style=for-the-badge&logo=redux&logoColor=white
 [Redux-url]: https://swagger.io/
 [Redux-Saga]: https://img.shields.io/badge/ReduxSaga-grey?style=for-the-badge&logo=redux-saga&logoColor=white
