@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { theme } from 'app/theme'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAll, selectStations, selectIsFetching, changeStation, selectCurrentStation } from 'features/Stations/slice'
+import { fetchAll, selectStations, selectIsFetching, changeStation, selectCurrentStation } from 'features/Stations/List/slice'
 import Badge from 'widgets/Station/Badge'
 import Puff from 'widgets/Loading/Puff'
 import styled from 'styled-components'
 
-const Stations: React.FC = () => {
+const List: React.FC = () => {
   const dispatch = useDispatch()
   const isFetching = useSelector(selectIsFetching)
   const items = useSelector(selectStations)
@@ -51,4 +51,4 @@ const Wrapper = styled.div(({ theme }) => `
   margin-top: ${ theme.gap.m };
 `)
 
-export default Stations
+export default List

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAll, selectItems, selectIsFetching, changeChannel, selectCurrentChannel } from 'features/Channels/slice'
+import { fetchAll, selectItems, selectIsFetching, changeChannel, selectCurrentChannel } from 'features/Channels/List/slice'
 import LineWave from 'widgets/Loading/LineWave'
 import Badge from 'widgets/Channel/Badge'
 import styled from 'styled-components'
@@ -10,7 +10,7 @@ interface Props {
   readonly stationId: string
 }
 
-const Channels: React.FC<Props> = ({ stationId }) => {
+const List: React.FC<Props> = ({ stationId }) => {
   const dispatch = useDispatch()
   const items = useSelector(selectItems)
   const current = useSelector(selectCurrentChannel)
@@ -50,4 +50,4 @@ const Wrapper = styled.div(({ theme }) => `
   margin-top: ${ theme.gap.l };
 `)
 
-export default Channels
+export default List

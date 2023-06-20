@@ -1,11 +1,11 @@
 import assert from 'assert'
-import { fetchAllEffect } from 'features/Channels/effects'
-import { fetchAll, received, error } from 'features/Channels/slice'
+import { fetchAllEffect } from 'features/Channels/List/effects'
+import { fetchAll, received, error } from 'features/Channels/List/slice'
 import { Channel } from 'models/channel'
 import { call, put } from 'redux-saga/effects'
 import { get } from 'services/api'
 
-describe('Effects/Channels', () => {
+describe('Effects/Channels/List', () => {
   describe('FetchAll', () => {
     it('fetch and received channels', () => {
       const action = fetchAll('stationId')

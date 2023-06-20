@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchListAndSubscribe, unsubscribeList, selectItems } from 'features/Messages/slice'
+import { fetchListAndSubscribe, unsubscribeList, selectItems } from 'features/Messages/List/slice'
 import { Channel } from 'models/channel'
 import Message from 'widgets/Message/Message'
 import styled from 'styled-components'
@@ -9,7 +9,7 @@ interface Props {
   readonly channel: Channel
 }
 
-const Messages: React.FC<Props> = ({ channel }) => {
+const List: React.FC<Props> = ({ channel }) => {
   const dispatch = useDispatch()
   const items = useSelector(selectItems)
 
@@ -52,4 +52,4 @@ const Wrapper = styled.div(({ theme }) => `
   height: calc(100% - 40px - 40px);
 `)
 
-export default Messages
+export default List

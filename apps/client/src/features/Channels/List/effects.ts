@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
-import { fetchAll, received, error } from 'features/Channels/slice'
+import { fetchAll, received, error } from 'features/Channels/List/slice'
 import { get } from 'services/api'
 import { PayloadAction } from '@reduxjs/toolkit'
 import { Channel } from 'models/channel'

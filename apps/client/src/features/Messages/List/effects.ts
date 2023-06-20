@@ -1,6 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 import { call, put, fork, takeLatest, take, cancel, cancelled } from 'redux-saga/effects'
-import { received, error, fetchListAndSubscribe, unsubscribeList, upsertMany } from 'features/Messages/slice'
+import { received, error, fetchListAndSubscribe, unsubscribeList, upsertMany } from 'features/Messages/List/slice'
 import { getAndStream } from 'services/api'
 import { Message } from 'models/message'
 import { Nullable } from 'utils'

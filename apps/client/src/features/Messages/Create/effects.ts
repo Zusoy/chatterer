@@ -1,5 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import { post, posted, error, PostPayload } from 'features/Message/slice'
+import { post, posted, error, PostPayload } from 'features/Messages/Create/slice'
 import { PayloadAction } from '@reduxjs/toolkit'
 import { post as httpPost } from 'services/api'
 
