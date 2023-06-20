@@ -1,8 +1,8 @@
 import assert from 'assert'
 import { call, put } from 'redux-saga/effects'
 import { get } from 'services/api'
-import { fetchAllEffect } from 'features/Stations/effects'
-import { received, error } from 'features/Stations/slice'
+import { fetchAllEffect } from 'features/Stations/List/effects'
+import { received, error } from 'features/Stations/List/slice'
 import { Station } from 'models/station'
 
 describe('Effects/Stations', () => {

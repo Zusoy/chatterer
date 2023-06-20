@@ -1,4 +1,4 @@
-import { fetchAll, received, error } from 'features/Stations/slice'
+import { fetchAll, received, error } from 'features/Stations/List/slice'
 import { Station } from 'models/station'
 import { call, put, takeLatest } from 'redux-saga/effects'
 import { get } from 'services/api'

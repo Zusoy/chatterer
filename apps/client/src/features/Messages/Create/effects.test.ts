@@ -1,10 +1,10 @@
 import assert from 'assert'
-import { postMessageEffect } from 'features/Message/effects'
-import { post, posted, error } from 'features/Message/slice'
+import { postMessageEffect } from 'features/Messages/Create/effects'
+import { post, posted, error } from 'features/Messages/Create/slice'
 import { post as httpPost } from 'services/api'
 import { call, put } from 'redux-saga/effects'
 
-describe('Effects/Message', () => {
+describe('Effects/Messages/Create', () => {
   describe('PostMessage', () => {
     it('handles message posting', () => {
       const action = post({ channelId: 'channelId', content: 'Hello World !' })

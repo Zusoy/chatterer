@@ -6,10 +6,10 @@ import slice, {
   changeChannel,
   ChannelsStatus,
   State
-} from 'features/Channels/slice'
-import { channelMock, messageMock } from 'test-utils'
+} from 'features/Channels/List/slice'
+import { channelMock } from 'test-utils'
 
-describe('Features/Channels', () => {
+describe('Features/Channels/List', () => {
   it('reduces fetchAll action', () => {
     expect(slice.reducer(initialState, fetchAll)).toEqual({
       ...initialState,

@@ -3,13 +3,13 @@ import Form from 'widgets/Form/Form'
 import Input from 'widgets/Form/Input'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
-import { post, selectIsPosting } from 'features/Message/slice'
+import { post, selectIsPosting } from 'features/Messages/Create/slice'
 
 interface Props {
   readonly channelId: string
 }
 
-const Message: React.FC<Props> = ({ channelId }) => {
+const Create: React.FC<Props> = ({ channelId }) => {
   const [ content, setContent ] = useState<string>('')
   const dispatch = useDispatch()
   const isPosting = useSelector(selectIsPosting)
@@ -42,4 +42,4 @@ const Wrapper = styled.div(({ theme }) => `
   padding: ${ theme.gap.m } ${ theme.gap.l };
 `)
 
-export default Message
+export default Create

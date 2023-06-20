@@ -1,10 +1,10 @@
 import { all, fork } from 'redux-saga/effects'
 import authentication from 'features/Me/Authentication/effects'
 import logout from 'features/Me/Logout/effects'
-import stations from 'features/Stations/effects'
-import channels from 'features/Channels/effects'
-import messages from 'features/Messages/effects'
-import message from 'features/Message/effects'
+import stations from 'features/Stations/List/effects'
+import channels from 'features/Channels/List/effects'
+import messages from 'features/Messages/List/effects'
+import message from 'features/Messages/Create/effects'
 
 const effects = function* (): Generator {
   yield all([

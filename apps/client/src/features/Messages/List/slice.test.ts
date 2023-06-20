@@ -4,10 +4,10 @@ import slice, {
   error,
   initialState,
   MessagesStatus
-} from 'features/Messages/slice'
+} from 'features/Messages/List/slice'
 import { messageMock } from 'test-utils'
 
-describe('Features/Messages', () => {
+describe('Features/Messages/List', () => {
   it('reduces fetchAll action', () => {
     expect(slice.reducer(initialState, fetchAll('stationId'))).toEqual({
       ...initialState,
