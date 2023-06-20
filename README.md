@@ -6,6 +6,11 @@
 [![License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
+<br />
+
+![Client](https://github.com/Zusoy/chatterer/actions/workflows/client.yaml/badge.svg)
+![API](https://github.com/Zusoy/chatterer/actions/workflows/api.yaml/badge.svg)
+
 <div align="center">
   <a href="https://github.com/Zusoy/chatterer">
     <img src="logo.png" alt="Logo" width="500" height="500">
