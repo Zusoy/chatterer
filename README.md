@@ -8,12 +8,8 @@
 
 <br />
 
-<center>
-
-  ![Client](https://github.com/Zusoy/chatterer/actions/workflows/client.yaml/badge.svg)
-  ![API](https://github.com/Zusoy/chatterer/actions/workflows/api.yaml/badge.svg)
-
-</center>
+![Client](https://github.com/Zusoy/chatterer/actions/workflows/client.yaml/badge.svg)
+![API](https://github.com/Zusoy/chatterer/actions/workflows/api.yaml/badge.svg)
 
 <div align="center">
   <a href="https://github.com/Zusoy/chatterer">
