@@ -30,11 +30,5 @@ Domain\Model\Channel:
         nullable: false
         onDelete: CASCADE
 
-  manyToMany:
-    users:
-      targetEntity: User
-      mappedBy: channels
-      cascade: [ persist ]
-
   lifecycleCallbacks:
     preUpdate: [ 'touch' ]

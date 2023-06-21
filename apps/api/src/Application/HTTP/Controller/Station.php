@@ -19,7 +19,9 @@ final class Station extends BaseController
     #[Route('/stations', name: 'list', methods: [Request::METHOD_GET])]
     public function list(): Response
     {
-        $stations = $this->bus->execute(new Command\All());
+        $stations = $this->bus->execute(new Command\All(
+            userId: (string) $this->getCurrentUser()->getIdentifier()
+        ));
 
         return $this->createJsonResponse(
             data: $stations,

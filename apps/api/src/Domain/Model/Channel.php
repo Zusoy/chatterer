@@ -5,18 +5,14 @@ declare(strict_types=1);
 namespace Domain\Model;
 
 use DateTimeImmutable;
-use Doctrine\Common\Collections\ArrayCollection;
-use Domain\Group\UserCollectionGroupTrait;
-use Domain\Group\UserGroup;
 use Domain\Identity\Identifiable;
 use Domain\Identity\Identifier;
 use Domain\Time\HasTimestamp;
 use Domain\Time\HasTimestampTrait;
 
-class Channel implements Identifiable, HasTimestamp, UserGroup
+class Channel implements Identifiable, HasTimestamp
 {
     use HasTimestampTrait;
-    use UserCollectionGroupTrait;
 
     private Identifier $id;
     private string $name;
@@ -38,7 +34,6 @@ class Channel implements Identifiable, HasTimestamp, UserGroup
         $this->station = $station;
         $this->name = $name;
         $this->description = $description;
-        $this->users = new ArrayCollection();
 
         $this->createdAt = new DateTimeImmutable();
         $this->updatedAt = new DateTimeImmutable();

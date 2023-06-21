@@ -8,7 +8,6 @@ Feature: Delete message
     And There is the station "Company"
     And I am member of the station
     And There is a "Meetings" channel in the station
-    And I am member of the channel
     And I have posted the message "Hello World" in the channel
     When I delete the message
     Then I should be notified that the message is deleted
@@ -18,9 +17,8 @@ Feature: Delete message
     And There is the station "Company"
     And I am member of the station
     And There is a "Meetings" channel in the station
-    And I am member of the channel
-    And There is multiple members in the channel
-    And One member of the channel have posted the message "Some secrets"
+    And There is multiple members in the station
+    And One member of the station have posted the message "Some secrets" in the channel
     When I delete the message
     Then I should be notified that the message is deleted
 
@@ -29,8 +27,7 @@ Feature: Delete message
     And There is the station "Company"
     And I am member of the station
     And There is a "Meetings" channel in the station
-    And I am member of the channel
-    And There is multiple members in the channel
-    And One member of the channel have posted the message "Hello World"
+    And There is multiple members in the station
+    And One member of the station have posted the message "Hello World" in the channel
     When I delete the message
     Then I should be notified that I'm not authorized for operation "message:delete"
