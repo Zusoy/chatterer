@@ -11,6 +11,7 @@ use Domain\Command\Message as MessageCommand;
 use Domain\Command\Station as StationCommand;
 use Domain\Command\User as UserCommand;
 use Domain\Model\Channel;
+use Domain\Model\Invitation;
 use Domain\Model\Message;
 use Domain\Model\Station;
 use Domain\Model\User;
@@ -41,7 +42,8 @@ final class InsertFixturesCommand extends Command
         'admins'   => [],
         'users'    => [],
         'stations' => [],
-        'channels' => []
+        'channels' => [],
+        'invitations' => [],
     ];
 
     /**
@@ -52,7 +54,8 @@ final class InsertFixturesCommand extends Command
         'users'    => 0,
         'stations' => 0,
         'channels' => 0,
-        'messages' => 0
+        'messages' => 0,
+        'invitations' => 0
     ];
 
     public function __construct(
@@ -121,6 +124,7 @@ final class InsertFixturesCommand extends Command
         $this->insertUsers();
 
         $this->insertMainData();
+        $this->insertInvitations();
     }
 
     private function insertMainAdmin(): void
@@ -222,6 +226,19 @@ final class InsertFixturesCommand extends Command
                 $this->references['messages'][] = $newMessage;
                 $this->count('messages');
             }
+        }
+    }
+
+    private function insertInvitations(): void
+    {
+        foreach ($this->references['stations'] as $station) {
+            /** @var Invitation */
+            $invitation = $this->bus->execute(new StationCommand\Invite(
+                id: (string) $station->getIdentifier()
+            ));
+
+            $this->references['invitations'][] = $invitation;
+            $this->count('invitations');
         }
     }
 

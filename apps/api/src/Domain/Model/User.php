@@ -32,8 +32,6 @@ class User implements Identifiable, HasTimestamp, UserInterface, PasswordAuthent
     private Role $role;
     /** @var Collection<int,Station> */
     private Collection $stations;
-    /** @var Collection<int,Channel> */
-    private Collection $channels;
 
     public function __construct(
         string $firstname,
@@ -48,7 +46,6 @@ class User implements Identifiable, HasTimestamp, UserInterface, PasswordAuthent
         $this->password = $password;
         $this->role = Role::USER;
         $this->stations = new ArrayCollection();
-        $this->channels = new ArrayCollection();
 
         $this->createdAt = new DateTimeImmutable();
         $this->updatedAt = new DateTimeImmutable();
@@ -120,10 +117,6 @@ class User implements Identifiable, HasTimestamp, UserInterface, PasswordAuthent
             case $group instanceof Station:
                 $this->stations->add($group);
                 break;
-
-            case $group instanceof Channel:
-                $this->channels->add($group);
-                break;
         };
     }
 
@@ -132,17 +125,20 @@ class User implements Identifiable, HasTimestamp, UserInterface, PasswordAuthent
         return $this->stations->contains($station);
     }
 
-    public function isInChannel(Channel $channel): bool
-    {
-        return $this->channels->contains($channel);
-    }
-
     /**
      * {@inheritDoc}
      */
     public function getUserIdentifier(): string
     {
         return $this->getEmail();
+    }
+
+    /**
+     * @return iterable<Station>
+     */
+    public function getStations(): iterable
+    {
+        return $this->stations->toArray();
     }
 
     /**

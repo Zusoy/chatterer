@@ -82,6 +82,28 @@ final class Message extends Context
     }
 
     /**
+     * @Given There is multiple members in the station
+     */
+    public function thereIsMultipleMembersInTheStation(): void
+    {
+        if (null === $this->station) {
+            throw new RuntimeException('No station created during this scenario.');
+        }
+
+        foreach (range(start: 0, end: 4, step: 3) as $iteration) {
+            /** @var User */
+            $member = $this->faker->user($this->faker->unique()->email());
+
+            $member->joinGroup($this->station);
+            $this->persistence->manager->persist($member);
+
+            $this->members[] = $member;
+        }
+
+        $this->persistence->manager->flush();
+    }
+
+    /**
      * @Given There is a ":name" channel in the station
      */
     public function thereIsAChannelInTheStation(string $name): void
@@ -117,33 +139,12 @@ final class Message extends Context
     }
 
     /**
-     * @Given I am member of the channel
+     * @Given I am not member of the station
      */
-    public function iAmMemberOfTheChannel(): void
+    public function iAmNotMemberOfTheStation(): void
     {
-        if (null === $this->channel) {
-            throw new RuntimeException('No channel created during this scenario.');
-        }
-
-        if (null === $this->user) {
-            throw new RuntimeException('No user authenticated during this scenario.');
-        }
-
-        $this->user->joinGroup($this->channel);
-        $this->persistence->manager->flush();
-    }
-
-    /**
-     * @Given I am not member of the channel
-     */
-    public function iAmNotMemberOfTheChannel(): void
-    {
-        if (null === $this->channel) {
-            throw new RuntimeException('No channel created during this scenario.');
-        }
-
-        if (null === $this->user) {
-            throw new RuntimeException('No user authenticated during this scenario.');
+        if (null === $this->station) {
+            throw new RuntimeException('No station created during this scenario.');
         }
     }
 
@@ -170,7 +171,7 @@ final class Message extends Context
     }
 
     /**
-     * @Given One member of the channel have posted the message ":content"
+     * @Given One member of the station have posted the message ":content" in the channel
      */
     public function oneMemberOfTheChannelHavePostedMessage(string $content): void
     {
@@ -191,29 +192,6 @@ final class Message extends Context
         );
 
         $this->persistence->messages->add($this->message);
-    }
-
-    /**
-     * @Given There is multiple members in the channel
-     */
-    public function thereIsMultipleMembersInTheChannel(): void
-    {
-        if (null === $this->channel) {
-            throw new RuntimeException('No channel created during this scenario.');
-        }
-
-        foreach (range(start: 0, end: 4, step: 3) as $iteration) {
-            /** @var User */
-            $member = $this->faker->user($this->faker->unique()->email());
-
-            $member->joinGroup($this->channel->getStation());
-            $member->joinGroup($this->channel);
-            $this->persistence->manager->persist($member);
-
-            $this->members[] = $member;
-        }
-
-        $this->persistence->manager->flush();
     }
 
     /**

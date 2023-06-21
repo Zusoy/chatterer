@@ -19,8 +19,6 @@ enum Operation: string
     case CREATE_CHANNEL = 'channel:create';
     case UPDATE_CHANNEL = 'channel:update';
     case DELETE_CHANNEL = 'channel:delete';
-    case JOIN_CHANNEL = 'channel:join';
-    case LIST_USERS_CHANNEL = 'channel:list_users';
 
     case CREATE_MESSAGE = 'message:create';
     case DELETE_MESSAGE = 'message:delete';

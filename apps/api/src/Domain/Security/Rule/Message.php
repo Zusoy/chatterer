@@ -34,7 +34,7 @@ final class Message implements Rule
     public function allows(User $user, Operation $operation, mixed $context = null): bool
     {
         return match($operation) {
-            Operation::CREATE_MESSAGE => ($context !== null && $user->isInChannel($context['channel'])) || $user->isAdmin(),
+            Operation::CREATE_MESSAGE => ($context !== null && $user->isInStation($context['channel']->getStation())) || $user->isAdmin(),
             Operation::DELETE_MESSAGE => ($context !== null && $user->isAuthorOf($context['message'])) || $user->isAdmin(),
 
             default => $user->isAdmin()

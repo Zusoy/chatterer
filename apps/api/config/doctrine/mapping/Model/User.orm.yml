@@ -39,11 +39,6 @@ Domain\Model\User:
       inversedBy: users
       joinTable:
         name: users_stations
-    channels:
-      targetEntity: Channel
-      inversedBy: users
-      joinTable:
-        name: users_channels
 
   lifecycleCallbacks:
     preUpdate: [ 'touch' ]
