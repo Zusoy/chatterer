@@ -24,8 +24,6 @@ final class Channel implements Rule
             Operation::CREATE_CHANNEL,
             Operation::UPDATE_CHANNEL,
             Operation::DELETE_CHANNEL,
-            Operation::JOIN_CHANNEL,
-            Operation::LIST_USERS_CHANNEL
         ];
     }
 
@@ -40,8 +38,6 @@ final class Channel implements Rule
             Operation::DELETE_CHANNEL,
             Operation::UPDATE_CHANNEL,
             Operation::CREATE_CHANNEL => $user->isAdmin(),
-            Operation::JOIN_CHANNEL => $context !== null && $user->isInStation($context['channel']->getStation()),
-            Operation::LIST_USERS_CHANNEL => ($context !== null && $context['channel']->hasUser($user)) || $user->isAdmin(),
 
             default => $user->isAdmin()
         };
