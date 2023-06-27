@@ -27,6 +27,8 @@ const AuthenticatedApp: React.FC = () => {
   return (
     <Background>
       <Main>
+        <ModalContainer id='modal'>
+        </ModalContainer>
         <ContentGrid hasStation={ !!station }>
           <HeaderContainer>
             <HeaderWrapper>
@@ -138,6 +140,16 @@ const ControlContainer = styled.div(({ theme }) => `
   align-items: center;
   width: 100%;
   background-color ${ theme.colors.dark25 };
+`)
+
+const ModalContainer = styled.div(({ theme }) => `
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: ${ theme.colors.dark50 };
+  border-radius: 10px;
+  z-index: 10;
 `)
 
 export default App
