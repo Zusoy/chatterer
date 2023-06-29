@@ -9,7 +9,7 @@ import slice, {
 } from 'features/Stations/List/slice'
 import { stationMock } from 'test-utils'
 
-describe('Features/Stations', () => {
+describe('Features/Stations/List', () => {
   it('reduces fetchAll action', () => {
     expect(slice.reducer(initialState, fetchAll())).toEqual({
       ...initialState,

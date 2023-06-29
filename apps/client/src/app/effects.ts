@@ -5,6 +5,7 @@ import stations from 'features/Stations/List/effects'
 import channels from 'features/Channels/List/effects'
 import messages from 'features/Messages/List/effects'
 import message from 'features/Messages/Create/effects'
+import join from 'features/Stations/Join/effects'
 
 const effects = function* (): Generator {
   yield all([
@@ -14,6 +15,7 @@ const effects = function* (): Generator {
     fork(channels),
     fork(messages),
     fork(message),
+    fork(join),
   ])
 }
 

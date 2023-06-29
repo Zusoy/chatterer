@@ -10,10 +10,12 @@ import Logout from 'features/Me/Logout'
 import { useSelector } from 'react-redux'
 import { selectCurrentStation } from 'features/Stations/List/slice'
 import { selectCurrentChannel } from 'features/Channels/List/slice'
+import { ToastContainer } from 'react-toastify'
 import styled from 'styled-components'
 
 const App: React.FC = () =>
   <>
+    <ToastContainer theme='dark' />
     <GlobalStyle />
     <Firewall>
       <AuthenticatedApp />

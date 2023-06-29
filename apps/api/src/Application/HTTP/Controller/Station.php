@@ -66,13 +66,12 @@ final class Station extends BaseController
         );
     }
 
-    #[Route('/station/{id}/join', name: 'join', requirements: ['id' => Identifier::PATTERN], methods: [Request::METHOD_POST])]
-    public function join(string $id, Payload $payload): Response
+    #[Route('/stations/join', name: 'join', methods: [Request::METHOD_POST])]
+    public function join(Payload $payload): Response
     {
-        $station = $this->bus->execute(new Command\AddUser(
-            stationId: $id,
+        $station = $this->bus->execute(new Command\Join(
             userId: (string) $this->getCurrentUser()->getIdentifier(),
-            token: (string) $payload->mandatory('token')
+            invitationToken: $payload->mandatory('token')
         ));
 
         return $this->createJsonResponse(

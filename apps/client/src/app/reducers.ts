@@ -6,6 +6,7 @@ import stations from 'features/Stations/List/slice'
 import channels from 'features/Channels/List/slice'
 import messages from 'features/Messages/List/slice'
 import message from 'features/Messages/Create/slice'
+import join from 'features/Stations/Join/slice'
 
 export default combineReducers({
   me: me.reducer,
@@ -15,4 +16,5 @@ export default combineReducers({
   channels: channels.reducer,
   messages: messages.reducer,
   message: message.reducer,
+  join: join.reducer,
 })

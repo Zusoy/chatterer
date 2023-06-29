@@ -1,22 +1,26 @@
 import React, { useState } from 'react'
 import Modal from 'widgets/Modal'
 import Form from 'widgets/Form/Form'
-import Input from 'widgets/Form/Input'
+import IconInput from 'widgets/Form/IconInput'
 import PrimaryButton from 'widgets/Button/Primary'
 import SecondaryButton from 'widgets/Button/Secondary'
 import styled from 'styled-components'
+import { FaEnvelope } from 'react-icons/fa'
+import { join } from 'features/Stations/Join/slice'
+import { useDispatch } from 'react-redux'
 
 interface Props {
-  onCancel: React.MouseEventHandler
+  readonly onCancel: React.MouseEventHandler
 }
 
 const Join: React.FC<Props> = ({ onCancel }) => {
+  const dispatch = useDispatch()
   const [ token, setToken ] = useState<string>('')
 
   const onSubmitHandler: React.FormEventHandler = e => {
     e.preventDefault()
 
-    console.log(token)
+    dispatch(join({ token }))
   }
 
   return (
@@ -27,17 +31,18 @@ const Join: React.FC<Props> = ({ onCancel }) => {
           <p>Type your station invitation token here to join an existing station</p>
         </Header>
         <Form onSubmit={ onSubmitHandler }>
-          <Input
-            required={ true }
-            placeholder='Invitation token'
-            onChange={ e => setToken(e.target.value) }
-            value={ token }
-            type='text'
-          />
-          <Buttons>
-            <SecondaryButton onClick={ onCancel }>Cancel</SecondaryButton>
-            <PrimaryButton type='submit'>Join the station</PrimaryButton>
-          </Buttons>
+            <IconInput
+              required={ true }
+              placeholder='Invitation token'
+              onChange={ e => setToken(e.target.value) }
+              value={ token }
+              icon={ <FaEnvelope size={ 20 } /> }
+              type='text'
+            />
+            <Buttons>
+              <SecondaryButton onClick={ onCancel }>Cancel</SecondaryButton>
+              <PrimaryButton type='submit'>Join the station</PrimaryButton>
+            </Buttons>
         </Form>
       </Wrapper>
     </Modal>
