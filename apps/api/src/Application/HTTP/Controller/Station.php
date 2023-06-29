@@ -71,7 +71,7 @@ final class Station extends BaseController
     {
         $station = $this->bus->execute(new Command\Join(
             userId: (string) $this->getCurrentUser()->getIdentifier(),
-            invitationToken: $payload->mandatory('token')
+            invitationToken: (string) $payload->mandatory('token')
         ));
 
         return $this->createJsonResponse(
