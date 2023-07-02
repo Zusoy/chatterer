@@ -10,10 +10,13 @@ import Logout from 'features/Me/Logout'
 import { useSelector } from 'react-redux'
 import { selectCurrentStation } from 'features/Stations/List/slice'
 import { selectCurrentChannel } from 'features/Channels/List/slice'
+import { ToastContainer } from 'react-toastify'
+import { AnimatePresence } from 'framer-motion'
 import styled from 'styled-components'
 
 const App: React.FC = () =>
   <>
+    <ToastContainer theme='dark' />
     <GlobalStyle />
     <Firewall>
       <AuthenticatedApp />
@@ -27,6 +30,10 @@ const AuthenticatedApp: React.FC = () => {
   return (
     <Background>
       <Main>
+        <AnimatePresence>
+          <ModalContainer id='modal'>
+          </ModalContainer>
+        </AnimatePresence>
         <ContentGrid hasStation={ !!station }>
           <HeaderContainer>
             <HeaderWrapper>
@@ -138,6 +145,14 @@ const ControlContainer = styled.div(({ theme }) => `
   align-items: center;
   width: 100%;
   background-color ${ theme.colors.dark25 };
+`)
+
+const ModalContainer = styled.div(({ theme }) => `
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
 `)
 
 export default App

@@ -5,7 +5,7 @@ import { fetchAllEffect } from 'features/Stations/List/effects'
 import { received, error } from 'features/Stations/List/slice'
 import { Station } from 'models/station'
 
-describe('Effects/Stations', () => {
+describe('Effects/Stations/List', () => {
   describe('FetchAll', () => {
     it('fetch and received stations', () => {
       const iterator = fetchAllEffect()

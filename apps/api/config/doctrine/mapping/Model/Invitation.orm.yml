@@ -12,6 +12,7 @@ Domain\Model\Invitation:
   manyToOne:
     station:
       targetEntity: Station
+      fetch: EAGER
       joinColumn:
         nullable: false
         onDelete: CASCADE

@@ -1,16 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { theme } from 'app/theme'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAll, selectStations, selectIsFetching, changeStation, selectCurrentStation } from 'features/Stations/List/slice'
 import Badge from 'widgets/Station/Badge'
 import Puff from 'widgets/Loading/Puff'
 import styled from 'styled-components'
+import JoinBadge from 'widgets/Station/JoinBadge'
+import Join from 'features/Stations/Join'
 
 const List: React.FC = () => {
   const dispatch = useDispatch()
   const isFetching = useSelector(selectIsFetching)
   const items = useSelector(selectStations)
   const current = useSelector(selectCurrentStation)
+  const [ isJoinModalVisible, setJoinModalVisibility ] = useState<boolean>(false)
 
   const changeStationHandler = (id: string): void => {
     dispatch(changeStation(id))
@@ -22,6 +25,9 @@ const List: React.FC = () => {
 
   return (
     <Wrapper>
+      { isJoinModalVisible &&
+        <Join onCancel={ () => setJoinModalVisibility(false) } />
+      }
       { isFetching
         ? <Puff
             width={ 50 }
@@ -29,7 +35,8 @@ const List: React.FC = () => {
             color={ theme.colors.white }
             radius={ 10 }
           />
-        : items.map(
+        : <React.Fragment>
+            { items.map(
             station =>
               <Badge
                 key={ station.id }
@@ -37,7 +44,9 @@ const List: React.FC = () => {
                 name={ station.name }
                 onClick={ () => changeStationHandler(station.id) }
               />
-          )
+            ) }
+            <JoinBadge onClick={ () => setJoinModalVisibility(!isJoinModalVisible) } />
+          </React.Fragment>
       }
     </Wrapper>
   )

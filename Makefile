@@ -76,6 +76,14 @@ client-build:
 client-test:
 	@docker-compose run --rm --no-deps client yarn test
 
+############
+# DATABASE #
+############
+
+.PHONY: database-connect
+database-connect:
+	@docker-compose run --rm database mysql -u ${MYSQL_USER} -p
+
 #########
 # TOOLS #
 #########

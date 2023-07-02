@@ -42,6 +42,14 @@ final class Invitations implements \Domain\Repository\Invitations
     /**
      * {@inheritDoc}
      */
+    public function findByToken(string $token): ?Invitation
+    {
+        return $this->repository->findOneBy(['token.value' => $token]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function findByStation(Station $station): ?Invitation
     {
         return $this->repository->findOneBy(['station' => $station]);

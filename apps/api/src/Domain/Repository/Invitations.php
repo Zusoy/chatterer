@@ -14,6 +14,8 @@ interface Invitations
 
     public function find(Identifier $identifier): ?Invitation;
 
+    public function findByToken(string $token): ?Invitation;
+
     public function findByStation(Station $station): ?Invitation;
 
     public function remove(Invitation $invitation): void;

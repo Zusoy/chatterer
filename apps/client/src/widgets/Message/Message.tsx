@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { motion } from 'framer-motion'
 
 interface Props {
   readonly authorName: string
@@ -8,7 +9,7 @@ interface Props {
 }
 
 const Message: React.FC<Props> = ({ authorName, content, date }) =>
-  <Wrapper>
+  <Wrapper initial={ { x: -200 } } animate={ { x:0 } }>
     <Header>
       <span><b>{ authorName }</b></span>
       <Date>{ date }</Date>
@@ -16,7 +17,7 @@ const Message: React.FC<Props> = ({ authorName, content, date }) =>
     <p>{ content }</p>
   </Wrapper>
 
-const Wrapper = styled.div(({ theme }) => `
+const Wrapper = styled(motion.div)(({ theme }) => `
   display: flex;
   flex-direction: column;
   color: ${ theme.colors.white };
