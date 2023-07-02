@@ -1,5 +1,7 @@
 import React from 'react'
 import { createPortal } from 'react-dom'
+import { motion } from 'framer-motion'
+import animation from 'widgets/Modal/animation'
 import styled from 'styled-components'
 
 interface Props {
@@ -9,15 +11,17 @@ interface Props {
 
 const Modal: React.FC<Props> = ({ children, title }) =>
   createPortal(
-    <Wrapper title={ title }>
+    <Wrapper title={ title } variants={ animation } initial='hidden' animate='visible'>
       { children }
     </Wrapper>,
     document.querySelector('#modal') as Element
   )
 
-const Wrapper = styled.div(({ theme }) => `
+const Wrapper = styled(motion.div)(({ theme }) => `
   display: flex;
   padding: ${ theme.gap.sm };
+  background-color: ${ theme.colors.dark50 };
+  border-radius: 10px;
 `)
 
 export default Modal

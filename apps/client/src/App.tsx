@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux'
 import { selectCurrentStation } from 'features/Stations/List/slice'
 import { selectCurrentChannel } from 'features/Channels/List/slice'
 import { ToastContainer } from 'react-toastify'
+import { AnimatePresence } from 'framer-motion'
 import styled from 'styled-components'
 
 const App: React.FC = () =>
@@ -29,8 +30,10 @@ const AuthenticatedApp: React.FC = () => {
   return (
     <Background>
       <Main>
-        <ModalContainer id='modal'>
-        </ModalContainer>
+        <AnimatePresence>
+          <ModalContainer id='modal'>
+          </ModalContainer>
+        </AnimatePresence>
         <ContentGrid hasStation={ !!station }>
           <HeaderContainer>
             <HeaderWrapper>
@@ -149,8 +152,6 @@ const ModalContainer = styled.div(({ theme }) => `
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: ${ theme.colors.dark50 };
-  border-radius: 10px;
   z-index: 10;
 `)
 

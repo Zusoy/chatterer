@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Modal from 'widgets/Modal'
+import Modal from 'widgets/Modal/Modal'
 import Form from 'widgets/Form/Form'
 import IconInput from 'widgets/Form/IconInput'
 import PrimaryButton from 'widgets/Button/Primary'
