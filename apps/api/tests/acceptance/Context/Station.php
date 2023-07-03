@@ -236,18 +236,13 @@ final class Station extends Context
      */
     public function iJoinTheStationUsingTheInvitation(): void
     {
-        if (null === $this->station) {
-            throw new RuntimeException('No station created during this scenario.');
-        }
-
         if (null === $this->invitation) {
             throw new RuntimeException('No invitation created during this scenario.');
         }
 
-        $id = (string) $this->station->getIdentifier();
         $token = (string) $this->invitation->getToken();
 
-        $this->http->post("/station/{$id}/join", [ 'token' => $token ]);
+        $this->http->post("/stations/join", [ 'token' => $token ]);
     }
 
     /**
@@ -260,10 +255,9 @@ final class Station extends Context
             throw new RuntimeException('No station created during this scenario.');
         }
 
-        $id = (string) $this->station->getIdentifier();
         $token = (string) (new Invitation($this->station))->getToken();
 
-        $this->http->post("/station/{$id}/join", [ 'token' => $token ]);
+        $this->http->post("/stations/join", [ 'token' => $token ]);
     }
 
     /**
@@ -366,9 +360,20 @@ final class Station extends Context
 
     /**
      * @Then I should be notified that the invitation is wrong
-     * @Then I should be notified that I'm already a member
      */
     public function iShouldBeNotifiedThatTheRequestIsNotValid(): void
+    {
+        if (!$response = $this->http->getLastResponse()) {
+            throw new RuntimeException('No requests during this scenario.');
+        }
+
+        Assert::that($response->getStatusCode())->eq(Response::HTTP_NOT_FOUND);
+    }
+
+    /**
+     * @Then I should be notified that I'm already a member
+     */
+    public function iShouldBeNotifiedThatImAlreadyAMember(): void
     {
         if (!$response = $this->http->getLastResponse()) {
             throw new RuntimeException('No requests during this scenario.');
