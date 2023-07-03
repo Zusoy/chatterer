@@ -115,6 +115,14 @@ make build
 make start
 ```
 
+5. Access links:
+
+| URL                       | Link     |
+|---------------------------|----------|
+| http://127.0.0.1:8081     | API      |
+| http://127.0.0.1:8081/doc | Swagger  |
+| http://127.0.0.1:3000     | Client   |
+
 <!-- CONTACT -->
 ## Contact
 
