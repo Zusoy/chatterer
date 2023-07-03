@@ -3,7 +3,6 @@ post:
   tags: [ Station ]
   summary: Join Station
   operationId: post-station-join
-  parameters: [{ $ref: '../api.yml#/components/parameters/id' }]
   requestBody:
     content:
       application/json:
