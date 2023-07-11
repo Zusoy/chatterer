@@ -2,7 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 
 interface Props {
-  readonly onChange: React.ChangeEventHandler<HTMLInputElement>
+  readonly name: string
+  readonly onChange?: React.ChangeEventHandler<HTMLInputElement>
   readonly placeholder: string
   readonly required: boolean
   readonly type: React.HTMLInputTypeAttribute
@@ -10,9 +11,10 @@ interface Props {
   readonly value?: string
 }
 
-const Input: React.FC<Props> = ({ onChange, placeholder, required, type, value, disabled = false }) =>
+const Input: React.FC<Props> = ({ name, onChange, placeholder, required, type, value, disabled = false }) =>
   <Wrapper>
     <BaseInput
+      name={ name }
       type={ type }
       required={ required }
       onChange={ onChange }

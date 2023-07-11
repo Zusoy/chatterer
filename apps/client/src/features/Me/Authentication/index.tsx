@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import Form from 'widgets/Form/Form'
 import Input from 'widgets/Form/Input'
@@ -7,12 +7,13 @@ import { authenticate } from 'features/Me/Authentication/slice'
 import { useDispatch } from 'react-redux'
 
 const Login: React.FC = () => {
-  const [ username, setUsername ] = useState('')
-  const [ password, setPassword ] = useState('')
   const dispatch = useDispatch()
 
   const onSubmitHandler: React.FormEventHandler = e => {
     e.preventDefault()
+
+    const data = new FormData(e.currentTarget as HTMLFormElement)
+    const [ username, password ] = [ data.get('username')?.toString() || '', data.get('password')?.toString() || '' ]
 
     dispatch(authenticate({ username, password }))
   }
@@ -24,14 +25,14 @@ const Login: React.FC = () => {
         <Form onSubmit={ onSubmitHandler }>
           <Input
             type='email'
+            name='username'
             required={ true }
-            onChange={ e => setUsername(e.target.value) }
             placeholder={ 'Email' }
           />
           <Input
             type='password'
+            name='password'
             required={ true }
-            onChange={ e => setPassword(e.target.value) }
             placeholder={ 'Password' }
           />
           <PrimaryButton type='submit'>Login</PrimaryButton>
