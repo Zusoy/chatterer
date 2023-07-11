@@ -19,9 +19,6 @@ const Modal: React.FC<Props> = ({ children, title }) =>
 
 const Wrapper = styled(motion.div)(({ theme }) => `
   display: flex;
-  padding: ${ theme.gap.sm };
-  background-color: ${ theme.colors.dark50 };
-  border-radius: 10px;
 `)
 
 export default Modal

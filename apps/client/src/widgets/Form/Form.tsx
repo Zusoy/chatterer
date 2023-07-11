@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 interface Props {
   readonly children: React.ReactNode
-  readonly onSubmit: React.FormEventHandler
+  readonly onSubmit: React.FormEventHandler<HTMLFormElement>
 }
 
 const Form: React.FC<Props> = ({ children, onSubmit }) =>

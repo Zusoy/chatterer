@@ -32,6 +32,7 @@ const Join: React.FC<Props> = ({ onCancel }) => {
         </Header>
         <Form onSubmit={ onSubmitHandler }>
             <IconInput
+              color='light'
               required={ true }
               placeholder='Invitation token'
               onChange={ e => setToken(e.target.value) }
@@ -55,7 +56,10 @@ const Wrapper = styled.div(({ theme }) => `
   gap: ${ theme.gap.sm };
   justify-content: center;
   align-items: center;
-  padding: ${ theme.gap.m };
+  padding: ${ theme.gap.l };
+  background-color: ${ theme.colors.white };
+  color: ${ theme.colors.dark75 };
+  border-radius: 10px;
 `)
 
 const Header = styled.header`

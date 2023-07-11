@@ -9,6 +9,7 @@ interface Props {
   readonly icon: React.ReactNode
   readonly disabled?: boolean
   readonly value?: string
+  readonly color: 'light' | 'dark'
 }
 
 const IconInput: React.FC<Props> = ({
@@ -18,7 +19,8 @@ const IconInput: React.FC<Props> = ({
   type,
   icon,
   value,
-  disabled = false
+  disabled = false,
+  color
 }) =>
   <Wrapper>
     <IconWrapper>
@@ -31,6 +33,7 @@ const IconInput: React.FC<Props> = ({
       placeholder={ placeholder }
       value={ value }
       disabled={ disabled }
+      color={ color }
     />
   </Wrapper>
 
@@ -45,11 +48,11 @@ const IconWrapper = styled.div(({ theme }) => `
   padding: ${ theme.gap.sm };
 `)
 
-const BaseInput = styled.input<{ disabled: boolean }>(({ theme, disabled }) => `
-  background-color: ${ disabled ? theme.colors.dark50 : theme.colors.lightDark };
+const BaseInput = styled.input<{ color: 'light' | 'dark' }>(({ theme, color }) => `
+  background-color: ${ color === 'dark' ? theme.colors.lightDark : theme.colors.lightGrey };
   height: 37px;
   border-radius: 10px;
-  color: ${ theme.colors.white };
+  color: ${ theme.colors.lightDark };
   border: none;
   padding: ${ theme.gap.sm } ${ theme.gap.sm } ${ theme.gap.sm } ${ theme.gap.l };
   width: 100%;

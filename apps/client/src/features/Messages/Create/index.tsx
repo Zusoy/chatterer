@@ -26,6 +26,7 @@ const Create: React.FC<Props> = ({ channelId }) => {
       <Form onSubmit={ e => onSubmitHandler(e) }>
         <Input
           onChange={ e => setContent(e.target.value) }
+          name='message'
           placeholder={ 'Say something...' }
           required={ true }
           value={ content }
