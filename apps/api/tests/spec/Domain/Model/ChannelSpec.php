@@ -11,6 +11,7 @@ use Domain\Model\Channel;
 use Domain\Model\Station;
 use Domain\Time\HasTimestamp;
 use PhpSpec\ObjectBehavior;
+use Stringable;
 
 class ChannelSpec extends ObjectBehavior
 {
@@ -33,6 +34,7 @@ class ChannelSpec extends ObjectBehavior
         $this->shouldHaveType(Channel::class);
         $this->shouldImplement(Identifiable::class);
         $this->shouldImplement(HasTimestamp::class);
+        $this->shouldImplement(Stringable::class);
     }
 
     public function it_exposes_some_state(Station $station): void
