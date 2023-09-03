@@ -1,19 +1,18 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://chatterer.io/user-lite.json",
-  "additionalProperties": false,
-  "title": "Lite User item",
+  "title": "input-forum.json",
   "type": "object",
+  "examples": [
+    {
+      "name": "Discussion"
+    }
+  ],
   "properties": {
-    "id": {
-      "type": "string"
-    },
     "name": {
       "type": "string"
     }
   },
   "required": [
-    "id",
     "name"
   ]
 }

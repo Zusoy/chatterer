@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://chatterer.io/posts.json",
+  "additionalProperties": false,
+  "title": "Posts collection",
+  "type": "array",
+  "items": {
+    "$ref": "./post-item.json"
+  }
+}

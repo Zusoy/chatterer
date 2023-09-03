@@ -1,0 +1,47 @@
+---
+get:
+  tags: [ Subject ]
+  summary: List subjects of forum
+  operationId: get-subjects
+  parameters: [{ $ref: '../api.yml#/components/parameters/id' }]
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../schema/subjects.json
+          examples:
+            subjects:
+              summary: An array of subjects
+              values: [
+                {
+                  id: "4b86105b-24ee-4510-af48-e52d86e7139d",
+                  title: "Error while compiling",
+                  forum: {
+                    id: "4b86105b-24ee-4510-af48-e45d86e8739d",
+                    name: "Questions/Answers"
+                  }
+                }
+              ]
+    404: { $ref: '../api.yml#/components/responses/notfound' }
+
+post:
+  tags: [ Subject ]
+  summary: Create subject in forum
+  operationId: post-subjects
+  parameters: [{ $ref: '../api.yml#/components/parameters/id' }]
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../schema/input/input-subject.json
+  responses:
+    201:
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../schema/subject-item.json
+    400: { $ref: '../api.yml#/components/responses/invalid' }
+    404: { $ref: '../api.yml#/components/responses/notfound' }

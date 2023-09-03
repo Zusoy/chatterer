@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://chatterer.io/user-lite.json",
+  "id": "http://chatterer.io/forum-lite.json",
   "additionalProperties": false,
-  "title": "Lite User item",
+  "title": "Lite Forum item",
   "type": "object",
   "properties": {
     "id": {

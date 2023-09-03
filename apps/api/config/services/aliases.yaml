@@ -21,6 +21,9 @@ services:
   Domain\Repository\Messages: '@Application\Repository\Messages'
   Domain\Repository\Users: '@Application\Repository\Users'
   Domain\Repository\Invitations: '@Application\Repository\Invitations'
+  Domain\Repository\Forums: '@Application\Repository\Forums'
+  Domain\Repository\Subjects: '@Application\Repository\Subjects'
+  Domain\Repository\Posts: '@Application\Repository\Posts'
 
   ## Events Implementations
 

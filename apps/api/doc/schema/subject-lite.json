@@ -1,19 +1,19 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://chatterer.io/user-lite.json",
+  "id": "http://chatterer.io/subject-lite.json",
   "additionalProperties": false,
-  "title": "Lite User item",
+  "title": "Lite Subject item",
   "type": "object",
   "properties": {
     "id": {
       "type": "string"
     },
-    "name": {
+    "title": {
       "type": "string"
     }
   },
   "required": [
     "id",
-    "name"
+    "title"
   ]
 }

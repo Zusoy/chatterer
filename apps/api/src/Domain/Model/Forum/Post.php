@@ -10,8 +10,9 @@ use Domain\Identity\Identifier;
 use Domain\Model\User;
 use Domain\Time\HasTimestamp;
 use Domain\Time\HasTimestampTrait;
+use Stringable;
 
-class Post implements Identifiable, HasTimestamp
+class Post implements Identifiable, HasTimestamp, Stringable
 {
     use HasTimestampTrait;
 
@@ -68,5 +69,13 @@ class Post implements Identifiable, HasTimestamp
     public function getSubjectTitle(): string
     {
         return $this->subject->getTitle();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __toString(): string
+    {
+        return $this->content;
     }
 }
