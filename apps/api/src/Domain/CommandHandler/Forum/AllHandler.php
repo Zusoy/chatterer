@@ -9,12 +9,15 @@ use Domain\Exception\ObjectNotFoundException;
 use Domain\Model\Forum\Forum;
 use Domain\Repository\Forums;
 use Domain\Repository\Stations;
+use Domain\Security\AccessControl;
+use Domain\Security\Operation;
 
 final class AllHandler
 {
     public function __construct(
         private readonly Stations $stations,
-        private readonly Forums $forums
+        private readonly Forums $forums,
+        private readonly AccessControl $accessControl
     ) {
     }
 
@@ -26,6 +29,8 @@ final class AllHandler
         if (!$station = $this->stations->find($command->getStationIdentifier())) {
             throw new ObjectNotFoundException('Station', $command->stationId);
         }
+
+        $this->accessControl->requires(Operation::LIST_STATION_FORUMS, ['station' => $station]);
 
         return $this->forums->findAll($station);
     }

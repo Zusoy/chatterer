@@ -11,13 +11,16 @@ use Domain\Exception\ObjectNotFoundException;
 use Domain\Model\Forum\Forum;
 use Domain\Repository\Forums;
 use Domain\Repository\Stations;
+use Domain\Security\AccessControl;
+use Domain\Security\Operation;
 
 final class CreateHandler
 {
     public function __construct(
         private readonly Forums $forums,
         private readonly Stations $stations,
-        private readonly EventLog $eventLog
+        private readonly EventLog $eventLog,
+        private readonly AccessControl $accessControl
     ) {
     }
 
@@ -26,6 +29,8 @@ final class CreateHandler
         if (!$station = $this->stations->find($command->getStationIdentifier())) {
             throw new ObjectNotFoundException('Station', $command->stationId);
         }
+
+        $this->accessControl->requires(Operation::CREATE_FORUM, context: ['station' => $station]);
 
         $forum = new Forum(
             name: $command->name,

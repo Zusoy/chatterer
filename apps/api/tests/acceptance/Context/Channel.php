@@ -131,7 +131,6 @@ final class Channel extends Context
             $member = $this->faker->user($this->faker->unique()->email());
 
             $member->joinGroup($this->channel->getStation());
-            $member->joinGroup($this->channel);
             $this->persistence->manager->persist($member);
         }
 
@@ -151,7 +150,6 @@ final class Channel extends Context
             throw new RuntimeException('No user authenticated during this scenario.');
         }
 
-        $this->user->joinGroup($this->channel);
         $this->persistence->manager->flush();
     }
 
