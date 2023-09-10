@@ -1,12 +1,12 @@
 import React from 'react'
-import styled from 'styled-components'
-import Form from 'widgets/Form/Form'
-import Input from 'widgets/Form/Input'
-import PrimaryButton from 'widgets/Button/Primary'
-import { authenticate } from 'features/Me/Authentication/slice'
 import { useDispatch } from 'react-redux'
+import { authenticate } from 'features/Me/Authentication/slice'
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
 
-const Login: React.FC = () => {
+const Authentication: React.FC = () => {
   const dispatch = useDispatch()
 
   const onSubmitHandler: React.FormEventHandler = e => {
@@ -19,48 +19,44 @@ const Login: React.FC = () => {
   }
 
   return (
-    <Background>
-      <Wrapper>
-        <h1>Chatterer - Login</h1>
-        <Form onSubmit={ onSubmitHandler }>
-          <Input
-            type='email'
-            name='username'
-            required={ true }
-            placeholder={ 'Email' }
-          />
-          <Input
-            type='password'
-            name='password'
-            required={ true }
-            placeholder={ 'Password' }
-          />
-          <PrimaryButton type='submit'>Login</PrimaryButton>
-        </Form>
-      </Wrapper>
-    </Background>
+    <Container
+      component="main"
+      maxWidth="xs"
+      sx={
+        {
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100vh',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }
+      }
+    >
+      <h1>Chatterer</h1>
+      <Box component="form" onSubmit={ onSubmitHandler }>
+        <TextField
+          required
+          fullWidth
+          autoFocus
+          name="username"
+          label="Username"
+          type="email"
+          margin="normal"
+          variant="filled"
+        />
+        <TextField
+          required
+          fullWidth
+          name="password"
+          label="Password"
+          type="password"
+          margin="normal"
+          variant="filled"
+        />
+        <Button fullWidth type="submit" variant="contained" color="success">Login</Button>
+      </Box>
+    </Container>
   )
 }
 
-const Wrapper = styled.div(({ theme }) => `
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 500px;
-  height: 300px;
-  background-color: ${ theme.colors.dark25 };
-  border-radius: 10px;
-  gap: ${ theme.gap.sm };
-  margin: auto;
-  padding: ${ theme.gap.m };
-  color: ${ theme.colors.white };
-`)
-
-const Background = styled.div(({ theme }) => `
-  display: flex;
-  min-height: 100vh;
-  background-color: ${ theme.colors.dark75 };
-`)
-
-export default Login
+export default Authentication

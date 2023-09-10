@@ -1,14 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { PropsWithChildren, useEffect } from 'react'
 import { selectIsReAuthenticating, reAuthenticate } from 'features/Me/Authentication/slice'
-import Login from 'features/Me/Authentication'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectIsAuth } from 'features/Me/slice'
+import Login from 'features/Me/Authentication'
 
-interface Props {
-  readonly children: React.ReactNode
-}
-
-const Firewall: React.FC<Props> = ({ children }) => {
+const Firewall: React.FC<PropsWithChildren> = ({ children }) => {
   const isAuth = useSelector(selectIsAuth)
   const isReAuthenticating = useSelector(selectIsReAuthenticating)
   const dispatch = useDispatch()

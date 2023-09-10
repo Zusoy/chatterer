@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 import { call, takeLatest, put } from 'redux-saga/effects'
 import { get, post } from 'services/api'
-import { User } from 'models/user'
+import { IUser } from 'models/user'
 import { save } from 'services/storage'
 import {
   AuthenticationPayload,
@@ -26,7 +26,7 @@ export function* authenticateEffect(action: PayloadAction<AuthenticationPayload>
 
 export function* reAuthenticateEffect(): Generator {
   try {
-    const me = (yield call(get, '/me')) as User
+    const me = (yield call(get, '/me')) as IUser
     yield put(authenticated(me.id))
   } catch (e) {
     yield put(notReAuthenticated())
