@@ -74,7 +74,7 @@ client-build:
 
 .PHONY: client-test
 client-test:
-	@docker-compose run --rm --no-deps client yarn test
+	@docker-compose run --rm --no-deps client yarn test --verbose
 
 ############
 # DATABASE #

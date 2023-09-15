@@ -1,10 +1,10 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import { authenticate } from 'features/Me/Authentication/slice'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
+import { useDispatch } from 'react-redux'
+import { authenticate } from 'features/Me/Authentication/slice'
 
 const Authentication: React.FC = () => {
   const dispatch = useDispatch()

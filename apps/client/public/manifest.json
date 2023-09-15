@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "chatterer.io",
+  "name": "Chatterer",
   "icons": [
     {
       "src": "favicon.ico",

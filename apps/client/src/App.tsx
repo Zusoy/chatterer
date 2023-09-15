@@ -1,18 +1,15 @@
 import React from 'react'
 import Firewall from 'features/Firewall'
 import AuthenticatedApp from 'AuthenticatedApp'
-import { ThemeProvider } from '@mui/material/styles'
-import CssBaseline from '@mui/material/CssBaseline'
-import theme from 'app/theme'
+import Theme from 'app/Theme'
 
 const App: React.FC = () =>
   <>
-    <ThemeProvider theme={ theme }>
-      <CssBaseline />
+    <Theme>
       <Firewall>
         <AuthenticatedApp />
       </Firewall>
-    </ThemeProvider>
+    </Theme>
   </>
 
 export default App
