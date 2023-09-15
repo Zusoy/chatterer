@@ -22,7 +22,7 @@ const Messenger: React.FC<Props> = ({ channelId }) => {
   }
 
   return (
-    <Box component='form' onSubmit={ onSubmitHandler } sx={{ mb: 2, width: '95%' }}>
+    <Box component='form' onSubmit={ onSubmitHandler } sx={{ mb: 2, width: '95%', position: 'absolute', bottom: 0 }}>
       <TextField
         autoFocus
         fullWidth

@@ -8,6 +8,7 @@ import Header from 'features/Header'
 import Sidebar from 'features/Sidebar'
 import Stations from 'features/Stations/List'
 import Channels from 'features/Channels/List'
+import Messages from 'features/Messages/List'
 import Messenger from 'features/Messages/Messenger'
 
 const AuthenticatedApp: React.FC = () => {
@@ -34,7 +35,16 @@ const AuthenticatedApp: React.FC = () => {
         { channel &&
           <>
             <Toolbar />
-            <Box position='absolute' sx={{ display: 'flex', bottom: 0, justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                bottom: 0,
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%'
+            }}>
+              <Messages channelId={ channel.id } />
               <Messenger channelId={ channel.id } />
             </Box>
           </>
