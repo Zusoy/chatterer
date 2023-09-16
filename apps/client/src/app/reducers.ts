@@ -5,6 +5,7 @@ import stationsList from 'features/Stations/List/slice'
 import channelsList from 'features/Channels/List/slice'
 import messenger from 'features/Messages/Messenger/slice'
 import messages from 'features/Messages/List/slice'
+import joinStation from 'features/Stations/Join/slice'
 
 export default combineReducers({
   authentication: authentication.reducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   stations: stationsList.reducer,
   channels: channelsList.reducer,
   messenger: messenger.reducer,
-  messages: messages.reducer
+  messages: messages.reducer,
+  join: joinStation.reducer,
 })

@@ -6,10 +6,7 @@ import { IChannel } from 'models/channel'
 import Container from '@mui/material/Container'
 import LinearProgress from '@mui/material/LinearProgress'
 import MuiList from '@mui/material/List'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
-import Tag from '@mui/icons-material/Tag'
+import Channel from 'widgets/Channel/Item'
 
 interface Props {
   readonly stationId: IStation['id']
@@ -41,16 +38,12 @@ const List: React.FC<Props> = ({ stationId }) => {
     <MuiList component='nav'>
       { items.map(
         channel =>
-          <ListItemButton
+          <Channel
             key={ channel.id }
-            onClick={ () => changeChannelHandler(channel.id) }
+            name={ channel.name }
             selected={ current?.id === channel.id }
-          >
-            <ListItemIcon>
-              <Tag />
-            </ListItemIcon>
-            <ListItemText primary={ channel.name } />
-          </ListItemButton>
+            onClick={() => changeChannelHandler(channel.id) }
+          />
       )}
     </MuiList>
   )

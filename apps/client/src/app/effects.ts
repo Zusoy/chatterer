@@ -4,6 +4,7 @@ import stationsList from 'features/Stations/List/effects'
 import channelsList from 'features/Channels/List/effects'
 import messagesList from 'features/Messages/List/effects'
 import messenger from 'features/Messages/Messenger/effects'
+import joinStation from 'features/Stations/Join/effects'
 
 const effects = function* (): Generator {
   yield all([
@@ -12,6 +13,7 @@ const effects = function* (): Generator {
     fork(channelsList),
     fork(messagesList),
     fork(messenger),
+    fork(joinStation),
   ])
 }
 
