@@ -21,8 +21,6 @@ const List: React.FC<Props> = ({ channelId }) => {
     }
   }, [ dispatch, channelId ])
 
-  console.log(items)
-
   return (
     <Box sx={{
       position: 'absolute',

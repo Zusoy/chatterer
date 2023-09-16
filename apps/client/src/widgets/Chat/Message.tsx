@@ -16,8 +16,11 @@ const Message: React.FC<Props> = ({ id, content, author, date }) =>
     <Container>
       <Avatar>{ author.substring(0, 1).toUpperCase() }</Avatar>
       <Content>
-        <Typography variant='subtitle1'>{ author }</Typography>
-        <Typography variant='subtitle2'>{ content }</Typography>
+        <Head>
+          <Typography variant='subtitle1'>{ author }</Typography>
+          <Typography variant='subtitle2'>{ date }</Typography>
+        </Head>
+        <Typography variant='body1'>{ content }</Typography>
       </Content>
     </Container>
   </Box>
@@ -31,6 +34,12 @@ const Container = styled('div')({
 const Content = styled('div')({
   display: 'flex',
   flexDirection: 'column'
+})
+
+const Head = styled('div')({
+  display: 'flex',
+  gap: 6,
+  alignItems: 'center'
 })
 
 export default Message

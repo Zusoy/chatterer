@@ -14,6 +14,15 @@ const Messenger: React.FC<Props> = ({ channelId }) => {
   const dispatch = useDispatch()
   const isPosting = useSelector(selectIsPosting)
 
+  const onKeyDownHandler: React.KeyboardEventHandler<HTMLElement> = e => {
+    if (e.key !== 'Enter' || e.shiftKey || !content.trim().length) {
+      return
+    }
+
+    e.preventDefault()
+    onSubmitHandler(e)
+  }
+
   const onSubmitHandler: React.FormEventHandler = e => {
     e.preventDefault()
 
@@ -22,7 +31,11 @@ const Messenger: React.FC<Props> = ({ channelId }) => {
   }
 
   return (
-    <Box component='form' onSubmit={ onSubmitHandler } sx={{ mb: 2, width: '95%', position: 'absolute', bottom: 0 }}>
+    <Box
+      component='form'
+      onSubmit={ onSubmitHandler }
+      sx={{ mb: 2, width: '95%', position: 'absolute', bottom: 0 }}
+    >
       <TextField
         autoFocus
         fullWidth
@@ -32,6 +45,8 @@ const Messenger: React.FC<Props> = ({ channelId }) => {
         variant='filled'
         disabled={ isPosting }
         onChange={ e => setContent(e.target.value) }
+        onKeyDown={ onKeyDownHandler }
+        value={ content }
         placeholder='Say something'
       />
     </Box>

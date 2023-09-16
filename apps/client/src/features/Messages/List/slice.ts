@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { IMessage } from 'models/message'
 import { Selector } from 'app/store'
 import { IChannel } from 'models/channel'
+import { changeChannel } from 'features/Channels/List/slice'
 
 export enum MessagesStatus {
   Initial = 'Initial',
@@ -49,6 +50,13 @@ const slice = createSlice({
       ...state,
       status: MessagesStatus.Error,
     }),
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(changeChannel, state => ({
+        ...state,
+        items: []
+      }))
   }
 })
 
