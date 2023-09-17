@@ -12,6 +12,7 @@ use Domain\Model\Station;
 use Domain\Model\User;
 use Domain\Time\HasTimestamp;
 use PhpSpec\ObjectBehavior;
+use Stringable;
 
 class StationSpec extends ObjectBehavior
 {
@@ -29,6 +30,7 @@ class StationSpec extends ObjectBehavior
         $this->shouldImplement(Identifiable::class);
         $this->shouldImplement(HasTimestamp::class);
         $this->shouldImplement(UserGroup::class);
+        $this->shouldImplement(Stringable::class);
     }
 
     public function it_exposes_some_state(): void

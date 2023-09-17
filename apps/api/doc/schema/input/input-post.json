@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "input-post.json",
+  "type": "object",
+  "examples": [
+    {
+      "content": "Please help me"
+    }
+  ],
+  "properties": {
+    "content": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "content"
+  ]
+}

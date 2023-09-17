@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://chatterer.io/forum-item.json",
+  "additionalProperties": false,
+  "title": "Forum item",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "station": {
+      "$ref": "./station-lite.json"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "station",
+    "createdAt",
+    "updatedAt"
+  ]
+}

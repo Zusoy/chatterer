@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "input-subject.json",
+  "type": "object",
+  "examples": [
+    {
+      "title": "Help"
+    }
+  ],
+  "properties": {
+    "title": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}

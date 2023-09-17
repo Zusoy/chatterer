@@ -9,8 +9,9 @@ use Domain\Identity\Identifiable;
 use Domain\Identity\Identifier;
 use Domain\Time\HasTimestamp;
 use Domain\Time\HasTimestampTrait;
+use Stringable;
 
-class Message implements Identifiable, HasTimestamp
+class Message implements Identifiable, HasTimestamp, Stringable
 {
     use HasTimestampTrait;
 
@@ -68,5 +69,13 @@ class Message implements Identifiable, HasTimestamp
     public function getAuthorName(): string
     {
         return (string) $this->author;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __toString(): string
+    {
+        return $this->content;
     }
 }

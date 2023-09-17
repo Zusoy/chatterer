@@ -27,6 +27,10 @@ Domain\Model\Station:
       targetEntity: Channel
       mappedBy: station
       cascade: [ persist,remove ]
+    forums:
+      targetEntity: Domain\Model\Forum\Forum
+      mappedBy: station
+      cascade: [ persist, remove ]
 
   manyToMany:
     users:

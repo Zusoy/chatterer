@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "http://chatterer.io/user-lite.json",
   "additionalProperties": false,
-  "title": "Liste User item",
+  "title": "Lite User item",
   "type": "object",
   "properties": {
     "id": {
