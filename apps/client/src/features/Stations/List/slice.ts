@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Station } from 'models/station'
-import { Selector } from 'app/store'
+import { IStation } from 'models/station'
 import { Nullable } from 'utils'
+import { Selector } from 'app/store'
 
 export enum StationsStatus {
   Fetching = 'Fetching',
@@ -10,15 +10,15 @@ export enum StationsStatus {
 }
 
 export interface State {
-  items: Station[]
-  station: Nullable<Station>
+  items: IStation[]
+  station: Nullable<IStation>
   status: StationsStatus
 }
 
 export const initialState: State = {
-  items: [],
-  station: null,
   status: StationsStatus.Fetching,
+  station: null,
+  items: []
 }
 
 const slice = createSlice({
@@ -29,19 +29,19 @@ const slice = createSlice({
       ...state,
       status: StationsStatus.Fetching,
     }),
-    received: (state, action: PayloadAction<Station[]>) => ({
+    received: (state, action: PayloadAction<IStation[]>) => ({
       ...state,
       items: action.payload,
       status: StationsStatus.Received,
     }),
-    upsertMany: (state, action: PayloadAction<Station[]>) => ({
+    upsertMany: (state, action: PayloadAction<IStation[]>) => ({
       ...state,
       items: [
         ...state.items,
         ...action.payload
       ]
     }),
-    changeStation: (state, action: PayloadAction<Station['id']>) => ({
+    changeStation: (state, action: PayloadAction<IStation['id']>) => ({
       ...state,
       station: state.items.find(station => station.id === action.payload) || null,
     }),
@@ -57,16 +57,16 @@ export const {
   received,
   changeStation,
   error,
-  upsertMany,
+  upsertMany
 } = slice.actions
 
-export const selectStations: Selector<Station[]> = state =>
+export const selectStations: Selector<IStation[]> = state =>
   state.stations.items
 
 export const selectIsFetching: Selector<boolean> = state =>
   state.stations.status === StationsStatus.Fetching
 
-export const selectCurrentStation: Selector<Nullable<Station>> = state =>
+export const selectCurrentStation: Selector<Nullable<IStation>> = state =>
   state.stations.station
 
 export default slice

@@ -1,25 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { User } from 'models/user'
-import { Selector } from 'app/store'
 import { Nullable } from 'utils'
-import authentication from 'features/Me/Authentication/slice'
+import { IUser } from 'models/user'
+import { Selector } from 'app/store'
+import { authenticated } from 'features/Me/Authentication/slice'
 
 interface State {
-  id: Nullable<User['id']>
+  id: Nullable<IUser['id']>
 }
 
 const initialState: State = {
-  id: null,
+  id: null
 }
 
 const slice = createSlice({
   name: 'me',
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(authentication.actions.authenticated, (state, { payload: id }) => ({
+      .addCase(authenticated, (state, { payload: id }) => ({
         ...state,
         id
       }))
@@ -29,7 +28,7 @@ const slice = createSlice({
 export const selectIsAuth: Selector<boolean> = state =>
   state.me.id !== null
 
-export const selectAuthenticatedUserId: Selector<User['id'] | null> =
+export const selectAuthenticatedUserId: Selector<Nullable<IUser['id']>> =
   state => state.me.id
 
 export default slice

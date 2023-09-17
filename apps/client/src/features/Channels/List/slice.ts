@@ -1,47 +1,57 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Channel } from 'models/channel'
 import { Nullable } from 'utils'
 import { Selector } from 'app/store'
+import { IStation } from 'models/station'
+import { IChannel } from 'models/channel'
+import { changeStation } from 'features/Stations/List/slice'
 
 export enum ChannelsStatus {
+  Initial = 'Initial',
   Fetching = 'Fetching',
   Received = 'Received',
   Error = 'Error'
 }
 
 export interface State {
-  items: Channel[]
-  channel: Nullable<Channel>
+  items: IChannel[],
+  channel: Nullable<IChannel>,
   status: ChannelsStatus
 }
 
 export const initialState: State = {
   items: [],
   channel: null,
-  status: ChannelsStatus.Fetching,
+  status: ChannelsStatus.Initial
 }
 
 const slice = createSlice({
   name: 'channels',
   initialState,
   reducers: {
-    fetchAll: (state, _action: PayloadAction<Channel['id']>) => ({
+    fetchAll: (state, _action: PayloadAction<IStation['id']>) => ({
       ...state,
       status: ChannelsStatus.Fetching,
     }),
-    received: (state, action: PayloadAction<Channel[]>) => ({
+    received: (state, action: PayloadAction<IChannel[]>) => ({
       ...state,
       items: action.payload,
-      status: ChannelsStatus.Received,
+      status: ChannelsStatus.Received
     }),
-    changeChannel: (state, action: PayloadAction<string>) => ({
+    changeChannel: (state, action: PayloadAction<IChannel['id']>) => ({
       ...state,
-      channel: state.items.find(channel => channel.id === action.payload) || null,
+      channel: state.items.find(channel => channel.id === action.payload) || null
     }),
     error: state => ({
       ...state,
-      status: ChannelsStatus.Error,
-    }),
+      status: ChannelsStatus.Error
+    })
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(changeStation, state => ({
+        ...state,
+        channel: null
+      }))
   }
 })
 
@@ -49,13 +59,13 @@ export const {
   fetchAll,
   received,
   changeChannel,
-  error,
+  error
 } = slice.actions
 
-export const selectItems: Selector<Channel[]> = state =>
+export const selectItems: Selector<IChannel[]> = state =>
   state.channels.items
 
-export const selectCurrentChannel: Selector<Nullable<Channel>> = state =>
+export const selectCurrentChannel: Selector<Nullable<IChannel>> = state =>
   state.channels.channel
 
 export const selectIsFetching: Selector<boolean> = state =>

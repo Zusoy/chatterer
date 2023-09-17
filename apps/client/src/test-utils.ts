@@ -1,9 +1,9 @@
-import { Station } from 'models/station'
-import { Channel } from 'models/channel'
-import { Message } from 'models/message'
-import { User } from 'models/user'
+import { IUser } from 'models/user'
+import { IStation } from 'models/station'
+import { IChannel } from 'models/channel'
+import { IMessage } from 'models/message'
 
-export const userMock: User = {
+export const userMock: IUser = {
   id: 'ac199cb3-4211-4912-a32b-ab93d3a5bb7d',
   firstname: 'John',
   lastname: 'Doe',
@@ -13,7 +13,7 @@ export const userMock: User = {
   updatedAt: '2023-01-01',
 }
 
-export const stationMock: Station = {
+export const stationMock: IStation = {
   id: 'c3e014f3-dc32-4b2b-afd9-ab597da74046',
   name: 'Company',
   description: null,
@@ -22,7 +22,7 @@ export const stationMock: Station = {
   channels: []
 }
 
-export const channelMock: Channel = {
+export const channelMock: IChannel = {
   id: '283a6bd2-ddd1-45f5-9e79-b79f8ef6f3a9',
   name: 'General',
   description: 'General discussions',
@@ -31,7 +31,7 @@ export const channelMock: Channel = {
   station: stationMock
 }
 
-export const messageMock: Message = {
+export const messageMock: IMessage = {
   id: '15b5c108-8372-4a13-9de1-8841b9cdf196',
   content: 'Hello world !',
   createdAt: '2023-01-01',

@@ -1,11 +1,11 @@
-import { ChannelLite } from 'models/channel'
-import { UserLite } from 'models/user'
+import { IChannelLite } from 'models/channel'
+import { IUserLite } from 'models/user'
 
-export interface Message {
+export interface IMessage {
   id: string
   content: string
   createdAt: string
   updatedAt: string
-  channel: ChannelLite
-  author: UserLite
+  channel: IChannelLite
+  author: IUserLite
 }

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Selector } from 'app/store'
-import { User } from 'models/user'
+import { IUser } from 'models/user'
 
 export enum AuthenticationStatus {
   Anonymous = 'Anonymous',
@@ -19,9 +19,9 @@ interface State {
   status: AuthenticationStatus
 }
 
-const initialState: State = ({
+const initialState: State = {
   status: AuthenticationStatus.Anonymous
-})
+}
 
 const slice = createSlice({
   name: 'authentication',
@@ -39,7 +39,7 @@ const slice = createSlice({
       ...state,
       status: AuthenticationStatus.Anonymous,
     }),
-    authenticated: (state, _payload: PayloadAction<User['id']>) => ({
+    authenticated: (state, _payload: PayloadAction<IUser['id']>) => ({
       ...state,
       status: AuthenticationStatus.Authenticated,
     }),
@@ -55,7 +55,7 @@ export const {
   reAuthenticate,
   notReAuthenticated,
   authenticated,
-  error,
+  error
 } = slice.actions
 
 export const selectIsAuthenticating: Selector<boolean> = state =>

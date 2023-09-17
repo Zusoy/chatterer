@@ -3,22 +3,22 @@ import slice, {
   posted,
   error,
   initialState,
-  MessageStatus,
+  MessengerStatus,
   State,
-} from 'features/Messages/Create/slice'
+} from 'features/Messages/Messenger/slice'
 
-describe('Features/Messages/Create', () => {
+describe('Features/Messages/Messenger', () => {
   it('reduces post action', () => {
     expect(slice.reducer(initialState, post({ channelId: 'id', content: 'Hello' }))).toEqual({
       ...initialState,
-      status: MessageStatus.Posting,
+      status: MessengerStatus.Posting,
     })
   })
 
   it('reduces posted action', () => {
     const initial: State = {
       ...initialState,
-      status: MessageStatus.Posting,
+      status: MessengerStatus.Posting,
     }
 
     expect(slice.reducer(initial, posted())).toEqual(initialState)
@@ -27,7 +27,7 @@ describe('Features/Messages/Create', () => {
   it('handles error', () => {
     expect(slice.reducer(initialState, error())).toEqual({
       ...initialState,
-      status: MessageStatus.Error,
+      status: MessengerStatus.Error,
     })
   })
 })

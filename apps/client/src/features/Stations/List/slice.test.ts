@@ -18,10 +18,10 @@ describe('Features/Stations/List', () => {
   })
 
   it('reduces received action', () => {
-    expect(slice.reducer(initialState, received([ stationMock ]))).toEqual({
+    expect(slice.reducer(initialState, received([stationMock]))).toEqual({
       ...initialState,
       status: StationsStatus.Received,
-      items: [ stationMock ]
+      items: [stationMock]
     })
   })
 
@@ -42,7 +42,7 @@ describe('Features/Stations/List', () => {
     it('updates current station', () => {
       const initial: State = {
         ...initialState,
-        items: [ stationMock ]
+        items: [stationMock]
       }
 
       expect(slice.reducer(initial, changeStation(stationMock.id))).toEqual({

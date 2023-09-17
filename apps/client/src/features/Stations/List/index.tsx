@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { theme } from 'app/theme'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchAll, selectStations, selectIsFetching, changeStation, selectCurrentStation } from 'features/Stations/List/slice'
-import Badge from 'widgets/Station/Badge'
-import Puff from 'widgets/Loading/Puff'
-import styled from 'styled-components'
-import JoinBadge from 'widgets/Station/JoinBadge'
+import MuiList from '@mui/material/List'
+import LinearProgress from '@mui/material/LinearProgress'
+import Station from 'widgets/Station/Item'
+import AddStation from 'widgets/Station/AddStation'
+import Container from '@mui/material/Container'
 import Join from 'features/Stations/Join'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectCurrentStation, selectIsFetching, selectStations, fetchAll, changeStation } from 'features/Stations/List/slice'
+import { IStation } from 'models/station'
 
 const List: React.FC = () => {
   const dispatch = useDispatch()
@@ -15,7 +16,7 @@ const List: React.FC = () => {
   const current = useSelector(selectCurrentStation)
   const [ isJoinModalVisible, setJoinModalVisibility ] = useState<boolean>(false)
 
-  const changeStationHandler = (id: string): void => {
+  const changeStationHandler = (id: IStation['id']): void => {
     dispatch(changeStation(id))
   }
 
@@ -23,41 +24,31 @@ const List: React.FC = () => {
     dispatch(fetchAll())
   }, [ dispatch ])
 
+  if (isFetching) {
+    return (
+      <Container maxWidth='md' sx={{ mt: 5 }}>
+        <LinearProgress color='inherit' />
+      </Container>
+    )
+  }
+
   return (
-    <Wrapper>
+    <MuiList component='nav'>
       { isJoinModalVisible &&
         <Join onCancel={ () => setJoinModalVisibility(false) } />
       }
-      { isFetching
-        ? <Puff
-            width={ 50 }
-            height={ 50 }
-            color={ theme.colors.white }
-            radius={ 10 }
+      { items.map(
+        station =>
+          <Station
+            key={ station.id }
+            name={ station.name }
+            selected={ current?.id === station.id }
+            onClick={() => changeStationHandler(station.id) }
           />
-        : <React.Fragment>
-            { items.map(
-            station =>
-              <Badge
-                key={ station.id }
-                active={ !!current && current.id === station.id }
-                name={ station.name }
-                onClick={ () => changeStationHandler(station.id) }
-              />
-            ) }
-            <JoinBadge onClick={ () => setJoinModalVisibility(!isJoinModalVisible) } />
-          </React.Fragment>
-      }
-    </Wrapper>
+      ) }
+      <AddStation onClick={ () => setJoinModalVisibility(true) } />
+    </MuiList>
   )
 }
-
-const Wrapper = styled.div(({ theme }) => `
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: ${ theme.gap.sm };
-  margin-top: ${ theme.gap.m };
-`)
 
 export default List

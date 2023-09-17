@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 export enum JoinStatus {
   Initial = 'Initial',
   Joining = 'Joining',
-  Error = 'Error',
+  Error = 'Error'
 }
 
 export interface JoinPayload {
@@ -15,7 +15,7 @@ interface State {
 }
 
 export const initialState: State = {
-  status: JoinStatus.Initial,
+  status: JoinStatus.Initial
 }
 
 const slice = createSlice({
@@ -40,7 +40,7 @@ const slice = createSlice({
 export const {
   join,
   joined,
-  error,
+  error
 } = slice.actions
 
 export default slice

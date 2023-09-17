@@ -1,4 +1,4 @@
-export interface User {
+export interface IUser {
   id: string
   firstname: string
   lastname: string
@@ -8,7 +8,7 @@ export interface User {
   updatedAt: string
 }
 
-export interface UserLite {
+export interface IUserLite {
   id: string
   name: string
 }

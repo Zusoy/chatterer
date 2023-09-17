@@ -1,42 +1,45 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Message } from 'models/message'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { IMessage } from 'models/message'
 import { Selector } from 'app/store'
+import { IChannel } from 'models/channel'
+import { changeChannel } from 'features/Channels/List/slice'
 
 export enum MessagesStatus {
+  Initial = 'Initial',
   Fetching = 'Fetching',
   Received = 'Received',
   Error = 'Error'
 }
 
 export interface State {
-  items: Message[]
+  items: IMessage[]
   status: MessagesStatus
 }
 
 export const initialState: State = {
   items: [],
-  status: MessagesStatus.Fetching,
+  status: MessagesStatus.Initial
 }
 
 const slice = createSlice({
   name: 'messages',
   initialState,
   reducers: {
-    fetchAll: (state, _action: PayloadAction<string>) => ({
+    fetchAll: (state, _action: PayloadAction<IChannel['id']>) => ({
       ...state,
-      status: MessagesStatus.Fetching,
+      status: MessagesStatus.Fetching
     }),
-    fetchListAndSubscribe: (state, _action: PayloadAction<string>) => ({
+    fetchAllAndSubscribe: (state, _action: PayloadAction<IChannel['id']>) => ({
       ...state,
-      status: MessagesStatus.Fetching,
+      status: MessagesStatus.Fetching
     }),
-    unsubscribeList: state => state,
-    received: (state, action: PayloadAction<Message[]>) => ({
+    unsubscribe: state => state,
+    received: (state, action: PayloadAction<IMessage[]>) => ({
       ...state,
       items: action.payload,
       status: MessagesStatus.Received,
     }),
-    upsertMany: (state, action: PayloadAction<Message[]>) => ({
+    upsertMany: (state, action: PayloadAction<IMessage[]>) => ({
       ...state,
       items: [
         ...state.items,
@@ -48,18 +51,25 @@ const slice = createSlice({
       status: MessagesStatus.Error,
     }),
   },
+  extraReducers: builder => {
+    builder
+      .addCase(changeChannel, state => ({
+        ...state,
+        items: []
+      }))
+  }
 })
 
 export const {
   fetchAll,
-  fetchListAndSubscribe,
-  unsubscribeList,
+  fetchAllAndSubscribe,
   received,
   upsertMany,
-  error,
+  unsubscribe,
+  error
 } = slice.actions
 
-export const selectItems: Selector<Message[]> = state =>
+export const selectItems: Selector<IMessage[]> = state =>
   state.messages.items
 
 export default slice

@@ -3,38 +3,38 @@ import { call, put } from 'redux-saga/effects'
 import { get } from 'services/api'
 import { fetchAllEffect } from 'features/Stations/List/effects'
 import { received, error } from 'features/Stations/List/slice'
-import { Station } from 'models/station'
+import { IStation } from 'models/station'
 
 describe('Effects/Stations/List', () => {
   describe('FetchAll', () => {
     it('fetch and received stations', () => {
-      const iterator = fetchAllEffect()
+      const effect = fetchAllEffect()
 
       assert.deepEqual(
-        iterator.next().value,
+        effect.next().value,
         call(get, '/stations')
       )
 
-      const stations: Station[] = []
+      const stations: IStation[] = []
 
       assert.deepEqual(
-        iterator.next(stations).value,
+        effect.next(stations).value,
         put(received(stations))
       )
     })
 
     it('handles fetch error', () => {
-      const iterator = fetchAllEffect()
+      const effect = fetchAllEffect()
 
       assert.deepEqual(
-        iterator.next().value,
+        effect.next().value,
         call(get, '/stations')
       )
 
       const errorMock: Error = { name: 'error', message: 'test' }
 
       assert.deepEqual(
-        iterator.throw(errorMock).value,
+        effect.throw(errorMock).value,
         put(error())
       )
     })

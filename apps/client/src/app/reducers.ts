@@ -1,20 +1,18 @@
 import { combineReducers } from 'redux'
-import me from 'features/Me/slice'
 import authentication from 'features/Me/Authentication/slice'
-import logout from 'features/Me/Logout/slice'
-import stations from 'features/Stations/List/slice'
-import channels from 'features/Channels/List/slice'
+import me from 'features/Me/slice'
+import stationsList from 'features/Stations/List/slice'
+import channelsList from 'features/Channels/List/slice'
+import messenger from 'features/Messages/Messenger/slice'
 import messages from 'features/Messages/List/slice'
-import message from 'features/Messages/Create/slice'
-import join from 'features/Stations/Join/slice'
+import joinStation from 'features/Stations/Join/slice'
 
 export default combineReducers({
-  me: me.reducer,
   authentication: authentication.reducer,
-  logout: logout.reducer,
-  stations: stations.reducer,
-  channels: channels.reducer,
+  me: me.reducer,
+  stations: stationsList.reducer,
+  channels: channelsList.reducer,
+  messenger: messenger.reducer,
   messages: messages.reducer,
-  message: message.reducer,
-  join: join.reducer,
+  join: joinStation.reducer,
 })

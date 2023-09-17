@@ -1,55 +1,57 @@
 import React, { useEffect } from 'react'
+import { IChannel } from 'models/channel'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchListAndSubscribe, unsubscribeList, selectItems } from 'features/Messages/List/slice'
-import { Channel } from 'models/channel'
-import Message from 'widgets/Message/Message'
-import styled from 'styled-components'
+import { fetchAllAndSubscribe, selectItems, unsubscribe } from 'features/Messages/List/slice'
+import Box from '@mui/material/Box'
+import Message from 'widgets/Chat/Message'
 
 interface Props {
-  readonly channel: Channel
+  readonly channelId: IChannel['id']
 }
 
-const List: React.FC<Props> = ({ channel }) => {
+const List: React.FC<Props> = ({ channelId }) => {
   const dispatch = useDispatch()
   const items = useSelector(selectItems)
 
   useEffect(() => {
-    dispatch(fetchListAndSubscribe(channel.id))
+    dispatch(fetchAllAndSubscribe(channelId))
 
     return () => {
-      dispatch(unsubscribeList())
+      dispatch(unsubscribe())
     }
-  }, [ dispatch, channel ])
+  }, [ dispatch, channelId ])
 
   return (
-    <Wrapper>
+    <Box sx={{
+      position: 'absolute',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 4,
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      overflowY: 'scroll',
+      overflowX: 'hidden',
+      overflowAnchor: 'none',
+      alignItems: 'stretch',
+      width: '100%',
+      height: 'calc(100% - 150px)',
+      mt: 10,
+      pl: 2
+    }}>
       { items.map(
         message =>
           <Message
             key={ message.id }
-            authorName={ message.author.name }
+            id={ message.id }
             content={ message.content }
+            author={ message.author.name }
             date={ message.createdAt }
           />
-      ) }
-    </Wrapper>
+      )}
+    </Box>
   )
 }
-
-const Wrapper = styled.div(({ theme }) => `
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  flex-direction: column;
-  display: flex;
-  gap: ${ theme.gap.m };
-  overflow-y: scroll;
-  overflow-x: hidden;
-  overflow-anchor: none;
-  align-items: stretch;
-  height: calc(100% - 40px - 40px);
-`)
 
 export default List
