@@ -3,6 +3,7 @@ import { selectIsReAuthenticating, reAuthenticate } from 'features/Me/Authentica
 import { useDispatch, useSelector } from 'react-redux'
 import { selectIsAuth } from 'features/Me/slice'
 import Login from 'features/Me/Authentication'
+import FullPageLoader from 'widgets/FullPageLoader'
 
 const Firewall: React.FC<PropsWithChildren> = ({ children }) => {
   const isAuth = useSelector(selectIsAuth)
@@ -14,7 +15,7 @@ const Firewall: React.FC<PropsWithChildren> = ({ children }) => {
   }, [ dispatch ])
 
   if (isReAuthenticating) {
-    return <p>Loading your informations...</p>
+    return <FullPageLoader />
   }
 
   if (!isAuth) {
