@@ -72,4 +72,7 @@ export const {
 export const selectItems: Selector<IMessage[]> = state =>
   state.messages.items
 
+export const selectIsFetching: Selector<boolean> = state =>
+  state.messages.status === MessagesStatus.Fetching
+
 export default slice

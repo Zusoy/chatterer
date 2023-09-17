@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import { IChannel } from 'models/channel'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAllAndSubscribe, selectItems, unsubscribe } from 'features/Messages/List/slice'
+import { fetchAllAndSubscribe, selectItems, unsubscribe, selectIsFetching } from 'features/Messages/List/slice'
 import Box from '@mui/material/Box'
+import Fallback from 'features/Messages/List/Fallback'
 import Message from 'widgets/Chat/Message'
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 
 const List: React.FC<Props> = ({ channelId }) => {
   const dispatch = useDispatch()
+  const isFetching = useSelector(selectIsFetching)
   const items = useSelector(selectItems)
 
   useEffect(() => {
@@ -40,16 +42,19 @@ const List: React.FC<Props> = ({ channelId }) => {
       mt: 10,
       pl: 2
     }}>
-      { items.map(
-        message =>
-          <Message
-            key={ message.id }
-            id={ message.id }
-            content={ message.content }
-            author={ message.author.name }
-            date={ message.createdAt }
-          />
-      )}
+      { isFetching
+        ? <Fallback prediction={ 10 } />
+        : items.map(
+          message =>
+            <Message
+              key={ message.id }
+              id={ message.id }
+              content={ message.content }
+              author={ message.author.name }
+              date={ message.createdAt }
+            />
+        )
+      }
     </Box>
   )
 }
