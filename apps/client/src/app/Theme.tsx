@@ -24,7 +24,7 @@ const Theme: React.FC<PropsWithChildren> = ({ children }) => {
         mode: themeMode
       }
     }),
-    []
+    [ themeMode ]
   )
 
   return (
