@@ -4,7 +4,6 @@ import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
 import ChevronLeft from '@mui/icons-material/ChevronLeft'
 import Divider from '@mui/material/Divider'
-import Menu from 'features/Sidebar/Menu'
 import { styled } from '@mui/material/styles'
 
 interface Props extends PropsWithChildren {
