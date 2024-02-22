@@ -11,6 +11,7 @@
     "doctrine/doctrine-bundle": "^2.7",
     "doctrine/doctrine-migrations-bundle": "^3.2",
     "doctrine/orm": "^2.12",
+    "elasticsearch/elasticsearch": "^8.12",
     "firebase/php-jwt": "^6.3",
     "ramsey/uuid": "^4.3",
     "symfony/console": "6.1.*",
@@ -28,7 +29,8 @@
     "allow-plugins": {
       "composer/package-versions-deprecated": true,
       "symfony/flex": true,
-      "symfony/runtime": true
+      "symfony/runtime": true,
+      "php-http/discovery": false
     },
     "optimize-autoloader": true,
     "preferred-install": {

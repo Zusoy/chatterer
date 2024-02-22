@@ -13,7 +13,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class StationEventListener implements EventSubscriberInterface
 {
-    public function __construct(private Hub $hub, private Bus $bus)
+    public function __construct(private readonly Hub $hub, private readonly Bus $bus)
     {
     }
 

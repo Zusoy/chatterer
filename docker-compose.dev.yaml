@@ -70,6 +70,22 @@ services:
     ports:
       - '8080:80'
 
+  search:
+    build:
+      context: apps/search
+    env_file:
+      - .env
+    ports:
+      - 9200:9200
+    environment:
+      - xpack.security.enabled=true
+      - discovery.type=single-node
+      - ELASTIC_USERNAME=elastic
+      - ELASTIC_PASSWORD=P@ssw0rd
+    volumes:
+      - search:/usr/share/elasticsearch/data
+
 volumes:
   database: ~
+  search: ~
 

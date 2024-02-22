@@ -61,3 +61,10 @@ services:
   ## Faker
 
   Infra\Faker\Factory: ~
+
+  ## Elasticsearch
+
+  Infra\Elasticsearch\ClientFactory:
+    arguments:
+      $hosts: '%search_hosts%'
+      $credentials: '%search_credentials%'

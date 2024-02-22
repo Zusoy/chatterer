@@ -36,3 +36,8 @@ services:
   Domain\Security\AccessControl: '@Application\Security\AccessControl'
   Domain\Security\PasswordHasher: '@Application\Security\PasswordHasher'
   Domain\Security\UserProvider: '@Application\Security\UserProvider'
+
+  ## Search
+
+  Domain\Search\Indexer: '@Application\Search\Indexer\ElasticsearchIndexer'
+  Application\Search\Configuration\Provider: '@Application\Search\Configuration\YAMLProvider'

@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 final class SynchronizationListener implements EventSubscriberInterface
 {
-    public function __construct(private Hub $hub)
+    public function __construct(private readonly Hub $hub)
     {
     }
 

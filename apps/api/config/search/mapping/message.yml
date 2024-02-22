@@ -1,0 +1,17 @@
+---
+message:
+  mappings:
+    properties:
+      content:
+        type: text
+        fields:
+          raw:
+            type: keyword
+      author_id:
+        type: keyword
+      channel_id:
+        type: keyword
+      created_at:
+        type: date
+      updated_at:
+        type: date

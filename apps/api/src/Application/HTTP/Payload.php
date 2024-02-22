@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 final class Payload
 {
-    public function __construct(private Request $request)
+    public function __construct(private readonly Request $request)
     {
     }
 
@@ -27,6 +27,8 @@ final class Payload
     }
 
     /**
+     * @param string|int|float|bool|null $defaultValue
+     *
      * @return string|int|float|bool|null
      */
     public function optional(string $name, mixed $defaultValue = null): mixed
@@ -54,10 +56,13 @@ final class Payload
      */
     public function optionals(string $name): array
     {
-        return array_merge(
+        /** @var array<string|int|float|bool> */
+        $results = array_merge(
             $this->request->request->all($name),
             $this->request->query->all($name),
         );
+
+        return $results;
     }
 
     public function file(string $name): UploadedFile

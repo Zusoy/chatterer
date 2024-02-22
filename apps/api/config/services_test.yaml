@@ -8,11 +8,13 @@ services:
   ## Test Services
 
   Infra\Doctrine\Truncater: ~
+  Application\Search\Indexer\MockedIndexer: ~
 
   ## Test overrides
 
   Application\Synchronization\Hub: '@Application\Synchronization\Hub\MockedHub'
   Domain\EventLog: '@Application\TraceableEventLog'
+  Domain\Search\Indexer: '@Application\Search\Indexer\MockedIndexer'
 
   ## Acceptance Test
 
