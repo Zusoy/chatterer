@@ -7,7 +7,6 @@ namespace Application\Event\Listener;
 use Application\Synchronization\Hub;
 use Application\Synchronization\Push;
 use Domain\Event\Channel as Event;
-use Domain\Search\Indexer;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ChannelEventListener implements EventSubscriberInterface
@@ -24,14 +23,13 @@ final class ChannelEventListener implements EventSubscriberInterface
         ];
     }
 
-    public function __construct(private readonly Hub $hub, private readonly Indexer $indexer)
+    public function __construct(private readonly Hub $hub)
     {
     }
 
     public function onChannelCreated(Event\Created $event): void
     {
         $this->hub->push(Push\Channel::insert($event->channel));
-        $this->indexer->index($event->channel);
     }
 
     public function onChannelDeleted(Event\Deleted $event): void

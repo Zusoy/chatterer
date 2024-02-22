@@ -17,6 +17,7 @@ final class YAMLProvider implements Provider
      */
     public function getConfig(): array
     {
+        /** @var array<mixed> */
         $config = Yaml::parseFile($this->filePath);
 
         return $config;
