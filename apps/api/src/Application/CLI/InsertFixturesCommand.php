@@ -146,6 +146,7 @@ final class InsertFixturesCommand extends Command
             /** @var User */
             $admin = $this->domainGenerator->admin($this->domainGenerator->email());
 
+            /** @var User */
             $newAdmin = $this->bus->execute(new UserCommand\Create(
                 firstname: $admin->getFirstname(),
                 lastname: $admin->getLastname(),
@@ -165,6 +166,7 @@ final class InsertFixturesCommand extends Command
             /** @var User */
             $user = $this->domainGenerator->user($this->domainGenerator->email());
 
+            /** @var User */
             $newUser = $this->bus->execute(new UserCommand\Create(
                 firstname: $user->getFirstname(),
                 lastname: $user->getLastname(),
@@ -184,6 +186,7 @@ final class InsertFixturesCommand extends Command
             /** @var Station */
             $station = $this->domainGenerator->station();
 
+            /** @var Station */
             $newStation = $this->bus->execute(new StationCommand\Create(
                 name: $station->getName(),
                 description: $station->getDescription()
@@ -198,6 +201,7 @@ final class InsertFixturesCommand extends Command
                 /** @var Channel */
                 $channel = $this->domainGenerator->channel([ $station ]);
 
+                /** @var Channel */
                 $newChannel = $this->bus->execute(new ChannelCommand\Create(
                     stationId: (string) $station->getIdentifier(),
                     name: $channel->getName(),

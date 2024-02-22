@@ -65,3 +65,10 @@ services:
   Application\Event\Listener\:
     resource: '%kernel.project_dir%/src/Application/Event/Listener'
     tags: [ kernel.event_listener ]
+
+  ## Search
+
+  Application\Search\Indexer\ElasticsearchIndexer: ~
+  Application\Search\Configuration\YAMLProvider:
+    arguments:
+      $filePath: '%kernel.project_dir%/config/search/mapping/message.yml'

@@ -11,3 +11,8 @@ services:
     public: true
     calls:
       - seed: [ 123456 ] # DO NOT CHANGE IT (make sure that faker data be always the same)
+
+  ## Elasticsearch
+
+  Elastic\Elasticsearch\Client:
+    factory: ['@Infra\Elasticsearch\ClientFactory', 'create']

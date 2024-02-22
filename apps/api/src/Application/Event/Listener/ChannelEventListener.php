@@ -23,7 +23,7 @@ final class ChannelEventListener implements EventSubscriberInterface
         ];
     }
 
-    public function __construct(private Hub $hub)
+    public function __construct(private readonly Hub $hub)
     {
     }
 

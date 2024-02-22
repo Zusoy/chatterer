@@ -14,6 +14,7 @@ use Domain\Model\Message;
 use Domain\Model\Station;
 use Domain\Model\User;
 use Domain\Repository\Messages;
+use Domain\Search\Indexer;
 
 describe(CreateHandler::class, function () {
     beforeEach(function () {
@@ -26,6 +27,7 @@ describe(CreateHandler::class, function () {
     given('messages', fn () => $this->container->get(Messages::class));
     given('hub', fn () => $this->container->get(Hub::class));
     given('events', fn () => $this->container->get(EventLog::class));
+    given('indexer', fn () => $this->container->get(Indexer::class));
 
     it ('create new message in database', function () {
         $station = new Station('Station', 'desc');
@@ -74,6 +76,9 @@ describe(CreateHandler::class, function () {
                 $actual->message->getIdentifier() === $newMessage->getIdentifier()
             ;
         });
+
+        expect(count($this->indexer->getCurrentIndex()))->toBe(1);
+        expect($this->indexer->getCurrentIndex()[0])->toEqual((string) $newMessage->getIdentifier());
     });
 
     it ('throws if author not found from database', function () {

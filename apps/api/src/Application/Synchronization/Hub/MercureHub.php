@@ -27,9 +27,9 @@ final class MercureHub implements Hub
      * @param Normalizer<Push<T>> $normalizer
      */
     public function __construct(
-        private HubInterface $hub,
-        private Normalizer $normalizer,
-        private Serializer $serializer
+        private readonly HubInterface $hub,
+        private readonly Normalizer $normalizer,
+        private readonly Serializer $serializer
     ) {
         $this->pushs = [];
     }
