@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { Nullable } from 'utils'
-import { IUser } from 'models/user'
-import { Selector } from 'app/store'
 import { authenticated } from 'features/Me/Authentication/slice'
+import { type Nullable } from 'utils'
+import { type Selector } from 'app/store'
+import { type User } from 'models/user'
 
-interface State {
-  id: Nullable<IUser['id']>
+type State = {
+  id: Nullable<User['id']>
 }
 
 const initialState: State = {
@@ -28,7 +28,7 @@ const slice = createSlice({
 export const selectIsAuth: Selector<boolean> = state =>
   state.me.id !== null
 
-export const selectAuthenticatedUserId: Selector<Nullable<IUser['id']>> =
+export const selectAuthenticatedUserId: Selector<State['id']> =
   state => state.me.id
 
 export default slice

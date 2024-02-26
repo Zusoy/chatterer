@@ -1,16 +1,15 @@
-import { PayloadAction } from '@reduxjs/toolkit'
+import { type PayloadAction } from '@reduxjs/toolkit'
+import { type Station } from 'models/station'
+import { type Channel } from 'models/channel'
 import { call, put, takeLatest } from 'redux-saga/effects'
 import { fetchAll, received, error } from 'features/Channels/List/slice'
 import { get } from 'services/api'
-import { IStation } from 'models/station'
-import { IChannel } from 'models/channel'
 
-export function* fetchAllEffect(action: PayloadAction<IStation['id']>): Generator {
+export function* fetchAllEffect(action: PayloadAction<Station['id']>): Generator {
   const id = action.payload
 
   try {
-    const items = (yield call(get, `/station/${id}/channels`)) as IChannel[]
-
+    const items = (yield call(get, `/station/${id}/channels`)) as Channel[]
     yield put(received(items))
   } catch (e) {
     yield put(error())

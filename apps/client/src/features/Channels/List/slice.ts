@@ -1,9 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Nullable } from 'utils'
-import { Selector } from 'app/store'
-import { IStation } from 'models/station'
-import { IChannel } from 'models/channel'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { changeStation } from 'features/Stations/List/slice'
+import { type Nullable } from 'utils'
+import { type Selector } from 'app/store'
+import { type Station } from 'models/station'
+import { type Channel } from 'models/channel'
 
 export enum ChannelsStatus {
   Initial = 'Initial',
@@ -12,9 +12,9 @@ export enum ChannelsStatus {
   Error = 'Error'
 }
 
-export interface State {
-  items: IChannel[],
-  channel: Nullable<IChannel>,
+export type State = {
+  items: Channel[]
+  channel: Nullable<Channel['id']>
   status: ChannelsStatus
 }
 
@@ -28,18 +28,19 @@ const slice = createSlice({
   name: 'channels',
   initialState,
   reducers: {
-    fetchAll: (state, _action: PayloadAction<IStation['id']>) => ({
+    fetchAll: (state, _action: PayloadAction<Station['id']>) => ({
       ...state,
       status: ChannelsStatus.Fetching,
     }),
-    received: (state, action: PayloadAction<IChannel[]>) => ({
+    received: (state, action: PayloadAction<Channel[]>) => ({
       ...state,
       items: action.payload,
-      status: ChannelsStatus.Received
+      status: ChannelsStatus.Received,
+      channel: action.payload.length > 0 ? action.payload[0].id : null
     }),
-    changeChannel: (state, action: PayloadAction<IChannel['id']>) => ({
+    changeChannel: (state, action: PayloadAction<Channel['id']>) => ({
       ...state,
-      channel: state.items.find(channel => channel.id === action.payload) || null
+      channel: state.items.find(channel => channel.id === action.payload)?.id || null
     }),
     error: state => ({
       ...state,
@@ -62,10 +63,10 @@ export const {
   error
 } = slice.actions
 
-export const selectItems: Selector<IChannel[]> = state =>
+export const selectItems: Selector<State['items']> = state =>
   state.channels.items
 
-export const selectCurrentChannel: Selector<Nullable<IChannel>> = state =>
+export const selectCurrentChannel: Selector<State['channel']> = state =>
   state.channels.channel
 
 export const selectIsFetching: Selector<boolean> = state =>

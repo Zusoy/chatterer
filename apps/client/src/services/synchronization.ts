@@ -1,5 +1,5 @@
-import { eventChannel, EventChannel } from 'redux-saga'
-import { Nullable } from 'utils'
+import { eventChannel, type EventChannel } from 'redux-saga'
+import { type Nullable } from 'utils'
 
 export enum Type {
   Insert = 'push.insert',
@@ -13,30 +13,30 @@ export enum Context {
   Message = 'message'
 }
 
-export interface Push<T> {
-  readonly type: Type
-  readonly context: Context
-  readonly identifier: string
-  readonly topic: string[]
-  readonly payload: Nullable<T>
+export type Push<T> = {
+  identifier: string
+  type: Type
+  context: Context
+  topic: string[]
+  payload: Nullable<T>
 }
 
-export function createSynchronizationChannel<T>(eventSource: EventSource): EventChannel<Push<T>> {
+export function createSynchronizationChannel<T>(source: EventSource): EventChannel<Push<T>> {
   return eventChannel(emitter => {
-    const messageHandler = (event: MessageEvent) => {
+    const messageHandler  = (event: MessageEvent): void => {
       const data = (JSON.parse(event.data)) as Push<T>
       emitter(data)
     }
 
-    const errorHandler = (error: Event) => {
-      console.error(`EventError: ${ error }`)
+    const errorHandler = (error: Event): void => {
+      console.error(`EventError: ${error}`)
     }
 
-    eventSource.addEventListener('message', messageHandler)
-    eventSource.addEventListener('error', errorHandler)
+    source.addEventListener('message', messageHandler)
+    source.addEventListener('error', errorHandler)
 
-    const unsubscribe = () => {
-      eventSource.close()
+    const unsubscribe = (): void => {
+      source.close()
     }
 
     return unsubscribe
@@ -44,8 +44,8 @@ export function createSynchronizationChannel<T>(eventSource: EventSource): Event
 }
 
 export const extractSourceLinkHeader = (header: string, rel: string): Nullable<string> => {
-  const linkRegex = /<([^>]+)>;\s*rel="([^"]+)"/g;
-  let match;
+  const linkRegex = /<([^>]+)>;\s*rel="([^"]+)"/g
+  let match
 
   while ((match = linkRegex.exec(header)) !== null) {
     const [, link, currentRel] = match;
@@ -55,10 +55,10 @@ export const extractSourceLinkHeader = (header: string, rel: string): Nullable<s
     }
   }
 
-  return null;
+  return null
 }
 
-export type StreamSources = Nullable<{ url: string, topic: string }>
+export type StreamSources = Nullable<{url: string, topic: string}>
 export const getStreamSources = (header: string): StreamSources => {
   const url = extractSourceLinkHeader(header, 'mercure')
   const topic = extractSourceLinkHeader(header, 'self')

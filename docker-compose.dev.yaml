@@ -25,8 +25,9 @@ services:
 
   client:
     image: zusoy/chatterer-client:develop
-    command: 'yarn start'
+    command: 'npm run dev'
     stdin_open: true
+    tty: true
     build:
       context: apps/client
       target: dev

@@ -1,15 +1,15 @@
 import { get as storageGet } from 'services/storage'
-import { Nullable } from 'utils'
 import { getStreamSources } from 'services/synchronization'
+import { type Nullable } from 'utils'
 
 export type ApiError = {
-  code: 0
+  code: 0,
   extra: {
     [key: string]: {
       message: string
     }
-  }
-  message: string
+  },
+  message: string,
   type: string
 }
 
@@ -18,7 +18,8 @@ export class ApiErrorResponse {
     public readonly status: number,
     public readonly url: string,
     public readonly error: ApiError
-  ) {}
+  ) {
+  }
 }
 
 const handleResponseErrors = async (response: Response) => {
@@ -65,12 +66,24 @@ export const get: ApiGet = (path, config) => {
   return http(path, init)
 }
 
+export type ApiPost = <T>(path: string, body?: Object, config?: RequestInit) => Promise<T>
+export const post: ApiPost = (path, body, config) => {
+  const init: RequestInit = {
+    ...config,
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: { 'Content-Type': 'application/json' },
+  }
+
+  return http(path, init)
+}
+
 export type StreamResponse<T> = [ Promise<T>, Nullable<EventSource> ]
 export type ApiGetAndStream = <T>(path: string, config?: RequestInit) => Promise<StreamResponse<T>>
 export const getAndStream: ApiGetAndStream = async (path, config) => {
   const init = await withBearer({
     ...config,
-    method: 'get'
+    method: 'GET'
   })
 
   const request = new Request(`http://127.0.0.1:8081${path}`, init)
@@ -92,16 +105,4 @@ export const getAndStream: ApiGetAndStream = async (path, config) => {
   const eventSource = new EventSource(url)
 
   return [ data, eventSource ]
-}
-
-export type ApiPost = <T>(path: string, body?: Object, config?: RequestInit) => Promise<T>
-export const post: ApiPost = (path, body, config) => {
-  const init: RequestInit = {
-    ...config,
-    method: 'post',
-    body: JSON.stringify(body),
-    headers: { 'Content-Type': 'application/json' },
-  }
-
-  return http(path, init)
 }

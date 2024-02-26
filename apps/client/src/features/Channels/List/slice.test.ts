@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest'
 import slice, {
   initialState,
   fetchAll,
@@ -5,27 +6,28 @@ import slice, {
   error,
   changeChannel,
   ChannelsStatus,
-  State
+  type State
 } from 'features/Channels/List/slice'
 import { channelMock } from 'test-utils'
 
 describe('Features/Channels/List', () => {
-  it('reduces fetchAll action', () => {
-    expect(slice.reducer(initialState, fetchAll)).toEqual({
+  test('it reduces fetchAll action', () => {
+    expect(slice.reducer(initialState, fetchAll('stationId'))).toEqual({
       ...initialState,
-      status: ChannelsStatus.Fetching,
+      status: ChannelsStatus.Fetching
     })
   })
 
-  it('reduces received action', () => {
+  test('it reduces received action', () => {
     expect(slice.reducer(initialState, received([ channelMock ]))).toEqual({
       ...initialState,
       status: ChannelsStatus.Received,
-      items: [ channelMock ]
+      items: [ channelMock ],
+      channel: channelMock.id
     })
   })
 
-  it('reduces error action', () => {
+  test('it reduces error action', () => {
     expect(slice.reducer(initialState, error())).toEqual({
       ...initialState,
       status: ChannelsStatus.Error,
@@ -33,11 +35,11 @@ describe('Features/Channels/List', () => {
   })
 
   describe('changeChannel', () => {
-    it('ignores not found channel', () => {
+    test('it ignores not found channel', () => {
       expect(slice.reducer(initialState, changeChannel('id'))).toEqual(initialState)
     })
 
-    it('updates current channel', () => {
+    test('it updates current channel', () => {
       const initial: State = {
         ...initialState,
         items: [ channelMock ]
@@ -45,7 +47,7 @@ describe('Features/Channels/List', () => {
 
       expect(slice.reducer(initial, changeChannel(channelMock.id))).toEqual({
         ...initial,
-        channel: channelMock
+        channel: channelMock.id
       })
     })
   })

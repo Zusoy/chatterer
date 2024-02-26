@@ -1,16 +1,14 @@
-import { Nullable } from 'utils'
-import { IChannelLite } from 'models/channel'
+import { type Nullable } from 'utils'
 
-export interface IStation {
+export type Station = {
   id: string
   name: string
-  description: Nullable<string>
+  description: Nullable<string>,
   createdAt: string
   updatedAt: string
-  channels: IChannelLite[]
 }
 
-export interface IStationLite {
+export type StationLite = {
   id: string
   name: string
 }

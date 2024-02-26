@@ -1,4 +1,4 @@
-export interface IUser {
+export type User = {
   id: string
   firstname: string
   lastname: string
@@ -8,7 +8,7 @@ export interface IUser {
   updatedAt: string
 }
 
-export interface IUserLite {
+export type UserLite = {
   id: string
   name: string
 }

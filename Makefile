@@ -66,15 +66,15 @@ client-shell:
 
 .PHONY: client-install
 client-install:
-	@docker-compose run --rm --no-deps client yarn install
+	@docker-compose run --rm --no-deps client npm install
 
 .PHONY: client-build
 client-build:
-	@docker-compose run --rm --no-deps client yarn build --if-present
+	@docker-compose run --rm --no-deps client npm run build
 
 .PHONY: client-test
 client-test:
-	@docker-compose run --rm --no-deps client yarn test --verbose
+	@docker-compose run --rm --no-deps client npm run test --verbose
 
 ############
 # DATABASE #

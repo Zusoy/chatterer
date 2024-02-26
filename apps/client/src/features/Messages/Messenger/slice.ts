@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IChannel } from 'models/channel'
-import { Selector } from 'app/store'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { type Channel } from 'models/channel'
+import { type Selector } from 'app/store'
 
 export enum MessengerStatus {
   Initial = 'Initial',
@@ -8,12 +8,12 @@ export enum MessengerStatus {
   Error = 'Error'
 }
 
-export interface PostPayload {
-  readonly channelId: IChannel['id']
-  readonly content: string
+export type PostPayload = {
+  channelId: Channel['id']
+  content: string
 }
 
-export interface State {
+export type State = {
   status: MessengerStatus
 }
 
