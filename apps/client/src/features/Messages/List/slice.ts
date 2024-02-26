@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { changeChannel } from 'features/Channels/List/slice'
+import { changeChannel } from 'features/Channels/slice'
 import { type Message } from 'models/message'
 import { type Selector } from 'app/store'
 import { type Channel } from 'models/channel'

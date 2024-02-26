@@ -2,7 +2,7 @@ import { type PayloadAction } from '@reduxjs/toolkit'
 import { type Station } from 'models/station'
 import { type Channel } from 'models/channel'
 import { call, put, takeLatest } from 'redux-saga/effects'
-import { fetchAll, received, error } from 'features/Channels/List/slice'
+import { fetchAll, received, error } from 'features/Channels/slice'
 import { get } from 'services/api'
 
 export function* fetchAllEffect(action: PayloadAction<Station['id']>): Generator {

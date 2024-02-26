@@ -7,7 +7,7 @@ import slice, {
   changeStation,
   initialState,
   StationsStatus
-} from 'features/Stations/List/slice'
+} from 'features/Stations/slice'
 import { stationMock } from 'test-utils'
 
 describe('Features/Stations/List', () => {

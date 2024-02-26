@@ -7,7 +7,7 @@ import slice, {
   changeChannel,
   ChannelsStatus,
   type State
-} from 'features/Channels/List/slice'
+} from 'features/Channels/slice'
 import { channelMock } from 'test-utils'
 
 describe('Features/Channels/List', () => {

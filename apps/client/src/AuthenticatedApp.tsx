@@ -6,8 +6,8 @@ import Messages from 'features/Messages/List'
 import Messenger from 'features/Messages/Messenger'
 import Logout from 'features/Me/Logout'
 import JoinOrCreateStation from 'features/Stations/JoinOrCreateDialog'
-import { selectCurrentStationId } from 'features/Stations/List/slice'
-import { selectCurrentChannel } from 'features/Channels/List/slice'
+import { selectCurrentStationId } from 'features/Stations/slice'
+import { selectCurrentChannel } from 'features/Channels/slice'
 import { useSelector } from 'react-redux'
 
 const AuthenticatedApp: React.FC = () => {

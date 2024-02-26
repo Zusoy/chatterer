@@ -7,7 +7,7 @@ import {
   selectItems,
   selectCurrentChannel,
   selectIsFetching
-} from 'features/Channels/List/slice'
+} from 'features/Channels/slice'
 import { useDispatch, useSelector } from 'react-redux'
 import { Card, List as MatList, ListItem } from '@material-tailwind/react'
 import Fallback from 'features/Channels/List/Fallback'

@@ -2,7 +2,7 @@ import { describe, test, expect } from 'vitest'
 import { call, put } from 'redux-saga/effects'
 import { get, ApiErrorResponse } from 'services/api'
 import { fetchAllEffect } from 'features/Channels/List/effects'
-import { received, error, fetchAll } from 'features/Channels/List/slice'
+import { received, error, fetchAll } from 'features/Channels/slice'
 import { stationMock, channelMock } from 'test-utils'
 
 describe('Effects/Channels/List', () => {

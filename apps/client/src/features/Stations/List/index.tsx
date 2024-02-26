@@ -7,7 +7,7 @@ import {
   selectStations,
   changeStation,
   selectCurrentStationId
-} from 'features/Stations/List/slice'
+} from 'features/Stations/slice'
 import StationBadge from 'widgets/Station/StationBadge'
 import Fallback from 'features/Stations/List/Fallback'
 import AddStation from 'widgets/Station/NewStationBadge'

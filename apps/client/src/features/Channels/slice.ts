@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { changeStation } from 'features/Stations/List/slice'
+import { changeStation } from 'features/Stations/slice'
 import { type Nullable } from 'utils'
 import { type Selector } from 'app/store'
 import { type Station } from 'models/station'
