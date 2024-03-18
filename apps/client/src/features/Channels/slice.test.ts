@@ -8,11 +8,11 @@ import slice, {
   ChannelsStatus,
   type State
 } from 'features/Channels/slice'
-import { channelMock } from 'test-utils'
+import { channelMock, stationMock } from 'test-utils'
 
 describe('Features/Channels/List', () => {
   test('it reduces fetchAll action', () => {
-    expect(slice.reducer(initialState, fetchAll('stationId'))).toEqual({
+    expect(slice.reducer(initialState, fetchAll(stationMock.id))).toEqual({
       ...initialState,
       status: ChannelsStatus.Fetching
     })
@@ -36,7 +36,7 @@ describe('Features/Channels/List', () => {
 
   describe('changeChannel', () => {
     test('it ignores not found channel', () => {
-      expect(slice.reducer(initialState, changeChannel('id'))).toEqual(initialState)
+      expect(slice.reducer(initialState, changeChannel(channelMock.id))).toEqual(initialState)
     })
 
     test('it updates current channel', () => {

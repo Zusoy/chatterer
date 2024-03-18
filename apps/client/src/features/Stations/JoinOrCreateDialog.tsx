@@ -21,16 +21,16 @@ type Props = {
 
 const JoinOrCreateDialog: React.FC<Props> = ({ opened, handler }) => {
   return (
-    <Dialog open={opened} handler={handler} size='xs' className='transition-all ease-out'>
-      <Card className="mx-auto w-full">
-        <CardBody className="flex flex-col gap-4">
+    <Dialog open={opened} handler={handler} size='xs' className='transition-all ease-out' placeholder={undefined}>
+      <Card className="mx-auto w-full" placeholder={undefined}>
+        <CardBody className="flex flex-col gap-4" placeholder={undefined}>
           <Typography variant='h3' className='text-center'>Add station</Typography>
           <Tabs value='join'>
-            <TabsHeader>
-              <Tab value='join'>Join</Tab>
-              <Tab value='create'>Create</Tab>
+            <TabsHeader placeholder={undefined}>
+              <Tab value='join' placeholder={undefined}>Join</Tab>
+              <Tab value='create' placeholder={undefined}>Create</Tab>
             </TabsHeader>
-            <TabsBody>
+            <TabsBody placeholder={undefined}>
               <div className='w-full'>
                 <TabPanel value='join' className='p-0'>
                   <Join />

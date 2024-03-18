@@ -73,9 +73,9 @@ const Create: React.FC<Props> = ({ handler, opened, stationId }) => {
   }, [isError])
 
   return (
-    <Dialog open={opened} size='xs' className='transition-all ease-out' handler={handler}>
-      <Card className="mx-auto w-full">
-        <CardBody className="flex flex-col gap-4">
+    <Dialog open={opened} size='xs' className='transition-all ease-out' handler={handler} placeholder={undefined}>
+      <Card className="mx-auto w-full" placeholder={undefined}>
+        <CardBody className="flex flex-col gap-4" placeholder={undefined}>
           <Typography variant='h3' className='text-center'>Add channel</Typography>
           <form onSubmit={onSubmitHandler} className='flex flex-col gap-4'>
             <Input

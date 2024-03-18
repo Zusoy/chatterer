@@ -23,13 +23,13 @@ const Logout: React.FC<Props> = ({ opened, handler }) => {
   }
 
   return (
-    <Dialog open={opened} handler={handler}>
+    <Dialog open={opened} handler={handler} placeholder={undefined}>
       <form onSubmit={onSubmitHandler}>
-        <DialogHeader>Logout</DialogHeader>
-        <DialogBody>
+        <DialogHeader placeholder={undefined}>Logout</DialogHeader>
+        <DialogBody placeholder={undefined}>
           Are you sure to logout from your account ?
         </DialogBody>
-        <DialogFooter>
+        <DialogFooter placeholder={undefined}>
           <Button
             variant='text'
             className='mr-1'
