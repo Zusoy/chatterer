@@ -22,6 +22,7 @@ The client is built with :
 
 * [![Redux][Redux]][Redux-url]
 * [![Redux-Saga][Redux-Saga]][ReduxSaga-url]
+* [![Vite][Vite]][Vite-url]
 
 Redux is used to manage the application state and redux-saga to manage effects (API fetch, Synchronization...)
 
@@ -44,3 +45,5 @@ yarn test
 [Redux-url]: https://swagger.io/
 [Redux-Saga]: https://img.shields.io/badge/ReduxSaga-grey?style=for-the-badge&logo=redux-saga&logoColor=white
 [ReduxSaga-url]: https://redux-saga.js.org/
+[Vite]: https://img.shields.io/badge/Vite-purple?style=for-the-badge&logo=vite&logoColor=yellow
+[Vite-url]: https://vitejs.dev/
