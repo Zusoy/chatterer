@@ -1,5 +1,5 @@
 import Cookies from 'universal-cookie'
-import { Nullable } from 'utils'
+import { type Nullable } from 'utils'
 
 const cookies = new Cookies()
 

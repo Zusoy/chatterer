@@ -1,5 +1,9 @@
-export interface IUser {
-  id: string
+import { type Opaque } from 'utils'
+
+export type UserId = Opaque<'UserId', string>
+
+export type User = {
+  id: UserId
   firstname: string
   lastname: string
   email: string
@@ -8,7 +12,7 @@ export interface IUser {
   updatedAt: string
 }
 
-export interface IUserLite {
-  id: string
+export type UserLite = {
+  id: UserId
   name: string
 }

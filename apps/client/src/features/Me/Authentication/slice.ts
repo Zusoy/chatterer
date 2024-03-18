@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Selector } from 'app/store'
-import { IUser } from 'models/user'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { type Selector } from 'app/store'
+import { type User } from 'models/user'
 
 export enum AuthenticationStatus {
   Anonymous = 'Anonymous',
@@ -10,12 +10,12 @@ export enum AuthenticationStatus {
   Error = 'Error'
 }
 
-export interface AuthenticationPayload {
-  readonly username: string
-  readonly password: string
+export type AuthenticationPayload = {
+  username: string
+  password: string
 }
 
-interface State {
+type State = {
   status: AuthenticationStatus
 }
 
@@ -39,7 +39,7 @@ const slice = createSlice({
       ...state,
       status: AuthenticationStatus.Anonymous,
     }),
-    authenticated: (state, _payload: PayloadAction<IUser['id']>) => ({
+    authenticated: (state, _payload: PayloadAction<User['id']>) => ({
       ...state,
       status: AuthenticationStatus.Authenticated,
     }),

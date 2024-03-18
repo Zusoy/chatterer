@@ -1,57 +1,41 @@
 import React from 'react'
-import Dialog from '@mui/material/Dialog'
-import DialogTitle from '@mui/material/DialogTitle'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogActions from '@mui/material/DialogActions'
-import TextField from '@mui/material/TextField'
-import Button from '@mui/material/Button'
-import { useDispatch } from 'react-redux'
-import { join } from 'features/Stations/Join/slice'
+import Button from 'widgets/Buttons/Button'
+import Input from 'widgets/Forms/Input'
+import Typography from 'widgets/Texts/Typography'
 
-interface Props {
-  readonly onCancel: React.MouseEventHandler
-}
-
-const Join: React.FC<Props> = ({ onCancel }) => {
-  const dispatch = useDispatch()
-
+const Join: React.FC = () => {
   const onSubmitHandler: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
-
-    const data = new FormData(e.currentTarget)
-    const token = data.get('token')
-
-    if (!token) {
-      return
-    }
-
-    dispatch(join({ token: token.toString() }))
+    console.log(e)
   }
 
   return (
-    <Dialog open={ true } fullWidth>
-      <DialogTitle>Join a station</DialogTitle>
-      <form onSubmit={ onSubmitHandler }>
-        <DialogContent dividers>
-          <DialogContentText mb={ 2 }>
-            Type your station invitation here to join an existing station
-          </DialogContentText>
-          <TextField
-            autoFocus
-            fullWidth
-            required
-            variant='filled'
-            label='Invitation'
+    <form onSubmit={onSubmitHandler}>
+      <div className='flex w-full flex-col gap-10'>
+        <div className='mt-9'>
+          <Input
             name='token'
+            label='Invitation token'
+            placeholder='Type your invitation token'
+            size='lg'
+            required
           />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={ onCancel }>Cancel</Button>
-          <Button type='submit'>Join</Button>
-        </DialogActions>
-      </form>
-    </Dialog>
+        </div>
+        <div className='flex flex-col gap-2'>
+          <Typography variant='lead'>What's invitation token ?</Typography>
+          <Typography variant='paragraph'>
+            Invitation token allow you to join a station.
+            You can get one by asking at the station's administrator
+          </Typography>
+        </div>
+        <Button
+          type='submit'
+          className='w-100 flex items-center justify-center'
+        >
+          Join
+        </Button>
+      </div>
+    </form>
   )
 }
 

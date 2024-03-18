@@ -7,9 +7,9 @@ WORKDIR ${SRC_DIR}
 COPY . ${SRC_DIR}
 
 RUN npm install -g npm@9.6.7
-RUN yarn install
+RUN npm install
 
-CMD ["yarn", "start"]
+CMD ["npm", "run", "dev"]
 
 #########################################
 

@@ -1,19 +1,19 @@
 import React, { Suspense, lazy } from 'react'
 import Theme from 'app/Theme'
 import Firewall from 'features/Firewall'
-import FullPageLoader from 'widgets/FullPageLoader'
+import Loader from 'widgets/FullpageLoader'
 
 const AuthenticatedApp = lazy(() => import('AuthenticatedApp'))
 
 const App: React.FC = () =>
-  <>
+  <React.Fragment>
     <Theme>
       <Firewall>
-        <Suspense fallback={ <FullPageLoader /> }>
+        <Suspense fallback={<Loader />}>
           <AuthenticatedApp />
         </Suspense>
       </Firewall>
     </Theme>
-  </>
+  </React.Fragment>
 
 export default App

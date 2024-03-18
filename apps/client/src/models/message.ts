@@ -1,11 +1,14 @@
-import { IChannelLite } from 'models/channel'
-import { IUserLite } from 'models/user'
+import { type Opaque } from 'utils'
+import { type ChannelLite } from 'models/channel'
+import { type UserLite } from 'models/user'
 
-export interface IMessage {
-  id: string
+export type MessageId = Opaque<'MessageId', string>
+
+export type Message = {
+  id: MessageId
   content: string
   createdAt: string
   updatedAt: string
-  channel: IChannelLite
-  author: IUserLite
+  channel: ChannelLite
+  author: UserLite
 }

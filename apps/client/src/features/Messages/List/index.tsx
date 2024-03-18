@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react'
-import { IChannel } from 'models/channel'
+import { type Channel } from 'models/channel'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAllAndSubscribe, selectItems, unsubscribe, selectIsFetching } from 'features/Messages/List/slice'
-import Box from '@mui/material/Box'
+import { fetchAllAndSubscribe, selectIsFetching, selectItems, unsubscribe } from 'features/Messages/List/slice'
 import Fallback from 'features/Messages/List/Fallback'
-import Message from 'widgets/Chat/Message'
+import Message from 'widgets/Message/Message'
 
-interface Props {
-  readonly channelId: IChannel['id']
+type Props = {
+  channelId: Channel['id']
 }
 
 const List: React.FC<Props> = ({ channelId }) => {
@@ -21,41 +20,24 @@ const List: React.FC<Props> = ({ channelId }) => {
     return () => {
       dispatch(unsubscribe())
     }
-  }, [ dispatch, channelId ])
+  }, [dispatch, channelId])
 
   return (
-    <Box sx={{
-      position: 'absolute',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 4,
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      overflowY: 'scroll',
-      overflowX: 'hidden',
-      overflowAnchor: 'none',
-      alignItems: 'stretch',
-      width: '100%',
-      height: 'calc(100% - 150px)',
-      mt: 10,
-      pl: 2
-    }}>
-      { isFetching
-        ? <Fallback prediction={ 10 } />
+    <div className='flex flex-col gap-2 m-2 overflow-x-hidden'>
+      {isFetching
+        ? <Fallback prediction={10} />
         : items.map(
           message =>
             <Message
-              key={ message.id }
-              id={ message.id }
-              content={ message.content }
-              author={ message.author.name }
-              date={ message.createdAt }
+              key={message.id}
+              id={message.id}
+              authorName={message.author.name}
+              content={message.content}
+              createdAt={message.createdAt}
             />
         )
       }
-    </Box>
+    </div>
   )
 }
 

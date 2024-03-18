@@ -1,51 +1,60 @@
 import assert from 'assert'
+import { describe, test } from 'vitest'
 import { authenticateEffect, reAuthenticateEffect } from 'features/Me/Authentication/effects'
 import { authenticate, authenticated, notReAuthenticated, error } from 'features/Me/Authentication/slice'
-import { IUser } from 'models/user'
 import { call, put } from 'redux-saga/effects'
-import { get, post } from 'services/api'
+import { get, post, ApiErrorResponse } from 'services/api'
 import { save } from 'services/storage'
 import { userMock } from 'test-utils'
 
 describe('Effects/Authentication', () => {
   describe('Authenticate', () => {
-    it('handles authentication and token storage', () => {
-      const action = authenticate({ username: 'test', password: 'test' })
+    test ('it handles authentication and token storage', () => {
+      const action = authenticate({ username: 'test', password: 'test'})
       const effect = authenticateEffect(action)
 
       assert.deepEqual(
         effect.next().value,
-        call(post, '/auth', { username: 'test', password: 'test' })
+        call(post, '/auth', { username: 'test', password: 'test'})
       )
 
-      const tokenPayload = { token: 'auth_token' }
+      const mockedResponse = { token: 'auth_token' }
 
       assert.deepEqual(
-        effect.next(tokenPayload).value,
-        call(save, 'token', tokenPayload.token)
+        effect.next(mockedResponse).value,
+        call(save, 'token', mockedResponse.token)
       )
     })
 
-    it('handles error', () => {
+    test ('it handles error', () => {
       const action = authenticate({ username: 'test', password: 'test' })
       const effect = authenticateEffect(action)
 
       assert.deepEqual(
         effect.next().value,
-        call(post, '/auth', { username: 'test', password: 'test' })
+        call(post, '/auth', { username: 'test', password: 'test'})
       )
 
-      const errorMock: Error = { name: 'test', message: 'test' }
+      const mockedError = new ApiErrorResponse(
+        403,
+        '/auth',
+        {
+          code: 0,
+          message: 'Forbidden',
+          type: 'InvalidCredentials',
+          extra: {}
+        }
+      )
 
       assert.deepEqual(
-        effect.throw(errorMock).value,
+        effect.throw(mockedError).value,
         put(error())
       )
     })
   })
 
   describe('ReAuthenticate', () => {
-    it('handles re-authentication', () => {
+    test ('it handles re-authentication', () => {
       const effect = reAuthenticateEffect()
 
       assert.deepEqual(
@@ -53,15 +62,15 @@ describe('Effects/Authentication', () => {
         call(get, '/me')
       )
 
-      const authenticatedUser: IUser = userMock
+      const authenticatedUser = userMock
 
       assert.deepEqual(
         effect.next(authenticatedUser).value,
-        put(authenticated(authenticatedUser.id)),
+        put(authenticated(authenticatedUser.id))
       )
     })
 
-    it('handles not re-authenticated error', () => {
+    test ('it handles not re-authenticated error', () => {
       const effect = reAuthenticateEffect()
 
       assert.deepEqual(
@@ -69,10 +78,19 @@ describe('Effects/Authentication', () => {
         call(get, '/me')
       )
 
-      const error: Error = { name: 'Forbidden', message: 'forbidden' }
+      const mockedError = new ApiErrorResponse(
+        403,
+        '/auth',
+        {
+          code: 0,
+          message: 'Forbidden',
+          type: 'InvalidCredentials',
+          extra: {}
+        }
+      )
 
       assert.deepEqual(
-        effect.throw(error).value,
+        effect.throw(mockedError).value,
         put(notReAuthenticated())
       )
     })
