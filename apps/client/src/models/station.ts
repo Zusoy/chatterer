@@ -1,7 +1,9 @@
-import { type Nullable } from 'utils'
+import { type Nullable, type Opaque } from 'utils'
+
+export type StationId = Opaque<'StationId', string>
 
 export type Station = {
-  id: string
+  id: StationId
   name: string
   description: Nullable<string>,
   createdAt: string
@@ -9,6 +11,6 @@ export type Station = {
 }
 
 export type StationLite = {
-  id: string
+  id: StationId
   name: string
 }

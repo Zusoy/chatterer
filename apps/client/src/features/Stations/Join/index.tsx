@@ -1,5 +1,7 @@
 import React from 'react'
-import { Button, Input, Typography } from '@material-tailwind/react'
+import Button from 'widgets/Buttons/Button'
+import Input from 'widgets/Forms/Input'
+import Typography from 'widgets/Texts/Typography'
 
 const Join: React.FC = () => {
   const onSubmitHandler: React.FormEventHandler<HTMLFormElement> = e => {
@@ -26,7 +28,12 @@ const Join: React.FC = () => {
             You can get one by asking at the station's administrator
           </Typography>
         </div>
-        <Button type='submit'>Join</Button>
+        <Button
+          type='submit'
+          className='w-100 flex items-center justify-center'
+        >
+          Join
+        </Button>
       </div>
     </form>
   )

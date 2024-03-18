@@ -1,19 +1,20 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import { logout } from 'features/Me/Logout/slice'
 import {
-  Button,
   Dialog,
   DialogHeader,
   DialogBody,
   DialogFooter,
 } from '@material-tailwind/react'
-import { logout } from 'features/Me/Logout/slice'
+import Button from 'widgets/Buttons/Button'
 
 type Props = {
-  onCancel: React.MouseEventHandler
+  handler: React.Dispatch<React.SetStateAction<boolean>>,
+  opened: boolean
 }
 
-const Logout: React.FC<Props> = ({ onCancel }) => {
+const Logout: React.FC<Props> = ({ opened, handler }) => {
   const dispatch = useDispatch()
 
   const onSubmitHandler: React.FormEventHandler<HTMLFormElement> = e => {
@@ -22,7 +23,7 @@ const Logout: React.FC<Props> = ({ onCancel }) => {
   }
 
   return (
-    <Dialog open={true}>
+    <Dialog open={opened} handler={handler}>
       <form onSubmit={onSubmitHandler}>
         <DialogHeader>Logout</DialogHeader>
         <DialogBody>
@@ -32,7 +33,7 @@ const Logout: React.FC<Props> = ({ onCancel }) => {
           <Button
             variant='text'
             className='mr-1'
-            onClick={onCancel}
+            onClick={() => handler(false)}
           >
             <span>Cancel</span>
           </Button>

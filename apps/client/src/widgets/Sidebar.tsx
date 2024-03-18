@@ -16,7 +16,7 @@ const Sidebar: React.FC<Props> = ({ children }) =>
       sm:translate-x-0
     '
   >
-    <div className="h-full px-3 py-4 overflow-y-auto bg-gray-100 dark:bg-gray-800">
+    <div className="h-full px-3 py-4 overflow-y-auto bg-gray-100">
       <ul className="space-y-2 font-medium">
         {children}
       </ul>

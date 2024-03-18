@@ -1,5 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { changeStation } from 'features/Stations/slice'
+import { created } from 'features/Channels/Create/slice'
 import { type Nullable } from 'utils'
 import { type Selector } from 'app/store'
 import { type Station } from 'models/station'
@@ -52,6 +53,10 @@ const slice = createSlice({
       .addCase(changeStation, state => ({
         ...state,
         channel: null
+      }))
+      .addCase(created, (state, { payload: channel }) => ({
+        ...state,
+        items: [...state.items, channel]
       }))
   }
 })

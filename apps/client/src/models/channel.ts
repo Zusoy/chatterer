@@ -1,8 +1,10 @@
-import { type Nullable } from 'utils'
+import { type Nullable, type Opaque } from 'utils'
 import { type StationLite } from 'models/station'
 
+export type ChannelId = Opaque<'ChannelId', string>
+
 export type Channel = {
-  id: string
+  id: ChannelId
   name: string
   description: Nullable<string>
   createdAt: string
@@ -11,6 +13,6 @@ export type Channel = {
 }
 
 export type ChannelLite = {
-  id: string
+  id: ChannelId
   name: string
 }

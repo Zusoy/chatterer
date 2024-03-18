@@ -1,4 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { created } from 'features/Stations/Create/slice'
 import { type Station } from 'models/station'
 import { type Nullable } from 'utils'
 import { type Selector } from 'app/store'
@@ -11,7 +12,7 @@ export enum StationsStatus {
 
 export type State = {
   items: Station[]
-  station: Nullable<string>
+  station: Nullable<Station['id']>
   status: StationsStatus
 }
 
@@ -50,6 +51,13 @@ const slice = createSlice({
       ...state,
       status: StationsStatus.Error,
     })
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(created, (state, { payload: station }) => ({
+        ...state,
+        items: [...state.items, station]
+      }))
   }
 })
 
@@ -67,7 +75,10 @@ export const selectStations: Selector<Station[]> = state =>
 export const selectIsFetching: Selector<boolean> = state =>
   state.stations.status === StationsStatus.Fetching
 
-export const selectCurrentStationId: Selector<Nullable<string>> = state =>
+export const selectCurrentStationId: Selector<State['station']> = state =>
   state.stations.station
+
+export const selectCurrentStation: Selector<Nullable<Station>> = state =>
+  state.stations.items.find(station => station.id === state.stations.station) || null
 
 export default slice

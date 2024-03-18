@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { type Channel } from 'models/channel'
 import { useDispatch, useSelector } from 'react-redux'
-import { Textarea, IconButton } from '@material-tailwind/react'
+import { IconButton } from '@material-tailwind/react'
 import { selectIsPosting, post } from 'features/Messages/Messenger/slice'
+import Textarea from 'widgets/Forms/Textarea'
 
 type Props = {
   channelId: Channel['id']

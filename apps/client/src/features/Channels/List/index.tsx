@@ -11,12 +11,13 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { Card, List as MatList, ListItem } from '@material-tailwind/react'
 import Fallback from 'features/Channels/List/Fallback'
+import StationControls, { type Props as ControlsProps } from 'features/Stations/StationControl'
 
-type Props = {
+type Props = ControlsProps & {
   stationId: Station['id']
 }
 
-const List: React.FC<Props> = ({ stationId }) => {
+const List: React.FC<Props> = ({ stationId, stationName, onNewChannel }) => {
   const dispatch = useDispatch()
   const items = useSelector(selectItems)
   const current = useSelector(selectCurrentChannel)
@@ -31,7 +32,8 @@ const List: React.FC<Props> = ({ stationId }) => {
   }, [dispatch, stationId])
 
   return (
-    <Card className='w-72 h-[calc(100vh-78px)] rounded-none' placeholder={undefined}>
+    <Card className='flex flex-col w-72 h-[calc(100vh-78px)] rounded-none bg-white' placeholder={undefined}>
+      <StationControls stationName={stationName} onNewChannel={onNewChannel} />
       <MatList placeholder={undefined}>
         {isFetching
           ? <Fallback prediction={6} />

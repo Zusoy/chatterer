@@ -1,6 +1,7 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { type Nullable } from 'utils'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { type Station } from 'models/station'
+import { type Channel } from 'models/channel'
+import { type Nullable } from 'utils'
 import { type Selector } from 'app/store'
 
 export enum CreateStatus {
@@ -11,7 +12,8 @@ export enum CreateStatus {
 }
 
 export type CreatePayload = {
-  name: string
+  stationId: Station['id'],
+  name: string,
   description: Nullable<string>
 }
 
@@ -24,20 +26,20 @@ export const initialState: State = {
 }
 
 const slice = createSlice({
-  name: 'stationCreate',
+  name: 'createChannel',
   initialState,
   reducers: {
     create: (state, _action: PayloadAction<CreatePayload>) => ({
       ...state,
       status: CreateStatus.Creating
     }),
-    created: (state, _action: PayloadAction<Station>) => ({
+    created: (state, _action: PayloadAction<Channel>) => ({
       ...state,
-      status: CreateStatus.Created,
+      status: CreateStatus.Created
     }),
     error: state => ({
       ...state,
-      status: CreateStatus.Error,
+      status: CreateStatus.Error
     }),
     clear: _state => initialState
   }
@@ -51,12 +53,12 @@ export const {
 } = slice.actions
 
 export const selectIsCreating: Selector<boolean> = state =>
-  state.createStation.status === CreateStatus.Creating
+  state.createChannel.status === CreateStatus.Creating
 
 export const selectIsCreated: Selector<boolean> = state =>
-  state.createStation.status === CreateStatus.Created
+  state.createChannel.status === CreateStatus.Created
 
 export const selectIsError: Selector<boolean> = state =>
-  state.createStation.status === CreateStatus.Error
+  state.createChannel.status === CreateStatus.Error
 
 export default slice

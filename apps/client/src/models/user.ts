@@ -1,5 +1,9 @@
+import { type Opaque } from 'utils'
+
+export type UserId = Opaque<'UserId', string>
+
 export type User = {
-  id: string
+  id: UserId
   firstname: string
   lastname: string
   email: string
@@ -9,6 +13,6 @@ export type User = {
 }
 
 export type UserLite = {
-  id: string
+  id: UserId
   name: string
 }

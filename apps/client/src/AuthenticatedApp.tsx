@@ -4,26 +4,34 @@ import Stations from 'features/Stations/List'
 import Channels from 'features/Channels/List'
 import Messages from 'features/Messages/List'
 import Messenger from 'features/Messages/Messenger'
-import Logout from 'features/Me/Logout'
+import LogoutModal from 'features/Me/Logout'
+import ChannelCreate from 'features/Channels/Create'
 import JoinOrCreateStation from 'features/Stations/JoinOrCreateDialog'
-import { selectCurrentStationId } from 'features/Stations/slice'
+import { selectCurrentStation } from 'features/Stations/slice'
 import { selectCurrentChannel } from 'features/Channels/slice'
 import { useSelector } from 'react-redux'
+import { ToastContainer } from 'react-toastify'
 
 const AuthenticatedApp: React.FC = () => {
   const [stationModalOpened, setStationModalOpened] = useState<boolean>(false)
   const [logoutModalOpened, setLogoutModalOpened] = useState<boolean>(false)
-  const currentStationId = useSelector(selectCurrentStationId)
+  const [newChannelModalOpened, setNewChannelModalOpened] = useState<boolean>(false)
+  const currentStation = useSelector(selectCurrentStation)
   const currentChannelId = useSelector(selectCurrentChannel)
 
   return (
     <main className='flex-grow absolute'>
-      {logoutModalOpened &&
-        <Logout onCancel={() => setLogoutModalOpened(false)} />
-      }
-      {stationModalOpened &&
-        <JoinOrCreateStation onCancel={() => setStationModalOpened(false)} />
-      }
+      <React.Fragment>
+        <LogoutModal
+          opened={logoutModalOpened}
+          handler={setLogoutModalOpened}
+        />
+        <JoinOrCreateStation
+          opened={stationModalOpened}
+          handler={setStationModalOpened}
+        />
+        <ToastContainer style={{ zIndex: 99999 }} />
+      </React.Fragment>
       <div className='flex flex-col'>
         <Navbar
           onLogout={() => setLogoutModalOpened(true)}
@@ -32,20 +40,31 @@ const AuthenticatedApp: React.FC = () => {
           <aside className='flex flex-col w-20 shadow-lg bg-white h-[calc(100vh-78px)] gap-1 items-center relative'>
             <Stations onNewClick={() => setStationModalOpened(true)} />
           </aside>
-          {!!currentStationId &&
-            <div className='flex flex-row w-full relative'>
-              <aside className='pt-1'>
-                <Channels stationId={currentStationId} />
-              </aside>
-              {!!currentChannelId &&
-                <div className='flex flex-col h-full w-full'>
-                  <div className='w-full h-[calc(100vh-150px)] overflow-y-scroll'>
-                    <Messages channelId={currentChannelId} />
+          {!!currentStation &&
+            <React.Fragment>
+              <ChannelCreate
+                stationId={currentStation.id}
+                handler={setNewChannelModalOpened}
+                opened={newChannelModalOpened}
+              />
+              <div className='flex flex-row w-full relative'>
+                <aside>
+                  <Channels
+                    stationId={currentStation.id}
+                    stationName={currentStation.name}
+                    onNewChannel={() => setNewChannelModalOpened(true)}
+                  />
+                </aside>
+                {!!currentChannelId &&
+                  <div className='flex flex-col h-full w-full'>
+                    <div className='w-full h-[calc(100vh-150px)] overflow-y-scroll'>
+                      <Messages channelId={currentChannelId} />
+                    </div>
+                    <Messenger channelId={currentChannelId} />
                   </div>
-                  <Messenger channelId={currentChannelId} />
-                </div>
-              }
-            </div>
+                }
+              </div>
+            </React.Fragment>
           }
         </div>
       </div>

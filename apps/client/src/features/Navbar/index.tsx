@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import {
   Navbar as MatNavbar,
   Collapse,
-  Typography,
   IconButton,
   Menu,
   MenuHandler,
@@ -10,6 +9,7 @@ import {
   MenuItem
 } from '@material-tailwind/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import Typography from 'widgets/Texts/Typography'
 
 type NavListProps = {
   onLogout: React.MouseEventHandler
