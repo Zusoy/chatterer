@@ -6,6 +6,7 @@ namespace Application\Normalization\Normalizer;
 
 use Application\Normalization\Normalizer;
 use Domain\Model\Channel;
+use Domain\Model\Forum\Forum;
 use Domain\Model\Station;
 
 /**
@@ -42,7 +43,14 @@ final class StationNormalizer implements Normalizer
                     'name' => $channel->getName()
                 ],
                 $data->getChannels()
-            )
+            ),
+            'forums' => array_map(
+                static fn (Forum $forum): array => [
+                    'id' => (string) $forum->getIdentifier(),
+                    'name' => $forum->getName()
+                ],
+                $data->getForums()
+            ),
         ];
     }
 }

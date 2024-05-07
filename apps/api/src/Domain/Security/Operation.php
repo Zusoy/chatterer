@@ -14,6 +14,7 @@ enum Operation: string
     case DELETE_STATION = 'station:delete';
     case INVITE_STATION = 'station:invite';
     case LIST_STATION_CHANNELS = 'station:list_channels';
+    case LIST_STATION_FORUMS = 'station:list_forums';
     case LIST_STATION_USERS = 'station:list_users';
 
     case CREATE_CHANNEL = 'channel:create';
@@ -24,4 +25,6 @@ enum Operation: string
     case DELETE_MESSAGE = 'message:delete';
 
     case DELETE_INVITATION = 'invitation:delete';
+
+    case CREATE_FORUM = 'forum:create';
 }

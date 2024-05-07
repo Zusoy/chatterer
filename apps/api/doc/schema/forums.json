@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://chatterer.io/forums.json",
+  "additionalProperties": false,
+  "title": "Forums collection",
+  "type": "array",
+  "items": {
+    "$ref": "./forum-item.json"
+  }
+}

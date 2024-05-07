@@ -1,0 +1,26 @@
+---
+Domain\Model\Forum\Subject:
+  type: entity
+
+  embedded:
+    id:
+      class: Domain\Identity\Identifier
+      columnPrefix: false
+
+  fields:
+    title:
+      type: string
+    createdAt:
+      type: datetime_immutable
+    updatedAt:
+      type: datetime_immutable
+
+  manyToOne:
+    forum:
+      targetEntity: Domain\Model\Forum\Forum
+      joinColumn:
+        nullable: false
+        onDelete: CASCADE
+
+  lifecycleCallbacks:
+    preUpdate: [ 'touch' ]

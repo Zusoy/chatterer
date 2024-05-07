@@ -11,10 +11,12 @@ use Domain\Group\UserCollectionGroupTrait;
 use Domain\Group\UserGroup;
 use Domain\Identity\Identifiable;
 use Domain\Identity\Identifier;
+use Domain\Model\Forum\Forum;
 use Domain\Time\HasTimestamp;
 use Domain\Time\HasTimestampTrait;
+use Stringable;
 
-class Station implements Identifiable, HasTimestamp, UserGroup
+class Station implements Identifiable, HasTimestamp, UserGroup, Stringable
 {
     use HasTimestampTrait;
     use UserCollectionGroupTrait;
@@ -24,6 +26,8 @@ class Station implements Identifiable, HasTimestamp, UserGroup
     private ?string $description;
     /** @var Collection<int,Channel> */
     private Collection $channels;
+    /** @var Collection<int,Forum> */
+    private Collection $forums;
 
     public function __construct(string $name, ?string $description)
     {
@@ -31,6 +35,7 @@ class Station implements Identifiable, HasTimestamp, UserGroup
         $this->name = $name;
         $this->description = $description;
         $this->channels = new ArrayCollection();
+        $this->forums = new ArrayCollection();
         $this->users = new ArrayCollection();
 
         $this->createdAt = new DateTimeImmutable();
@@ -68,6 +73,14 @@ class Station implements Identifiable, HasTimestamp, UserGroup
     public function getChannels(): array
     {
         return $this->channels->toArray();
+    }
+
+    /**
+     * @return Forum[]
+     */
+    public function getForums(): array
+    {
+        return $this->forums->toArray();
     }
 
     /**

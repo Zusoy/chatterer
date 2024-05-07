@@ -1,0 +1,31 @@
+---
+Domain\Model\Forum\Post:
+  type: entity
+
+  embedded:
+    id:
+      class: Domain\Identity\Identifier
+      columnPrefix: false
+
+  fields:
+    content:
+      type: string
+    createdAt:
+      type: datetime_immutable
+    updatedAt:
+      type: datetime_immutable
+
+  manyToOne:
+    author:
+      targetEntity: Domain\Model\User
+      joinColumn:
+        nullable: false
+        onDelete: CASCADE
+    subject:
+      targetEntity: Domain\Model\Forum\Subject
+      joinColumn:
+        nullable: false
+        onDelete: CASCADE
+
+  lifecycleCallbacks:
+    preUpdate: [ 'touch' ]
