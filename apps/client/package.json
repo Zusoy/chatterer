@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.1.1",
-    "@material-tailwind/react": "^2.1.9",
+    "@material-tailwind/react": "2.1.0",
     "@reduxjs/toolkit": "^2.2.1",
     "@types/node": "^20.11.20",
     "react": "^18.2.0",
@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@testing-library/react": "^14.2.1",
-    "@types/react": "^18.2.42",
+    "@types/react": "18.2.42",
     "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
     "@typescript-eslint/parser": "^7.0.2",

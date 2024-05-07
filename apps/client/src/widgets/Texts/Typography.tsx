@@ -4,7 +4,7 @@ import { Typography as MatTypo, type TypographyProps } from '@material-tailwind/
 export type Props = TypographyProps
 
 const Typography: React.FC<Props> = ({ children, ...props }) =>
-  <MatTypo {...props} placeholder={undefined}>
+  <MatTypo {...props}>
     {children}
   </MatTypo>
 
