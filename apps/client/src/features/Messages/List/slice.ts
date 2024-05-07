@@ -1,8 +1,8 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { IMessage } from 'models/message'
-import { Selector } from 'app/store'
-import { IChannel } from 'models/channel'
-import { changeChannel } from 'features/Channels/List/slice'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { changeChannel } from 'features/Channels/slice'
+import { type Message } from 'models/message'
+import { type Selector } from 'app/store'
+import { type Channel } from 'models/channel'
 
 export enum MessagesStatus {
   Initial = 'Initial',
@@ -11,8 +11,8 @@ export enum MessagesStatus {
   Error = 'Error'
 }
 
-export interface State {
-  items: IMessage[]
+export type State = {
+  items: Message[]
   status: MessagesStatus
 }
 
@@ -25,21 +25,21 @@ const slice = createSlice({
   name: 'messages',
   initialState,
   reducers: {
-    fetchAll: (state, _action: PayloadAction<IChannel['id']>) => ({
+    fetchAll: (state, _action: PayloadAction<Channel['id']>) => ({
       ...state,
       status: MessagesStatus.Fetching
     }),
-    fetchAllAndSubscribe: (state, _action: PayloadAction<IChannel['id']>) => ({
+    fetchAllAndSubscribe: (state, _action: PayloadAction<Channel['id']>) => ({
       ...state,
       status: MessagesStatus.Fetching
     }),
     unsubscribe: state => state,
-    received: (state, action: PayloadAction<IMessage[]>) => ({
+    received: (state, action: PayloadAction<Message[]>) => ({
       ...state,
       items: action.payload,
       status: MessagesStatus.Received,
     }),
-    upsertMany: (state, action: PayloadAction<IMessage[]>) => ({
+    upsertMany: (state, action: PayloadAction<Message[]>) => ({
       ...state,
       items: [
         ...state.items,
@@ -69,7 +69,7 @@ export const {
   error
 } = slice.actions
 
-export const selectItems: Selector<IMessage[]> = state =>
+export const selectItems: Selector<State['items']> = state =>
   state.messages.items
 
 export const selectIsFetching: Selector<boolean> = state =>

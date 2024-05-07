@@ -1,51 +1,56 @@
 import React, { useEffect } from 'react'
+import { type Station } from 'models/station'
+import { type Channel } from 'models/channel'
+import {
+  fetchAll,
+  changeChannel,
+  selectItems,
+  selectCurrentChannel,
+  selectIsFetching
+} from 'features/Channels/slice'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAll, changeChannel, selectItems, selectCurrentChannel, selectIsFetching } from 'features/Channels/List/slice'
-import { IStation } from 'models/station'
-import { IChannel } from 'models/channel'
-import Container from '@mui/material/Container'
-import LinearProgress from '@mui/material/LinearProgress'
-import MuiList from '@mui/material/List'
-import Channel from 'widgets/Channel/Item'
+import { Card, List as MatList, ListItem } from '@material-tailwind/react'
+import Fallback from 'features/Channels/List/Fallback'
+import StationControls, { type Props as ControlsProps } from 'features/Stations/StationControl'
 
-interface Props {
-  readonly stationId: IStation['id']
+type Props = ControlsProps & {
+  stationId: Station['id']
 }
 
-const List: React.FC<Props> = ({ stationId }) => {
+const List: React.FC<Props> = ({ stationId, stationName, onNewChannel }) => {
   const dispatch = useDispatch()
   const items = useSelector(selectItems)
   const current = useSelector(selectCurrentChannel)
   const isFetching = useSelector(selectIsFetching)
 
-  const changeChannelHandler = (id: IChannel['id']): void => {
+  const changeChannelHandler = (id: Channel['id']): void => {
     dispatch(changeChannel(id))
   }
 
   useEffect(() => {
     dispatch(fetchAll(stationId))
-  }, [ dispatch, stationId ])
-
-  if (isFetching) {
-    return (
-      <Container maxWidth='md' sx={{ mt: 5 }}>
-        <LinearProgress color='inherit' />
-      </Container>
-    )
-  }
+  }, [dispatch, stationId])
 
   return (
-    <MuiList component='nav'>
-      { items.map(
-        channel =>
-          <Channel
-            key={ channel.id }
-            name={ channel.name }
-            selected={ current?.id === channel.id }
-            onClick={() => changeChannelHandler(channel.id) }
-          />
-      )}
-    </MuiList>
+    <Card className='flex flex-col w-72 h-[calc(100vh-78px)] rounded-none bg-white' placeholder={undefined}>
+      <StationControls stationName={stationName} onNewChannel={onNewChannel} />
+      <MatList placeholder={undefined}>
+        {isFetching
+          ? <Fallback prediction={6} />
+          : items.map(
+            channel =>
+              <ListItem
+                key={channel.id}
+                selected={current === channel.id}
+                placeholder={undefined}
+                onClick={() => changeChannelHandler(channel.id)}
+              >
+                {channel.name}
+              </ListItem>
+          )
+        }
+      </MatList>
+    </Card>
   )
 }
 

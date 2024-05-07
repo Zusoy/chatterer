@@ -1,19 +1,23 @@
 import { all, fork } from 'redux-saga/effects'
 import authentication from 'features/Me/Authentication/effects'
-import stationsList from 'features/Stations/List/effects'
-import channelsList from 'features/Channels/List/effects'
-import messagesList from 'features/Messages/List/effects'
+import logout from 'features/Me/Logout/effects'
+import stations from 'features/Stations/List/effects'
+import createStation from 'features/Stations/Create/effects'
+import channels from 'features/Channels/List/effects'
+import createChannel from 'features/Channels/Create/effects'
+import messages from 'features/Messages/List/effects'
 import messenger from 'features/Messages/Messenger/effects'
-import joinStation from 'features/Stations/Join/effects'
 
 const effects = function* (): Generator {
   yield all([
     fork(authentication),
-    fork(stationsList),
-    fork(channelsList),
-    fork(messagesList),
+    fork(logout),
+    fork(stations),
+    fork(createStation),
+    fork(channels),
+    fork(createChannel),
+    fork(messages),
     fork(messenger),
-    fork(joinStation),
   ])
 }
 

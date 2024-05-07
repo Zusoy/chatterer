@@ -6,8 +6,8 @@ import effects from 'app/effects'
 const sagaMiddleware = createSagaMiddleware()
 
 export const store = configureStore({
-	reducer,
-	middleware: getDefaultMiddleware => getDefaultMiddleware().concat(sagaMiddleware)
+  reducer,
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(sagaMiddleware)
 })
 
 sagaMiddleware.run(effects)
