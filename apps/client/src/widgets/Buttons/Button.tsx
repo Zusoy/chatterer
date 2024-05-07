@@ -1,4 +1,4 @@
-import React, { RefAttributes } from 'react'
+import React, { type RefAttributes } from 'react'
 import { Button as MatButton, type ButtonProps } from '@material-tailwind/react'
 
 export type Props = ButtonProps & RefAttributes<HTMLButtonElement>

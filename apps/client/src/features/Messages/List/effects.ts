@@ -40,7 +40,7 @@ export function* listSubscriber(action: PayloadAction<Channel['id']>): Generator
   }
 }
 
-export function* eventSourceHandler(action: PayloadAction<string>): Generator {
+export function* eventSourceHandler(action: PayloadAction<Channel['id']>): Generator {
   const subscription = (yield fork(listSubscriber, action)) as Task
 
   yield waitFor(unsubscribe)
