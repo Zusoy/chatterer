@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from 'features/Navbar'
 import Stations from 'features/Stations/List'
 import Channels from 'features/Channels/List'
@@ -7,6 +7,7 @@ import Messenger from 'features/Messages/Messenger'
 import LogoutModal from 'features/Me/Logout'
 import ChannelCreate from 'features/Channels/Create'
 import JoinOrCreateStation from 'features/Stations/JoinOrCreateDialog'
+import Console from 'features/Console'
 import { selectCurrentStation } from 'features/Stations/slice'
 import { selectCurrentChannel } from 'features/Channels/slice'
 import { useSelector } from 'react-redux'
@@ -16,8 +17,23 @@ const AuthenticatedApp: React.FC = () => {
   const [stationModalOpened, setStationModalOpened] = useState<boolean>(false)
   const [logoutModalOpened, setLogoutModalOpened] = useState<boolean>(false)
   const [newChannelModalOpened, setNewChannelModalOpened] = useState<boolean>(false)
+  const [consoleOpened, setConsoleOpened] = useState<boolean>(false)
   const currentStation = useSelector(selectCurrentStation)
   const currentChannelId = useSelector(selectCurrentChannel)
+
+  useEffect(() => {
+    const listener = (e: KeyboardEvent) => {
+      if (e.code.toLowerCase() === 'space' && e.ctrlKey) {
+        setConsoleOpened(opened => !opened)
+      }
+    }
+
+    document.addEventListener('keydown', listener)
+
+    return () => {
+      document.removeEventListener('keydown', listener)
+    }
+  }, [])
 
   return (
     <main className='flex-grow absolute'>
@@ -29,6 +45,10 @@ const AuthenticatedApp: React.FC = () => {
         <JoinOrCreateStation
           opened={stationModalOpened}
           handler={setStationModalOpened}
+        />
+        <Console
+          opened={consoleOpened}
+          handler={setConsoleOpened}
         />
         <ToastContainer style={{ zIndex: 99999 }} />
       </React.Fragment>
