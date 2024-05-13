@@ -56,7 +56,6 @@ const Messenger: React.FC<Props> = ({ channelId }) => {
             className='rounded-full'
             type='submit'
             disabled={!content.trim().length}
-            placeholder={undefined}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

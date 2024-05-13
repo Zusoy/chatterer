@@ -28,21 +28,20 @@ const Authenticate: React.FC = () => {
 
   return (
     <div className='flex h-screen'>
-      <Card className="w-96 m-auto" placeholder={undefined}>
+      <Card className="w-96 m-auto">
         <form onSubmit={onSubmitHandler}>
           <CardHeader
             variant="gradient"
             color="gray"
             className="mb-4 grid h-28 place-items-center"
-            placeholder={undefined}
           >
             <Typography variant="h4" color="white">Welcome</Typography>
           </CardHeader>
-          <CardBody className="flex flex-col gap-4" placeholder={undefined}>
+          <CardBody className="flex flex-col gap-4">
             <Input name='username' label="Email" placeholder='Email' size="lg" required />
             <Input name='password' label="Password" placeholder='Password' size="lg" type='password' required />
           </CardBody>
-          <CardFooter className="pt-0" placeholder={undefined}>
+          <CardFooter className="pt-0">
             <Button variant="gradient" type='submit' fullWidth>
               Sign In
             </Button>

@@ -7,7 +7,6 @@ const ChannelSkeleton: React.FC = () =>
       as="div"
       variant="h1"
       className="mb-4 h-4 w-56 rounded-full bg-gray-300"
-      placeholder={undefined}
     >
       &nbsp;
     </Typography>

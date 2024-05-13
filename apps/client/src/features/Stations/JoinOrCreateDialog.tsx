@@ -26,11 +26,11 @@ const JoinOrCreateDialog: React.FC<Props> = ({ opened, handler }) => {
         <CardBody className="flex flex-col gap-4">
           <Typography variant='h3' className='text-center'>Add station</Typography>
           <Tabs value='join'>
-            <TabsHeader placeholder={undefined}>
-              <Tab value='join' placeholder={undefined}>Join</Tab>
-              <Tab value='create' placeholder={undefined}>Create</Tab>
+            <TabsHeader>
+              <Tab value='join'>Join</Tab>
+              <Tab value='create'>Create</Tab>
             </TabsHeader>
-            <TabsBody placeholder={undefined}>
+            <TabsBody>
               <div className='w-full'>
                 <TabPanel value='join' className='p-0'>
                   <Join />
