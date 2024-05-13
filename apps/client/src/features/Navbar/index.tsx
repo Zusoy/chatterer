@@ -21,14 +21,14 @@ const NavList: React.FC<NavListProps> = ({ onLogout }) =>
   <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
     <Menu>
       <MenuHandler>
-        <IconButton className='rounded-full' placeholder={undefined}>
+        <IconButton className='rounded-full'>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
           </svg>
         </IconButton>
       </MenuHandler>
-      <MenuList placeholder={undefined}>
-        <MenuItem className="flex items-center gap-2" placeholder={undefined}>
+      <MenuList>
+        <MenuItem className="flex items-center gap-2">
           <svg
             width="16"
             height="16"
@@ -47,7 +47,7 @@ const NavList: React.FC<NavListProps> = ({ onLogout }) =>
             My Profile
           </Typography>
         </MenuItem>
-        <MenuItem className="flex items-center gap-2" placeholder={undefined}>
+        <MenuItem className="flex items-center gap-2">
           <svg
             width="16"
             height="16"
@@ -67,7 +67,7 @@ const NavList: React.FC<NavListProps> = ({ onLogout }) =>
           </Typography>
         </MenuItem>
         <hr className="my-2 border-blue-gray-50" />
-        <MenuItem className="flex items-center gap-2" placeholder={undefined}>
+        <MenuItem className="flex items-center gap-2">
           <svg
             width="16"
             height="14"
@@ -106,7 +106,7 @@ const Navbar: React.FC<Props> = ({ onLogout }) => {
   }, [])
 
   return (
-    <MatNavbar className="mx-auto w-screen" fullWidth placeholder={undefined}>
+    <MatNavbar className="mx-auto w-screen" fullWidth>
       <div className="flex items-center justify-between text-blue-gray-900">
         <Typography
           as="a"
@@ -129,7 +129,6 @@ const Navbar: React.FC<Props> = ({ onLogout }) => {
           className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
           ripple={false}
           onClick={() => setOpened(!opened)}
-          placeholder={undefined}
         >
           {opened ? (
             <XMarkIcon className="h-6 w-6" strokeWidth={2} />

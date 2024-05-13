@@ -14,19 +14,18 @@ const Message: React.FC<Props> = ({ id, authorName, content, createdAt }) =>
       <Avatar
         src='https://docs.material-tailwind.com/img/face-2.jpg'
         alt={authorName}
-        placeholder={undefined}
       />
     </div>
     <div className='flex flex-col w-full justify-center'>
       <div className='flex flex-row gap-4 items-center'>
-        <Typography variant='lead' placeholder={undefined}>{authorName}</Typography>
+        <Typography variant='lead'>{authorName}</Typography>
         <Chip
           size='sm'
           value={(new Date(createdAt).toLocaleDateString())}
           variant='ghost'
         />
       </div>
-      <Typography variant='paragraph' placeholder={undefined}>{content}</Typography>
+      <Typography variant='paragraph'>{content}</Typography>
     </div>
   </div>
 

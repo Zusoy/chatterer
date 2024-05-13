@@ -24,6 +24,10 @@ const List: React.FC<Props> = ({ stationId, stationName, onNewChannel }) => {
   const isFetching = useSelector(selectIsFetching)
 
   const changeChannelHandler = (id: Channel['id']): void => {
+    if (current === id) {
+      return
+    }
+
     dispatch(changeChannel(id))
   }
 
@@ -32,9 +36,9 @@ const List: React.FC<Props> = ({ stationId, stationName, onNewChannel }) => {
   }, [dispatch, stationId])
 
   return (
-    <Card className='flex flex-col w-72 h-[calc(100vh-78px)] rounded-none bg-white' placeholder={undefined}>
+    <Card className='flex flex-col w-72 h-[calc(100vh-78px)] rounded-none bg-white'>
       <StationControls stationName={stationName} onNewChannel={onNewChannel} />
-      <MatList placeholder={undefined}>
+      <MatList>
         {isFetching
           ? <Fallback prediction={6} />
           : items.map(
@@ -42,7 +46,6 @@ const List: React.FC<Props> = ({ stationId, stationName, onNewChannel }) => {
               <ListItem
                 key={channel.id}
                 selected={current === channel.id}
-                placeholder={undefined}
                 onClick={() => changeChannelHandler(channel.id)}
               >
                 {channel.name}

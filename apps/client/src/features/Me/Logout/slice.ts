@@ -21,7 +21,11 @@ const slice = createSlice({
   reducers: {
     logout: state => ({
       ...state,
-      state: LogoutStatus.LoggingOut
+      status: LogoutStatus.LoggingOut
+    }),
+    loggedOut: state => ({
+      ...state,
+      status: LogoutStatus.Initial,
     }),
     error: state => ({
       ...state,
@@ -32,6 +36,7 @@ const slice = createSlice({
 
 export const {
   logout,
+  loggedOut,
   error
 } = slice.actions
 

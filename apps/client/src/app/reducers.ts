@@ -18,5 +18,5 @@ export default combineReducers({
   channels: channels.reducer,
   createChannel: createChannel.reducer,
   messages: messages.reducer,
-  messenger: messenger.reducer,
+  messenger: messenger.reducer
 })
