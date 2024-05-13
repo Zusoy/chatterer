@@ -22,16 +22,17 @@ const AuthenticatedApp: React.FC = () => {
   const currentChannelId = useSelector(selectCurrentChannel)
 
   useEffect(() => {
-    const listener = (e: KeyboardEvent) => {
-      if (e.code.toLowerCase() === 'space' && e.ctrlKey) {
+    const consoleListener = (e: KeyboardEvent) => {
+      if (e.code.toLowerCase() === 'keyp' && e.ctrlKey && e.shiftKey) {
+        e.preventDefault()
         setConsoleOpened(opened => !opened)
       }
     }
 
-    document.addEventListener('keydown', listener)
+    document.addEventListener('keydown', consoleListener)
 
     return () => {
-      document.removeEventListener('keydown', listener)
+      document.removeEventListener('keydown', consoleListener)
     }
   }, [])
 

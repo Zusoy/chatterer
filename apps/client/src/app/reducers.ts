@@ -8,7 +8,6 @@ import channels from 'features/Channels/slice'
 import createChannel from 'features/Channels/Create/slice'
 import messages from 'features/Messages/List/slice'
 import messenger from 'features/Messages/Messenger/slice'
-import console from 'features/Console/slice'
 
 export default combineReducers({
   authentication: authentication.reducer,
@@ -19,6 +18,5 @@ export default combineReducers({
   channels: channels.reducer,
   createChannel: createChannel.reducer,
   messages: messages.reducer,
-  messenger: messenger.reducer,
-  console: console.reducer,
+  messenger: messenger.reducer
 })

@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { authenticated } from 'features/Me/Authentication/slice'
+import { loggedOut } from 'features/Me/Logout/slice'
 import { type Nullable } from 'utils'
 import { type Selector } from 'app/store'
 import { type User } from 'models/user'
@@ -21,6 +22,10 @@ const slice = createSlice({
       .addCase(authenticated, (state, { payload: id }) => ({
         ...state,
         id
+      }))
+      .addCase(loggedOut, state => ({
+        ...state,
+        id: null
       }))
   }
 })
