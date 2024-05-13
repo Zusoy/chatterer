@@ -23,6 +23,10 @@ const List: React.FC<Props> = ({ onNewClick }) => {
   const current = useSelector(selectCurrentStationId)
 
   const changeStationHandler = (id: Station['id']): void => {
+    if (current === id) {
+      return
+    }
+
     dispatch(changeStation(id))
   }
 

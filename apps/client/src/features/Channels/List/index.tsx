@@ -24,6 +24,10 @@ const List: React.FC<Props> = ({ stationId, stationName, onNewChannel }) => {
   const isFetching = useSelector(selectIsFetching)
 
   const changeChannelHandler = (id: Channel['id']): void => {
+    if (current === id) {
+      return
+    }
+
     dispatch(changeChannel(id))
   }
 
