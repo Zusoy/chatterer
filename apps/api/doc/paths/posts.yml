@@ -1,0 +1,51 @@
+---
+get:
+  tags: [ Post ]
+  summary: List posts in subject from forum
+  operationId: get-posts
+  parameters: [{ $ref: '../api.yml#/components/parameters/id' }]
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../schema/posts.json
+          examples:
+            subjects:
+              summary: An array of posts
+              values: [
+                {
+                  id: "4b86105b-24ee-4510-af48-e52d86e7139d",
+                  content: "I have some trouble, please help",
+                  author: {
+                    id: "4b86105b-24ee-4510-af48-e45d86e8739d",
+                    name: "John Doe"
+                  },
+                  subject: {
+                    id: "4b86105b-24ee-4510-af48-e45d86e8739d",
+                    title: "Questions/Answers"
+                  }
+                }
+              ]
+    404: { $ref: '../api.yml#/components/responses/notfound' }
+
+post:
+  tags: [ Post ]
+  summary: Create post in subject from forum
+  operationId: post-posts
+  parameters: [{ $ref: '../api.yml#/components/parameters/id' }]
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../schema/input/input-post.json
+  responses:
+    201:
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../schema/post-item.json
+    400: { $ref: '../api.yml#/components/responses/invalid' }
+    404: { $ref: '../api.yml#/components/responses/notfound' }

@@ -9,8 +9,9 @@ use Domain\Identity\Identifiable;
 use Domain\Identity\Identifier;
 use Domain\Time\HasTimestamp;
 use Domain\Time\HasTimestampTrait;
+use Stringable;
 
-class Channel implements Identifiable, HasTimestamp
+class Channel implements Identifiable, HasTimestamp, Stringable
 {
     use HasTimestampTrait;
 

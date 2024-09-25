@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://chatterer.io/subject-lite.json",
+  "additionalProperties": false,
+  "title": "Lite Subject item",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "title"
+  ]
+}

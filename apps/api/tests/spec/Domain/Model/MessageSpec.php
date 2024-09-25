@@ -12,6 +12,7 @@ use Domain\Model\Message;
 use Domain\Model\User;
 use Domain\Time\HasTimestamp;
 use PhpSpec\ObjectBehavior;
+use Stringable;
 
 class MessageSpec extends ObjectBehavior
 {
@@ -35,6 +36,7 @@ class MessageSpec extends ObjectBehavior
         $this->shouldHaveType(Message::class);
         $this->shouldImplement(Identifiable::class);
         $this->shouldImplement(HasTimestamp::class);
+        $this->shouldImplement(Stringable::class);
     }
 
     public function it_exposes_some_state(User $author, Channel $channel): void

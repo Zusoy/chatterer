@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://chatterer.io/subject-item.json",
+  "additionalProperties": false,
+  "title": "Subject item",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "forum": {
+      "$ref": "./forum-lite.json"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "id",
+    "title",
+    "forum",
+    "createdAt",
+    "updatedAt"
+  ]
+}

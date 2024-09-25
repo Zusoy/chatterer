@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://chatterer.io/post-item.json",
+  "additionalProperties": false,
+  "title": "Post item",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "author": {
+      "$ref": "./user-lite.json"
+    },
+    "subject": {
+      "$ref": "./subject-lite.json"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "id",
+    "content",
+    "author",
+    "subject",
+    "createdAt",
+    "updatedAt"
+  ]
+}

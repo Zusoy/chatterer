@@ -1,0 +1,55 @@
+---
+get:
+  tags: [ Forum ]
+  summary: List forums of station
+  operationId: get-forums
+  parameters: [{ $ref: '../api.yml#/components/parameters/id' }]
+  responses:
+    200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../schema/forums.json
+          examples:
+            forums:
+              summary: An array of forums
+              values: [
+                {
+                  id: "4b86105b-24ee-4510-af48-e52d86e7139d",
+                  name: "Questions/Answers",
+                  station: {
+                    id: "4b86105b-24ee-4510-af48-e45d86e8739d",
+                    name: "Company"
+                  }
+                },
+                {
+                  id: "994b7a18-7746-4b5f-b395-9539649b0898",
+                  name: "Discussions",
+                  station: {
+                    id: "4b86105b-24ee-4510-af48-e45d86e8739d",
+                    name: "Company"
+                  }
+                }
+              ]
+    404: { $ref: '../api.yml#/components/responses/notfound' }
+
+post:
+  tags: [ Forum ]
+  summary: Create forum in station
+  operationId: post-forums
+  parameters: [{ $ref: '../api.yml#/components/parameters/id' }]
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../schema/input/input-forum.json
+  responses:
+    201:
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../schema/forum-item.json
+    400: { $ref: '../api.yml#/components/responses/invalid' }
+    404: { $ref: '../api.yml#/components/responses/notfound' }

@@ -23,6 +23,11 @@ default:
         - '%paths.base%/doc/features/messages/'
       contexts:
         - Test\Acceptance\Context\Message
+    forums:
+      paths:
+        - '%paths.base%/doc/features/forums/'
+      contexts:
+        - Test\Acceptance\Context\Forum
 
   extensions:
     FriendsOfBehat\SymfonyExtension:

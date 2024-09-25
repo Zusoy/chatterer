@@ -33,6 +33,15 @@ paths:
   /channel/{id}/messages: { $ref: ./paths/messages.yml }
   /message/{id}: { $ref: ./paths/message.yml }
 
+  # Forum
+  /station/{id}/forums: { $ref: ./paths/forums.yml }
+
+  # Subject
+  /forum/{id}/subjects: { $ref: ./paths/subjects.yml }
+
+  # Posts
+  /subject/{id}/posts: { $ref: ./paths/posts.yml }
+
 components:
   parameters:
     id:
@@ -85,3 +94,9 @@ components:
       $ref: ./schema/user-item.json
     Invitation:
       $ref: ./schema/invitation-item.json
+    Forum:
+      $ref: ./schema/forum-item.json
+    Subject:
+      $ref: ./schema/subject-item.json
+    Post:
+      $ref: ./schema/post-item.json
